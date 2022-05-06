@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verified</title>
+    <style>
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            display: table;
+            margin: 0 auto;
+        }
+
+        .container {
+            height: 100%;
+            display: table-cell;
+            vertical-align: middle;
+        }
+
+        .cent {
+            text-align: center;
+            height: 100px;
+            /* width: 50px; */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="cent">
+            <h1>인증에 성공했습니다.</h1>
+            <span>잠시뒤 로그인페이지로 리다이렉트 됩니다.</span>
+        </div>
+    </div>
+    <script>
+        setTimeout(function () {
+            window.location.href = location.origin + '/login';
+        }, 5000);
+    </script>
+</body>
+
+</html>

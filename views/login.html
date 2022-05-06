@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/login.css">
+    <title>DimiTube Login</title>
+</head>
+
+<body>
+    <div id="top">
+        <img id="logo-img" src="img/dimitube.png">
+    </div>
+    <div id="login-container">
+        <div id="login_box">
+            <div class="inputText">ID</div>
+            <input type="text" name="" class="loginInput" id="id"><br><br><br><br><br>
+            <div class="inputText">PASSWORD</div>
+            <input type="password" name="" class="loginInput" id="password"><br><br>
+            <div id="login_box_text">
+                <div style="align-items: center; display: flex;">
+                    <input type="checkbox" id="rememberMe"><label for="rememberMe"
+                        style="user-select: none; cursor: pointer;">Remember me</label>
+                </div>
+                <div>
+                    <a class="loginPage-linkText"
+                        href="https://www.google.com/search?q=%EC%96%B4%EC%A9%8C%EB%9D%BC%EA%B3%A0+%EC%A7%A4&rlz=1C1SQJL_koKR937KR937&source=lnms&tbm=isch&sa=X&ved=2ahUKEwiPqKSp_cL3AhUPqFYBHYu7DyIQ_AUoAXoECAEQAw&biw=1920&bih=929&dpr=1">
+                        Forgot
+                        Password?</a>
+                </div>
+            </div><br><br><br><br>
+            <button id="submit">SIGN IN</button>
+        </div>
+        <div id="goToRegister_box">
+            <div id="goToRegister_img"></div>
+            <div id="createAccountText_box">
+                <div class="createAccount_text" id="c_a_t_1">CREATE ACCOUNT</div>
+                <div class="createAccount_text" id="c_a_t_2">Create an account to use DimiTube for free</div>
+                <div>
+                    <a href="/register" id="goToRegister_a">
+                        <div id="goToRegister_btn">GO</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <script src=" js/login.js">
+    </script>
+</body>
+
+</html>
