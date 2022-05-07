@@ -32,6 +32,7 @@ const login = async (obj: loginQuery) => {
         return arr[0]
     }
 }
+
 const checkSameAccount = async (userCollection: Collection, obj: registerQuery) => {
     const arr = await userCollection.find({ $or: [{ id: obj.id }, { email: obj.email }] }).toArray();
     console.log(arr)
