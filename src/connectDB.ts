@@ -4,11 +4,18 @@ import * as fs from "fs";
 import * as dotenv from 'dotenv';
 import { sendEmail } from './sendEmail';
 import { loginQuery, registerQuery } from './types'
+import e from 'express';
 dotenv.config();
 
 const createHash = (plain: string) => {
     return crypto.createHash("sha256").update(plain).digest("base64");
 };
+const base64Encode = (plain: string) => {
+    return Buffer.from(plain, "utf8").toString('base64').replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_')
+}
+const base64Decode = (encoded: string) => {
+    return Buffer.from(encoded.replace(/-/g, '+').replace(/_/g, '/'), "base64").toString('utf8')
+}
 
 const client = new MongoClient(process.env.DBURL);
 
@@ -71,10 +78,14 @@ const createUser = async (obj: registerQuery) => {
     await client.connect();
     const db = client.db('dimitube');
     const userCollection = db.collection('user')
+    const channelCollection = db.collection('channel')
     const sessionHash = createHash(obj.id + obj.password)
+
     //여기서 받는 obj에는 이미 password가 암호화 되어있음.
-    const result = await userCollection.insertOne({ id: obj.id, password: obj.password, email: obj.email, sessionHash: sessionHash });
+    await userCollection.insertOne({ id: obj.id, password: obj.password, email: obj.email, sessionHash: sessionHash });
+    await channelCollection.insertOne({ sessionHash: sessionHash, channelName: obj.id, channelId: base64Encode(obj.id), videoList: [] });
     console.log('유저 생성 완료')
+    await client.close();
 }
 
 const verify = async (sessionHash: string) => {
@@ -83,6 +94,7 @@ const verify = async (sessionHash: string) => {
     const userCollection = db.collection('user')
 
     const arr = await userCollection.find({ sessionHash: sessionHash }).toArray();
+    await client.close();
     if (arr.length == 0) {
         return false
     } else {
@@ -90,4 +102,18 @@ const verify = async (sessionHash: string) => {
     }
 }
 
-export { login, register, createUser, verify };
+const getChannel = async (channel: string) => {
+    await client.connect();
+    const db = client.db('dimitube');
+    const channelCollection = db.collection('channel')
+
+    const arr = await channelCollection.find({ channelId: channel }).toArray();
+    await client.close();
+    if (arr.length == 0) {
+        return false
+    } else {
+        return arr[0]
+    }
+}
+
+export { login, register, createUser, verify, getChannel };

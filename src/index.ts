@@ -1,8 +1,10 @@
 import express, { Request, Response, NextFunction, application } from 'express';
 import * as fs from "fs";
 import { sendEmail } from './sendEmail';
-import { login, register, createUser, verify } from './connectDB';
+import { login, register, createUser, verify, getChannel } from './connectDB';
 import cookies from 'cookie-parser';
+import { convert } from './convertFile';
+const { Readable } = require('stream');
 
 const PORT = 3000
 const app = express();
@@ -35,6 +37,7 @@ app.post('/login', async (req: Request, res: Response) => {
     let result = await login(req.body)
     if (result) {
         res.cookie('sessionHash', result.sessionHash)
+        res.cookie('ownChannelId', result.channelId)
         res.send(true)
     } else {
         res.send(false)
@@ -84,6 +87,40 @@ app.get('/verify', (req: Request, res: Response) => {
         }
 
     });
+})
+
+app.get('/channel/:channelName', (req: Request, res: Response, nex) => {
+    res.sendFile('channel.html', {
+        root: './views'
+    })
+})
+
+app.post('/channel/:channelName', async (req: Request, res: Response) => {
+    // res.send(req.params.channelName);
+    const result = await getChannel(req.params.channelName)
+    if (result) {
+        if (result.sessionHash === req.cookies.sessionHash) {
+            res.send(JSON.stringify({ channelName: result.channelName, videoList: result.videoList, isOwner: true }))
+        } else {
+            res.send(JSON.stringify({ channelName: result.channelName, videoList: result.videoList, isOwner: false }))
+        }
+    }
+})
+// app.get('/upload', (req: Request, res: Response) => {
+//     res.sendFile('upload.html', {
+//         root: './views'
+//     })
+// })
+app.get('/channel/:channelName/upload', (req: Request, res: Response) => {
+    res.sendFile('upload.html', {
+        root: './views'
+    })
+})
+app.post('/channel/:channelName/upload', (req: Request, res: Response) => {
+    // 영상 구현할것.
+    // console.log(req.query.filename)
+    const stream = Readable.from(req.body);
+    convert(stream)
 })
 
 app.get('/easteregg', (req: Request, res: Response) => {

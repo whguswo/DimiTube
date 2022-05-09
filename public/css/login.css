@@ -20,7 +20,7 @@ input:focus {
     position: absolute;
     width: 220px;
     height: 50px;
-    top: 100px;
+    top: 90px;
     left: 50%;
     transform: translateX(-50%);
 }
@@ -112,14 +112,14 @@ input[for="rememberMe"] {
 #goToRegister_box {
     position: relative;
     width: 630px;
-    height: 380px;
+    height: 400px;
 }
 
 #goToRegister_img {
     position: absolute;
     width: 100%;
     height: 100%;
-    background-image: url("../img/schoolDimigo.png");
+    background-image: url("../img/schoolDimigo_2.png");
     background-repeat: no-repeat;
     background-position: center;
     background-size: 125%;
@@ -144,24 +144,31 @@ input[for="rememberMe"] {
 
 #c_a_t_1 {
     font-family: 'MYRIADPRO-SEMIBOLD';
-    font-size: 20px;
+    font-size: 22px;
 }
 
 #c_a_t_2 {
     font-family: 'MYRIADPRO-REGULAR';
-}
-
-#goToRegister_btn {
-    width: 150px;
-    height: 50px;
-    font-family: 'MYRIADPRO-REGULAR';
-    font-size: 18px;
-    cursor: pointer;
-    color: white;
-    background-color: #DF0E77;
+    font-size: 16px;
 }
 
 #goToRegister_a {
-    width: 150px;
-    height: 50px;
+    width: 120px;
+    height: 40px;
+    margin: auto;
+    background-color: #DF0E77;
+}
+
+#goToRegister_a:active {
+    background-color: #d10e70;
+}
+
+#goToRegister_btn {
+    width: 100%;
+    height: 100%;
+    font-family: 'MYRIADPRO-REGULAR';
+    font-size: 15px;
+    line-height: 40px;
+    cursor: pointer;
+    color: white;
 }

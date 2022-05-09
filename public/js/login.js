@@ -2,7 +2,15 @@ const id = document.querySelector("#id")
 const password = document.querySelector("#password")
 const submit = document.querySelector("#submit")
 
-submit.addEventListener("click", async () => {
+submit.addEventListener("click", signIn)
+
+window.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+        signIn();
+    }
+})
+
+async function signIn() {
     const result = await fetch('/login', {
         method: "POST",
         body: JSON.stringify({
@@ -21,4 +29,7 @@ submit.addEventListener("click", async () => {
         id.value = ''
         password.value = ''
     }
-})
+}
+
+//맞다 event.keyCode쓰지 마셈
+//deprecated 됨! 그게먼데
