@@ -1,17 +1,17 @@
 import express, { Request, Response, NextFunction, application } from 'express';
 import * as fs from "fs";
-import { sendEmail } from './sendEmail';
-import { login, register, createUser, verify, getChannel } from './connectDB';
+import { login, register, createUser, verify, getChannel, addVideoList } from './connectDB';
 import cookies from 'cookie-parser';
 import { convert } from './convertFile';
-const { Readable } = require('stream');
+import { v4 as uuidv4 } from 'uuid';
+import { type } from 'os';
 
 const PORT = 3000
 const app = express();
 
 app.use(express.text());
 app.use(express.json());
-app.use(express.raw({ limit: '50mb' }));
+app.use(express.raw({ limit: '1000mb' }));
 app.use(express.static('public'));
 app.use(cookies());
 
@@ -36,8 +36,21 @@ app.get('/login', (req: Request, res: Response) => {
 app.post('/login', async (req: Request, res: Response) => {
     let result = await login(req.body)
     if (result) {
-        res.cookie('sessionHash', result.sessionHash)
-        res.cookie('ownChannelId', result.channelId)
+        if (req.body.remember) {
+            res.cookie('sessionHash', result.sessionHash, {
+                maxAge: 1000 * 60 * 60 * 24 * 7
+            })
+            res.cookie('ownChannelId', result.channelId, {
+                maxAge: 1000 * 60 * 60 * 24 * 7
+            })
+        } else {
+            res.cookie('sessionHash', result.sessionHash, {
+                maxAge: 1000 * 60 * 30
+            })
+            res.cookie('ownChannelId', result.channelId, {
+                maxAge: 1000 * 60 * 30
+            })
+        }
         res.send(true)
     } else {
         res.send(false)
@@ -106,21 +119,33 @@ app.post('/channel/:channelName', async (req: Request, res: Response) => {
         }
     }
 })
-// app.get('/upload', (req: Request, res: Response) => {
-//     res.sendFile('upload.html', {
-//         root: './views'
-//     })
-// })
+
 app.get('/channel/:channelName/upload', (req: Request, res: Response) => {
     res.sendFile('upload.html', {
         root: './views'
     })
 })
+
 app.post('/channel/:channelName/upload', (req: Request, res: Response) => {
     // 영상 구현할것.
-    // console.log(req.query.filename)
-    const stream = Readable.from(req.body);
-    convert(stream)
+    let filename = req.query.filename.toString()
+    let videoId = uuidv4()
+    fs.mkdirSync(`videos/${videoId}`)
+    fs.writeFile(`videos/${videoId}/${videoId}.mp4`, req.body, async (err) => {
+        if (err) console.log(err)
+        let result = await addVideoList(req.cookies.sessionHash, videoId, filename)
+        if (result) {
+            convert(videoId)
+        }
+
+    })
+
+})
+
+app.get('/watch', (req: Request, res: Response) => {
+    res.sendFile('watch.html', {
+        root: './views'
+    })
 })
 
 app.get('/easteregg', (req: Request, res: Response) => {

@@ -1,5 +1,6 @@
 const id = document.querySelector("#id")
 const password = document.querySelector("#password")
+const remember = document.querySelector("#rememberMe")
 const submit = document.querySelector("#submit")
 
 submit.addEventListener("click", signIn)
@@ -15,7 +16,9 @@ async function signIn() {
         method: "POST",
         body: JSON.stringify({
             id: id.value,
-            password: password.value
+            password: password.value,
+            remember: remember.checked
+
         }),
         headers: {
             'Content-Type': 'application/json'
@@ -30,6 +33,3 @@ async function signIn() {
         password.value = ''
     }
 }
-
-//맞다 event.keyCode쓰지 마셈
-//deprecated 됨! 그게먼데

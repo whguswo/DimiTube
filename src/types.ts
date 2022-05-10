@@ -1,6 +1,7 @@
 interface loginQuery {
     id: string,
-    password: string
+    password: string,
+    remember: Boolean
 }
 interface registerQuery {
     id: string,

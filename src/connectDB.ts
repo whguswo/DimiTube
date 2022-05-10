@@ -19,11 +19,6 @@ const base64Decode = (encoded: string) => {
 
 const client = new MongoClient(process.env.DBURL);
 
-// const dbMap = new Map<string, Collection<any>>();
-// (async () => {
-
-// })();
-
 const login = async (obj: loginQuery) => {
     await client.connect();
     const db = client.db('dimitube');
@@ -116,4 +111,20 @@ const getChannel = async (channel: string) => {
     }
 }
 
-export { login, register, createUser, verify, getChannel };
+const addVideoList = async (sessionHash: string, videoId: string, filename: string) => {
+    await client.connect();
+    const db = client.db('dimitube');
+    const channelCollection = db.collection('channel')
+
+    const arr = await channelCollection.find({ sessionHash: sessionHash }).toArray();
+    if (arr.length == 0) {
+        return false
+    } else {
+        arr[0].videoList.push([videoId, filename])
+        console.log(arr[0].videoList)
+        channelCollection.updateOne({ sessionHash: arr[0].sessionHash }, { "$set": { "videoList": arr[0].videoList } })
+        return true
+    }
+}
+
+export { login, register, createUser, verify, getChannel, addVideoList };
