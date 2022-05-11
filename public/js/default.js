@@ -115,12 +115,10 @@ logout.addEventListener("click", () => {
     if (!logout_check) {
         return false;
     }
-    let deleteCookie = (name) => {
-        document.cookie = name + '=;';
+    let deleteCookie = () => {
+        document.cookie = '';
     }
-    deleteCookie('ownChannelId');
-    deleteCookie('id');
-    deleteCookie('sessionHash');
+    deleteCookie()
     location.href = "/login";
 })
 
