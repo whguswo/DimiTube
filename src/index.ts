@@ -11,7 +11,7 @@ const app = express();
 
 app.use(express.text());
 app.use(express.json());
-app.use(express.raw({ limit: '1000mb' }));
+app.use(express.raw({ limit: '100mb' }));
 app.use(express.static('public'));
 app.use(cookies());
 
