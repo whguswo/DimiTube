@@ -66,8 +66,10 @@ app.get('/register', (req: Request, res: Response) => {
 app.post('/register', async (req: Request, res: Response) => {
     let result = await register(req.body)
     if (result) {
+        res.send({ "state": "success", "message": "인증 이메일을 보냈습니다.\n이메일 인증후에 로그인 해주세요." })
         console.log("회원가입 성공")
     } else {
+        res.send({ "state": "fail", "message": "회원가입에 실패했습니다.\n아이디나 이메일이 이미 사용중입니다." })
         console.log("중복계정!")
     }
 })
@@ -144,6 +146,12 @@ app.post('/channel/:channelName/upload', (req: Request, res: Response) => {
 
 app.get('/watch', (req: Request, res: Response) => {
     res.sendFile('watch.html', {
+        root: './views'
+    })
+})
+
+app.get('/search', (req: Request, res: Response) => {
+    res.sendFile('search.html', {
         root: './views'
     })
 })

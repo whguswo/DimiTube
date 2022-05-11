@@ -18,7 +18,7 @@ const sendEmail = async (email: string, hash: string) => {
         from: `DimiTube <${process.env.MAILER_ID}>`,
         to: email,
         subject: 'DimiTube 이메일 인증 ( DimiTube Email Verify )',
-        html: `<h1>계정의 이메일을 인증하려면 밑에있는 링크를 클릭해주세요.</h1><br><a href="http://dimitube.kro.kr/verify?hash=${hash}">이메일 인증하기!</a>`
+        html: `<h1>계정의 이메일을 인증하려면 밑에있는 링크를 클릭해주세요.</h1><br><a href="${process.env.EMAILVERIFYURL}/verify?hash=${hash}">이메일 인증하기!</a>`
     }
     transporter.sendMail(mailOptions, (err, info) => {
         if (err) {

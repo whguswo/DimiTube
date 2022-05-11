@@ -30,7 +30,6 @@ const login = async (obj: loginQuery) => {
         console.log('검색결과 없음')
         return false
     } else {
-        await client.close();
         return arr[0]
     }
 }
@@ -77,7 +76,7 @@ const createUser = async (obj: registerQuery) => {
     const sessionHash = createHash(obj.id + obj.password)
 
     //여기서 받는 obj에는 이미 password가 암호화 되어있음.
-    await userCollection.insertOne({ id: obj.id, password: obj.password, email: obj.email, sessionHash: sessionHash });
+    await userCollection.insertOne({ id: obj.id, password: obj.password, email: obj.email, sessionHash: sessionHash, channelId: base64Encode(obj.id) });
     await channelCollection.insertOne({ sessionHash: sessionHash, channelName: obj.id, channelId: base64Encode(obj.id), videoList: [] });
     console.log('유저 생성 완료')
     await client.close();

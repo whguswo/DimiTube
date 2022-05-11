@@ -32,6 +32,10 @@ async function signUp() {
         alert("ID, PASSWORD, EMAIL를 올바르게 입력했는지 확인해 주세요.\n(이메일 인증은 Gmail로만 가능합니다.)")
         return false;
     }
+
+    submit.disabled = "true";
+    submit.style.backgroundColor = "gray";
+
     const result = await fetch('/register', {
         method: "POST",
         body: JSON.stringify({
@@ -43,5 +47,15 @@ async function signUp() {
             'Content-Type': 'application/json'
         }
     })
+
     let data = await result.text();
+    let res = JSON.parse(data)  // res = { state: success or fail, message: "서버에서 보내는 메세지"}
+    if (res.state == "success") {
+        alert(res.message)
+        location.href = '/login'
+    } else {
+        alert(res.message)
+        submit.disabled = "false";
+        submit.style.backgroundColor = "#DF0E77";
+    }
 }

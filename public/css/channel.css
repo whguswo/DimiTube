@@ -1,0 +1,12 @@
+#channel_top {
+    width: 100%;
+    height: 140px;
+    background-color: rgb(245, 245, 245);
+    padding-right: calc((100% - 1284px)/2);
+    padding-left: calc((100% - 1284px)/2);
+}
+
+#channelTitle {
+    font-size: 25px;
+    font-weight: bold;
+}
