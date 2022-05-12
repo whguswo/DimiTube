@@ -1,7 +1,0 @@
-#main {
-    position: absolute;
-    width: calc(100% - 50px);
-    height: 100%;
-    right: 0px;
-    background-color: rgb(235, 235, 235);
-}

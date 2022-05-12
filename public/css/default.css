@@ -224,7 +224,7 @@ body {
 }
 
 #side-bar {
-    position: fixed;
+    position: relative;
     bottom: 0px;
     left: 0px;
     width: 50px;
@@ -241,14 +241,14 @@ body {
     width: 100%;
     height: calc(100% - 50px);
     bottom: 0px;
+    display: flex;
 }
 
 #main {
-    position: absolute;
+    position: relative;
     width: calc(100% - 50px);
     height: 100%;
-    right: 0px;
-    background-color: rgb(235, 235, 235);
+    background-color: rgb(240, 240, 240);
 }
 
 .mobile_search {

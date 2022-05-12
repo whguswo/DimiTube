@@ -34,12 +34,36 @@
         </div>
         <div id="main">
             <!-- channel page -->
-            <div id="channel_top">
-                <div id="channelTitle"></div>
+            <div id="channel_container">
+                <div id="channel_header">
+                    <div id="channel_user">
+                        <div id="channel_profile"></div>
+                        <div id="channel_inner-header-container">
+                            <div>
+                                <div id="channelTitle"></div>
+                                <div id="user_message">@message</div>
+                            </div>
+                            <div id="channel_settingBox"></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="tabs_container">
+                    <div id="tabs_inner-container">
+                        <ul id="tabs">
+                            <li style="border-bottom: 2px solid black">홈</li>
+                            <li>채널</li>
+                            <li>정보</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-            <ul id="video-ul">
-                <li>영상 목록</li>
-            </ul>
+            <div id="videoContents">
+                <ul id="video-ul"></ul>
+                <div id="noVideo">
+                    <div id="noVideoImg"></div>
+                    <div id="noVideoText">존재하지 아니하다. 영상이!</div>
+                </div>
+            </div>
         </div>
     </div>
     <script src="../../js/channel.js"></script>

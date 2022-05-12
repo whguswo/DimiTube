@@ -4,7 +4,7 @@ import * as fs from "fs";
 import * as dotenv from 'dotenv';
 import { sendEmail } from './sendEmail';
 import { loginQuery, registerQuery } from './types'
-import e from 'express';
+import e, { query } from 'express';
 dotenv.config();
 
 const createHash = (plain: string) => {
@@ -119,11 +119,36 @@ const addVideoList = async (sessionHash: string, videoId: string, filename: stri
     if (arr.length == 0) {
         return false
     } else {
-        arr[0].videoList.push([videoId, filename])
-        console.log(arr[0].videoList)
+        arr[0].videoList.push({ videoId: videoId, videoTitle: filename })
         channelCollection.updateOne({ sessionHash: arr[0].sessionHash }, { "$set": { "videoList": arr[0].videoList } })
         return true
     }
 }
 
-export { login, register, createUser, verify, getChannel, addVideoList };
+const search = async (keyword: string) => {
+    await client.connect();
+    const db = client.db('dimitube');
+    const channelCollection = db.collection('channel')
+
+    const channelArr = await channelCollection.find({ channelName: keyword }).toArray();
+    const videoArr = await channelCollection.find({ videoList: { "$elemMatch": { "videoTitle": keyword } } }).toArray();
+    let channelResult = []
+    let videoResult = []
+    for (let i = 0; i < channelArr.length; i++) {
+        channelResult.push({ channelName: channelArr[i].channelName, channelId: channelArr[i].channelId })
+    }
+    for (let j = 0; j < videoArr.length; j++) {
+        for (let k = 0; k < videoArr[j].videoList.length; k++) {
+            if (videoArr[j].videoList[k].videoTitle == keyword) {
+                videoResult.push(videoArr[j].videoList[k])
+            }
+        }
+    }
+    if (channelArr.length == 0 && videoArr.length == 0) {
+        return false
+    } else {
+        return [channelResult, videoResult]
+    }
+}
+
+export { login, register, createUser, verify, getChannel, addVideoList, search };

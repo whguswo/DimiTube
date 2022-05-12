@@ -1,12 +1,150 @@
-#channel_top {
+@font-face {
+    font-family: 'MYRIADPRO-REGULAR';
+    src: url("../font/MYRIADPRO-REGULAR.OTF");
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    font-family: 'MYRIADPRO-REGULAR';
+}
+
+/* ============================================================ */
+
+#channel_container {
+    position: relative;
     width: 100%;
     height: 140px;
-    background-color: rgb(245, 245, 245);
-    padding-right: calc((100% - 1284px)/2);
-    padding-left: calc((100% - 1284px)/2);
+    background-color: rgb(250, 250, 250);
+}
+
+#channel_header {
+    position: relative;
+    width: 100%;
+    height: max-content;
+    padding-top: 18px;
+    padding-bottom: 2px;
+    box-sizing: border-box;
+}
+
+#channel_user {
+    display: flex;
+    align-items: center;
+}
+
+#channel_profile {
+    width: 78px;
+    height: 78px;
+    border-radius: 50%;
+    box-shadow: inset 0 0 7px gray;
+    text-align: center;
+    font-size: 40px;
+    font-weight: bold;
+    line-height: 78px;
+    user-select: none;
+}
+
+#channel_inner-header-container {
+    display: flex;
+    width: calc(100% - 80px);
+    justify-content: space-between;
 }
 
 #channelTitle {
-    font-size: 25px;
+    font-size: 23px;
     font-weight: bold;
+    margin-left: 15px;
+}
+
+#user_message {
+    font-size: 15px;
+    color: gray;
+    margin-left: 15px;
+}
+
+.channel_btnStyle {
+    width: 120px;
+    height: 40px;
+    border: 0;
+    color: white;
+    background-color: #DF0E77;
+    cursor: pointer;
+}
+
+#channel_settingBtn:active {
+    background-color: #d10e70;
+}
+
+#channel_settingBox {
+    display: flex;
+    align-items: center;
+}
+
+/* ============================================================ */
+
+#tabs_container {
+    position: relative;
+    width: 100%;
+    height: 42px;
+}
+
+#tabs_inner-container {
+    height: 100%;
+}
+
+#tabs {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+#tabs>li {
+    list-style-type: none;
+    float: left;
+    height: 100%;
+    line-height: 42px;
+    padding: 0px 32px;
+    font-size: 14px;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+/* ============================================================ */
+
+#videoContents {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#video-ul {
+    width: 100%;
+}
+
+#video-ul>li {
+    width: max-content;
+}
+
+#noVideo {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    top: 320px;
+}
+
+#noVideoImg {
+    width: 150px;
+    height: 150px;
+    background-image: url("../../img/noVideoPage.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    margin-bottom: 25px;
+}
+
+#noVideoText {
+    font-size: 20px;
+    margin-bottom: 25px;
 }

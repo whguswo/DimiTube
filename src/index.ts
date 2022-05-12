@@ -1,17 +1,16 @@
 import express, { Request, Response, NextFunction, application } from 'express';
 import * as fs from "fs";
-import { login, register, createUser, verify, getChannel, addVideoList } from './connectDB';
+import { login, register, createUser, verify, getChannel, addVideoList, search } from './connectDB';
 import cookies from 'cookie-parser';
 import { convert } from './convertFile';
 import { v4 as uuidv4 } from 'uuid';
-import { type } from 'os';
 
 const PORT = 3000
 const app = express();
 
 app.use(express.text());
 app.use(express.json());
-app.use(express.raw({ limit: '100mb' }));
+app.use(express.raw({ limit: '1000mb' }));
 app.use(express.static('public'));
 app.use(cookies());
 
@@ -154,6 +153,16 @@ app.get('/search', (req: Request, res: Response) => {
     res.sendFile('search.html', {
         root: './views'
     })
+})
+
+app.post('/search', async (req: Request, res: Response) => {
+    const result = await search(decodeURI(req.body.query))
+
+    if (result) {
+        res.send({ state: "success", channels: result[0], videos: result[1] })
+    } else {
+        res.send({ state: "fail" })
+    }
 })
 
 app.get('/easteregg', (req: Request, res: Response) => {
