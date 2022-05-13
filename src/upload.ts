@@ -15,24 +15,25 @@ const s3: AWS.S3 = new AWS.S3({
 });
 
 const upload = async (videoId: string) => {
+    fs.unlinkSync(`videos/${videoId}/${videoId}.mp4`)
     fs.readdir(`videos/${videoId}`, (error, list) => {
         for (let i = 0; i < list.length; i++) {
-            if (list[i].indexOf('.mp4') == -1) {
-                const fileContent = fs.readFileSync(`videos/${videoId}/${list[i]}`);
 
-                const params = {
-                    Bucket: bucket,
-                    Key: `${videoId}/${list[i]}`,
-                    Body: fileContent
-                };
+            const fileContent = fs.readFileSync(`videos/${videoId}/${list[i]}`);
+            fs.unlinkSync(`videos/${videoId}/${list[i]}`)
 
-                s3.upload(params, (err: AWSError, data: AWS.S3.ManagedUpload.SendData) => {
-                    if (err) {
-                        console.log(err);
-                    }
-                    // console.log(i)
-                });
-            }
+            const params = {
+                Bucket: bucket,
+                Key: `${videoId}/${list[i]}`,
+                Body: fileContent
+            };
+
+            s3.upload(params, (err: AWSError, data: AWS.S3.ManagedUpload.SendData) => {
+                if (err) {
+                    console.log(err);
+                }
+            });
+
         }
     })
 

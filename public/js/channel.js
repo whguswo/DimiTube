@@ -1,10 +1,11 @@
 const channel_header = document.querySelector('#channel_header')
 const tabs_innerContainer = document.querySelector('#tabs_inner-container')
+const noVideo = document.querySelector('#noVideo')
 
 window.addEventListener('load', async () => {
     const channel_profile = document.querySelector('#channel_profile')
     const channelTitle = document.querySelector('#channelTitle')
-    const videoUl = document.querySelector('#video-ul')
+    const videoContents = document.querySelector('#videoContents')
     let fst_resizingPaddingMargin_width = window.innerWidth
     let name = location.pathname
     name = name.replace('/channel/', '')
@@ -33,17 +34,19 @@ window.addEventListener('load', async () => {
                 location.href += '/upload'
             })
             channelSetting.addEventListener("click", () => {
-                //채널 설정 사이트 만들기
+                location.href += '/setting'
             })
             if (isThereVideo === "noVideo") {
-                const noVideo = document.querySelector('#noVideo')
+                console.log("novideo")
                 channel_settingBox.appendChild(channelSetting)
-                channelSetting.style.marginLeft = "0px"
+                channelSetting.style.marginRight = "0px"
+                noVideo.style.display = "flex"
                 noVideo.appendChild(upload)
             } else if (isThereVideo === "yesVideo") {
                 channel_settingBox.appendChild(channelSetting)
                 channel_settingBox.appendChild(upload)
-                channelSetting.style.marginLeft = "20px"
+                channelSetting.style.marginRight = "20px"
+                noVideo.style.display = "none"
             } else {
                 alert("잘못된 요청입니다. F5")
                 location.reload()
@@ -55,13 +58,13 @@ window.addEventListener('load', async () => {
         ownerCheck("noVideo")
     } else {
         for (i = 0; i < data.videoList.length; i++) {
-            let li = document.createElement('li')
+            let div = document.createElement('div')
             let videoId = data.videoList[i].videoId
-            li.innerHTML = data.videoList[i].videoTitle
-            li.addEventListener("click", () => {
+            div.innerHTML = data.videoList[i].videoTitle
+            div.addEventListener("click", () => {
                 location.href = `/watch?v=${videoId}`
             })
-            videoUl.append(li)
+            videoContents.append(div)
         }
         ownerCheck("yesVideo")
     }

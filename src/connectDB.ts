@@ -130,8 +130,8 @@ const search = async (keyword: string) => {
     const db = client.db('dimitube');
     const channelCollection = db.collection('channel')
 
-    const channelArr = await channelCollection.find({ channelName: keyword }).toArray();
-    const videoArr = await channelCollection.find({ videoList: { "$elemMatch": { "videoTitle": keyword } } }).toArray();
+    const channelArr = await channelCollection.find({ channelName: { $regex: keyword, $options: "i" } }).toArray();
+    const videoArr = await channelCollection.find({ videoList: { "$elemMatch": { "videoTitle": { $regex: keyword, $options: "i" } } } }).toArray();
     let channelResult = []
     let videoResult = []
     for (let i = 0; i < channelArr.length; i++) {
@@ -139,7 +139,7 @@ const search = async (keyword: string) => {
     }
     for (let j = 0; j < videoArr.length; j++) {
         for (let k = 0; k < videoArr[j].videoList.length; k++) {
-            if (videoArr[j].videoList[k].videoTitle == keyword) {
+            if (videoArr[j].videoList[k].videoTitle.indexOf(keyword) != -1) {
                 videoResult.push(videoArr[j].videoList[k])
             }
         }

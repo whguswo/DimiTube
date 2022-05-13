@@ -3,6 +3,7 @@ const menu_div = document.querySelector("#menu-img_div");
 const sidebar = document.querySelector("#side-bar");
 const user = document.querySelector("#user");
 const logout = document.querySelector("#logout");
+const setting = document.querySelector("#setting");
 const searchbox = document.querySelector("#search");
 const search_button = document.querySelector("#search-button");
 const top_center = document.querySelector("#top-center_");
@@ -15,6 +16,24 @@ let search_toggle = false;
 
 const search = (query) => {
     location.href = `/search?query=${query}`
+}
+
+const getCookieValue = (key) => {
+    let cookieKey = key + "=";
+    let result = "";
+    const cookieArr = document.cookie.split(";");
+
+    for (let i = 0; i < cookieArr.length; i++) {
+        if (cookieArr[i][0] === " ") {
+            cookieArr[i] = cookieArr[i].substring(1);
+        }
+
+        if (cookieArr[i].indexOf(cookieKey) === 0) {
+            result = cookieArr[i].slice(cookieKey.length, cookieArr[i].length);
+            return result;
+        }
+    }
+    return result;
 }
 
 logoImg.addEventListener("click", () => {
@@ -83,24 +102,16 @@ backBtn.addEventListener("click", () => {
     search_toggle = false;
 })
 
-user.addEventListener("click", () => {
-    const getCookieValue = (key) => {
-        let cookieKey = key + "=";
-        let result = "";
-        const cookieArr = document.cookie.split(";");
-
-        for (let i = 0; i < cookieArr.length; i++) {
-            if (cookieArr[i][0] === " ") {
-                cookieArr[i] = cookieArr[i].substring(1);
-            }
-
-            if (cookieArr[i].indexOf(cookieKey) === 0) {
-                result = cookieArr[i].slice(cookieKey.length, cookieArr[i].length);
-                return result;
-            }
-        }
-        return result;
+setting.addEventListener("click", () => {
+    let finalValue = getCookieValue("ownChannelId");
+    if (finalValue) {
+        location.href = `/channel/${finalValue}/setting`;
+    } else {
+        alert("WARNING!!\n잘못된 접근입니다.");
     }
+})
+
+user.addEventListener("click", () => {
     let finalValue = getCookieValue("ownChannelId");
     // console.log(finalValue);
     if (finalValue) {

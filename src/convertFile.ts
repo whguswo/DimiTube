@@ -1,11 +1,11 @@
 import ffmpeg from 'fluent-ffmpeg';
 import ffmpegInstaller from '@ffmpeg-installer/ffmpeg'
 import { upload } from './upload'
-import { addVideoList } from './connectDB'
+import { Response } from 'express';
 
 ffmpeg.setFfmpegPath(ffmpegInstaller.path)
 
-const convert = (videoId: string) => {
+const convert = (videoId: string, res: Response) => {
     ffmpeg(`videos/${videoId}/${videoId}.mp4`, { timeout: 43200 }).addOptions([
         '-profile:v baseline',
         '-level 3.0',
@@ -15,6 +15,7 @@ const convert = (videoId: string) => {
         '-f hls'
     ]).output(`videos/${videoId}/output.m3u8`).on('end', async () => {
         upload(videoId)
+        res.send({ state: "success" })
     }).run()
 }
 

@@ -127,8 +127,7 @@ app.get('/channel/:channelName/upload', (req: Request, res: Response) => {
     })
 })
 
-app.post('/channel/:channelName/upload', (req: Request, res: Response) => {
-    // 영상 구현할것.
+app.post('/channel/:channelName/upload', async (req: Request, res: Response) => {
     let filename = req.query.filename.toString()
     let videoId = uuidv4()
     fs.mkdirSync(`videos/${videoId}`)
@@ -136,7 +135,7 @@ app.post('/channel/:channelName/upload', (req: Request, res: Response) => {
         if (err) console.log(err)
         let result = await addVideoList(req.cookies.sessionHash, videoId, filename)
         if (result) {
-            convert(videoId)
+            convert(videoId, res)
         }
 
     })
@@ -161,8 +160,14 @@ app.post('/search', async (req: Request, res: Response) => {
     if (result) {
         res.send({ state: "success", channels: result[0], videos: result[1] })
     } else {
-        res.send({ state: "fail" })
+        res.send({ state: "fail", channels: [], videos: [] })
     }
+})
+
+app.get('/channel/:channelName/setting', (req: Request, res: Response) => {
+    res.sendFile('setting.html', {
+        root: './views'
+    })
 })
 
 app.get('/easteregg', (req: Request, res: Response) => {
