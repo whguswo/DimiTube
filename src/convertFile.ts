@@ -6,6 +6,13 @@ import { Response } from 'express';
 ffmpeg.setFfmpegPath(ffmpegInstaller.path)
 
 const convert = (videoId: string, res: Response) => {
+    ffmpeg(`videos/${videoId}/${videoId}.mp4`)
+        .screenshots({
+            count: 1,
+            filename: 'thumbnail.png',
+            folder: `videos/${videoId}`,
+            size: '640x360'
+        });
     ffmpeg(`videos/${videoId}/${videoId}.mp4`, { timeout: 43200 }).addOptions([
         '-profile:v baseline',
         '-level 3.0',
@@ -17,6 +24,7 @@ const convert = (videoId: string, res: Response) => {
         upload(videoId)
         res.send({ state: "success" })
     }).run()
+
 }
 
 export { convert }
