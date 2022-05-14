@@ -11,7 +11,7 @@ const backBtn = document.querySelector("#smallScreenVer_out");
 const main = document.querySelector("#main");
 const alert1 = document.querySelector("#alert1");
 
-let menuShow = false;
+let menuShow = true;
 let search_toggle = false;
 
 const search = (query) => {
@@ -133,23 +133,25 @@ logout.addEventListener("click", () => {
     location.href = "/login";
 })
 
-let sidebarWidth = 200;
+let sidebarWidth = 220;
 menu_div.addEventListener('click', () => {
     menu_div.className = 'clickEffect';
     menu_div.addEventListener('animationend', () => {
         menu_div.classList.remove('clickEffect');
     })
     if (!menuShow) {
-        sidebarWidth = 200;
+        sidebarWidth = 220;
         sidebar.style.width = `${sidebarWidth}px`;
+        main.style.marginLeft = `${sidebarWidth}px`;
         main.style.width = `calc(100% - ${sidebarWidth}px)`;
-        menuShow = true;
         alert1.style.display = "block";
+        menuShow = true;
     } else {
         sidebarWidth = 50;
         sidebar.style.width = `${sidebarWidth}px`;
+        main.style.marginLeft = `${sidebarWidth}px`;
         main.style.width = `calc(100% - ${sidebarWidth}px)`;
-        menuShow = false;
         alert1.style.display = "none";
+        menuShow = false;
     }
 })

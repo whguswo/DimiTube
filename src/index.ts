@@ -1,8 +1,9 @@
 import express, { Request, Response, NextFunction, application } from 'express';
 import * as fs from "fs";
-import { login, register, createUser, verify, getChannel, addVideoList, search } from './connectDB';
+import { login, register, createUser, verify, getChannel, addVideoList, search, updateSetting, removeVideo } from './connectDB';
 import cookies from 'cookie-parser';
 import { convert } from './convertFile';
+import { remove } from './s3Bucket'
 import { v4 as uuidv4 } from 'uuid';
 
 const PORT = 3000
@@ -114,9 +115,9 @@ app.post('/channel/:channelName', async (req: Request, res: Response) => {
     const result = await getChannel(req.params.channelName)
     if (result) {
         if (result.sessionHash === req.cookies.sessionHash) {
-            res.send(JSON.stringify({ channelName: result.channelName, videoList: result.videoList, isOwner: true }))
+            res.send(JSON.stringify({ channelName: result.channelName, videoList: result.videoList, message: result.message, isOwner: true }))
         } else {
-            res.send(JSON.stringify({ channelName: result.channelName, videoList: result.videoList, isOwner: false }))
+            res.send(JSON.stringify({ channelName: result.channelName, videoList: result.videoList, message: result.message, isOwner: false }))
         }
     }
 })
@@ -168,6 +169,19 @@ app.get('/channel/:channelName/setting', (req: Request, res: Response) => {
     res.sendFile('setting.html', {
         root: './views'
     })
+})
+
+app.post('/channel/:channelName/setting', async (req: Request, res: Response) => {
+    await updateSetting(req.cookies.sessionHash, req.body)
+    res.send({ state: "success", message: "채널 설정이 변경되었습니다." })
+})
+
+app.post('/channel/:channelName/removeVideo', async (req: Request, res: Response) => {
+    for (let i = 0; i < req.body.videoList.length; i++) {
+        remove(req.body.videoList[i])
+    }
+    await removeVideo(req.cookies.sessionHash, req.body.videoList)
+    res.send({ state: "success", message: "영상이 삭제되었습니다." })
 })
 
 app.get('/easteregg', (req: Request, res: Response) => {

@@ -3,8 +3,7 @@ import crypto from "crypto";
 import * as fs from "fs";
 import * as dotenv from 'dotenv';
 import { sendEmail } from './sendEmail';
-import { loginQuery, registerQuery } from './types'
-import e, { query } from 'express';
+import { loginQuery, registerQuery, editQuery } from './types'
 dotenv.config();
 
 const createHash = (plain: string) => {
@@ -27,7 +26,6 @@ const login = async (obj: loginQuery) => {
     let hashedPassword = createHash(process.env.HASHSALT + obj.password)
     const arr = await userCollection.find({ id: obj.id, password: hashedPassword }).toArray();
     if (arr.length == 0) {
-        console.log('검색결과 없음')
         return false
     } else {
         return arr[0]
@@ -77,7 +75,7 @@ const createUser = async (obj: registerQuery) => {
 
     //여기서 받는 obj에는 이미 password가 암호화 되어있음.
     await userCollection.insertOne({ id: obj.id, password: obj.password, email: obj.email, sessionHash: sessionHash, channelId: base64Encode(obj.id) });
-    await channelCollection.insertOne({ sessionHash: sessionHash, channelName: obj.id, channelId: base64Encode(obj.id), videoList: [] });
+    await channelCollection.insertOne({ sessionHash: sessionHash, channelName: obj.id, channelId: base64Encode(obj.id), videoList: [], message: "@message" });
     console.log('유저 생성 완료')
     await client.close();
 }
@@ -151,4 +149,24 @@ const search = async (keyword: string) => {
     }
 }
 
-export { login, register, createUser, verify, getChannel, addVideoList, search };
+const updateSetting = async (sessionHash: string, obj: editQuery) => {
+    await client.connect();
+    const db = client.db('dimitube');
+    const channelCollection = db.collection('channel')
+
+    channelCollection.updateOne({ sessionHash: sessionHash }, {
+        "$set": { channelName: obj.channelName, message: obj.message }
+    })
+    return true
+}
+
+const removeVideo = async (sessionHash: string, videoArr: Array<string>) => {
+    await client.connect();
+    const db = client.db('dimitube');
+    const channelCollection = db.collection('channel')
+    channelCollection.updateOne({ sessionHash: sessionHash }, {
+        $pull: { videoList: { videoId: { $in: videoArr } } }
+    })
+}
+
+export { login, register, createUser, verify, getChannel, addVideoList, search, updateSetting, removeVideo };

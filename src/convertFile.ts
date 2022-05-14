@@ -1,6 +1,6 @@
 import ffmpeg from 'fluent-ffmpeg';
 import ffmpegInstaller from '@ffmpeg-installer/ffmpeg'
-import { upload } from './upload'
+import { upload } from './s3Bucket'
 import { Response } from 'express';
 
 ffmpeg.setFfmpegPath(ffmpegInstaller.path)

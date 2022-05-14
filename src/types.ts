@@ -3,10 +3,16 @@ interface loginQuery {
     password: string,
     remember: Boolean
 }
+
 interface registerQuery {
     id: string,
     password: string,
     email: string
 }
 
-export { loginQuery, registerQuery }
+interface editQuery {
+    channelName: string,
+    message: string,
+}
+
+export { loginQuery, registerQuery, editQuery }

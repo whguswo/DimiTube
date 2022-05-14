@@ -14,6 +14,7 @@ window.addEventListener('load', async () => {
     })
     let data = await search.text()
     let json = JSON.parse(data)
+    let result = true;
     if (json.channels.length != 0) {
         for (let i = 0; i < json.channels.length; i++) {
             const li = document.createElement("li")
@@ -23,10 +24,9 @@ window.addEventListener('load', async () => {
             })
             channelUl.append(li)
         }
+        result = true
     } else {
-        const li = document.createElement("li")
-        li.innerHTML = "검색결과가 없습니다."
-        channelUl.append(li)
+        result = false
     }
     if (json.videos.length != 0) {
         for (let j = 0; j < json.videos.length; j++) {
@@ -37,7 +37,8 @@ window.addEventListener('load', async () => {
             })
             videoUl.append(li)
         }
-    } else {
+        result = true
+    } else if (result === false) {
         const li = document.createElement("li")
         li.innerHTML = "검색결과가 없습니다."
         videoUl.append(li)
