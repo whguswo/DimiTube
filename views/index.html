@@ -26,7 +26,9 @@
             </div>
             <div id="top-end">
                 <div id="setting" class="topEnd_icon"></div>
-                <div id="user" class="topEnd_icon"></div>
+                <div id="user">
+                    <div id="user-inner" class="topEnd_icon"></div>
+                </div>
                 <div id="logout" class="topEnd_icon"></div>
             </div>
         </div>
@@ -36,7 +38,15 @@
         </div>
     </div>
     <div id="mainPage">
-        <div id="main"></div>
+        <div id="main">
+            최근영상
+            <div id="video_container">
+                <!-- 영상이 컨테이너를 넘어갈 경우 컨테이너 길이 자동 맞춤 -->
+                <div id="videoContents_container">
+                    <div id="videoContents"></div>
+                </div>
+            </div>
+        </div>
     </div>
     <script src="js/index.js"></script>
     <script src="js/default.js"></script>

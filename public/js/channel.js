@@ -44,7 +44,6 @@ window.addEventListener('load', async () => {
                 location.href += '/setting'
             })
             if (isThereVideo === "noVideo") {
-                console.log("novideo")
                 channel_settingBox.appendChild(channelSetting)
                 channelSetting.style.marginRight = "0px"
                 noVideo_container.style.display = "flex"

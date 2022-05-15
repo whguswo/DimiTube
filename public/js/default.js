@@ -2,6 +2,7 @@ const logoImg = document.querySelector("#logo-img");
 const menu_div = document.querySelector("#menu-img_div");
 const sidebar = document.querySelector("#side-bar");
 const user = document.querySelector("#user");
+const user_inner = document.querySelector("#user-inner");
 const logout = document.querySelector("#logout");
 const setting = document.querySelector("#setting");
 const searchbox = document.querySelector("#search");
@@ -13,6 +14,7 @@ const alert1 = document.querySelector("#alert1");
 
 let menuShow = true;
 let search_toggle = false;
+let sidebarWidth = 220;
 
 const search = (query) => {
     location.href = `/search?query=${query}`
@@ -35,6 +37,41 @@ const getCookieValue = (key) => {
     }
     return result;
 }
+
+const deleteCookie = (name) => {
+    document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+}
+
+const menuShowTrue = (name) => {
+    sidebarWidth = 220;
+    sidebar.style.width = `${sidebarWidth}px`;
+    main.style.marginLeft = `${sidebarWidth}px`;
+    main.style.width = `calc(100% - ${sidebarWidth}px)`;
+    alert1.style.display = "block";
+    menuShow = true;
+    document.cookie = name + "=" + true + "; path=/";
+
+}
+
+const menuShowFalse = (name) => {
+    sidebarWidth = 50;
+    sidebar.style.width = `${sidebarWidth}px`;
+    main.style.marginLeft = `${sidebarWidth}px`;
+    main.style.width = `calc(100% - ${sidebarWidth}px)`;
+    alert1.style.display = "none";
+    menuShow = false;
+    document.cookie = name + "=" + false + "; path=/";
+
+}
+
+window.addEventListener('load', async () => {
+    if (getCookieValue("openCloseBar") === true) {
+        menuShowTrue("openCloseBar")
+    } else if (getCookieValue("openCloseBar") === false) {
+        menuShowFalse("openCloseBar")
+    }
+    // 프로필 사진 필요함
+})
 
 logoImg.addEventListener("click", () => {
     location.href = location.origin;
@@ -72,7 +109,6 @@ searchbox.addEventListener("keydown", (e) => {
 
 search_button.addEventListener("click", () => {
     if (searchbox.style.display === "" && window.innerWidth <= 950 && search_toggle === false) {
-        // console.log(searchbox.style.display, window.innerWidth, search_toggle)
         search_toggle = true;
         searchbox.style.display = "block";
         searchbox.style.width = "calc(95% - 90px)";
@@ -126,32 +162,18 @@ logout.addEventListener("click", () => {
     if (!logout_check) {
         return false;
     }
-    let deleteCookie = () => {
-        document.cookie = '';
-    }
-    deleteCookie()
+
     location.href = "/login";
 })
 
-let sidebarWidth = 220;
 menu_div.addEventListener('click', () => {
     menu_div.className = 'clickEffect';
     menu_div.addEventListener('animationend', () => {
         menu_div.classList.remove('clickEffect');
     })
     if (!menuShow) {
-        sidebarWidth = 220;
-        sidebar.style.width = `${sidebarWidth}px`;
-        main.style.marginLeft = `${sidebarWidth}px`;
-        main.style.width = `calc(100% - ${sidebarWidth}px)`;
-        alert1.style.display = "block";
-        menuShow = true;
+        menuShowTrue("openCloseBar")
     } else {
-        sidebarWidth = 50;
-        sidebar.style.width = `${sidebarWidth}px`;
-        main.style.marginLeft = `${sidebarWidth}px`;
-        main.style.width = `calc(100% - ${sidebarWidth}px)`;
-        alert1.style.display = "none";
-        menuShow = false;
+        menuShowFalse("openCloseBar")
     }
 })

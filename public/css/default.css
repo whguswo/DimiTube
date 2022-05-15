@@ -170,7 +170,17 @@ body {
 }
 
 #user {
+    width: 35px;
+    height: 35px;
+    border: 1px solid black;
+    border-radius: 50%;
+    margin: 0px 10px;
+    cursor: pointer;
+}
+
+#user-inner {
     background-image: url("../img/user_icon.png");
+    margin: 5px 5px;
 }
 
 #setting {

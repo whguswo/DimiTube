@@ -114,14 +114,27 @@ const addVideoList = async (sessionHash: string, videoId: string, filename: stri
     const channelCollection = db.collection('channel')
 
     const arr = await channelCollection.find({ sessionHash: sessionHash }).toArray();
+    const recent = await channelCollection.findOne({ type: "recentVideo" })
+    const allVideo = await channelCollection.findOne({ type: "allVideo" })
+
     if (arr.length == 0) {
         return false
     } else {
         arr[0].videoList.push({ videoId: videoId, videoTitle: filename })
         channelCollection.updateOne({ sessionHash: arr[0].sessionHash }, { "$set": { "videoList": arr[0].videoList } })
+        if (recent.recentVideoList.length == 10) {
+            recent.recentVideoList.pop()
+        }
+        recent.recentVideoList.unshift({
+            videoId: videoId,
+            videoTitle: filename
+        })
+        channelCollection.updateOne({ type: "recentVideo" }, { "$set": { "recentVideoList": recent.recentVideoList } })
+        channelCollection.updateOne({ type: "allVideo" }, { "$push": { "allVideoList": { videoId: videoId, videoTitle: filename } } })
         return true
     }
 }
+
 
 const search = async (keyword: string) => {
     await client.connect();
@@ -167,6 +180,32 @@ const removeVideo = async (sessionHash: string, videoArr: Array<string>) => {
     channelCollection.updateOne({ sessionHash: sessionHash }, {
         $pull: { videoList: { videoId: { $in: videoArr } } }
     })
+    channelCollection.updateOne({ type: "recentVideo" }, {
+        $pull: { recentVideoList: { videoId: { $in: videoArr } } }
+    })
+    channelCollection.updateOne({ type: "allVideo" }, {
+        $pull: { allVideoList: { videoId: { $in: videoArr } } }
+    })
 }
 
-export { login, register, createUser, verify, getChannel, addVideoList, search, updateSetting, removeVideo };
+const getRecentVideo = async () => {
+    await client.connect();
+    const db = client.db('dimitube');
+    const channelCollection = db.collection('channel')
+
+    const recent = await channelCollection.findOne({ type: "recentVideo" });
+
+    return recent.recentVideoList
+}
+
+const getAllVideo = async () => {
+    await client.connect();
+    const db = client.db('dimitube');
+    const channelCollection = db.collection('channel')
+
+    const all = await channelCollection.findOne({ type: "allVideo" });
+
+    return all.allVideoList
+}
+
+export { login, register, createUser, verify, getChannel, addVideoList, search, updateSetting, removeVideo, getRecentVideo, getAllVideo };

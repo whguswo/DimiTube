@@ -3,7 +3,18 @@ const password = document.querySelector("#password")
 const remember = document.querySelector("#rememberMe")
 const submit = document.querySelector("#submit")
 
+const deleteCookie = (name) => {
+    document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+}
+
 submit.addEventListener("click", signIn)
+
+window.addEventListener("load", () => {
+    deleteCookie('ownChannelId')
+    deleteCookie('id')
+    deleteCookie('sessionHash')
+    deleteCookie('openCloseBar')
+})
 
 window.addEventListener("keydown", (e) => {
     if (e.key === "Enter") {

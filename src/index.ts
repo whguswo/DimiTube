@@ -1,6 +1,6 @@
 import express, { Request, Response, NextFunction, application } from 'express';
 import * as fs from "fs";
-import { login, register, createUser, verify, getChannel, addVideoList, search, updateSetting, removeVideo } from './connectDB';
+import { login, register, createUser, verify, getChannel, addVideoList, search, updateSetting, removeVideo, getRecentVideo, getAllVideo } from './connectDB';
 import cookies from 'cookie-parser';
 import { convert } from './convertFile';
 import { remove } from './s3Bucket'
@@ -19,12 +19,30 @@ app.get('/', async (req: Request, res: Response) => {
     let isVerified = await verify(req.cookies.sessionHash)
     if (req.cookies.sessionHash && isVerified) {
         res.cookie('id', isVerified.id)
+        res.cookie('openCloseBar', true)
+        //reload 할때 마다 cookie가 true로 바뀜 ↑↑
         res.sendFile('index.html', {
             root: './views'
         })
     } else {
         res.redirect('/login')
     }
+});
+
+app.get('/recent', async (req: Request, res: Response) => {
+    let recent = await getRecentVideo()
+    let all = await getAllVideo()
+    const createRandom = (arr: []) => {
+        let result: Array<object> = []
+        for (let i = 0; i < 3; i++) {
+            let tmp = arr[Math.floor(Math.random() * (arr.length - i))]
+            result.push(tmp)
+            arr.splice(arr.indexOf(tmp), 1)
+        }
+        return result
+    }
+    let random = createRandom(all)
+    res.send({ recentVideoList: recent, allVideoList: random })
 });
 
 app.get('/login', (req: Request, res: Response) => {
