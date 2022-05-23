@@ -2,20 +2,38 @@ const video_container = document.querySelector('#video_container')
 const videoContents = document.querySelector('#videoContents')
 
 window.addEventListener('load', async () => {
-    const result = await fetch('/recent', {
+    const result = await fetch('/getVideo', {
         method: "GET",
     })
     let data = await result.text()
     let json = JSON.parse(data)
     console.log(json)
 
-    for (i = 0; i < json.recentVideoList.length; i++) {
+    for (let i = 0; i < json.recentVideoList.length; i++) {
         let div = document.createElement('div')
         let videoId = json.recentVideoList[i].videoId
-        div.innerHTML = `<img class="thumbnail" src="https://d18yz4nkgugxke.cloudfront.net/${videoId}/thumbnail.png">${json.recentVideoList[i].videoTitle}`
-        div.addEventListener("click", () => {
-            location.href = `/watch?v=${videoId}`
-        })
+        let channelId = json.recentVideoList[i].channelId
+        div.innerHTML = `
+        <a href="/watch?v=${videoId}">
+            <div class="thumbnail" style="background-image: url('https://d18yz4nkgugxke.cloudfront.net/${videoId}/thumbnail.png')"></div>
+        </a>
+        <div class="video-information">
+            <div class="video-profile-container">
+                <a href="/channel/${channelId}">
+                    <div class="video-profile" style="background-image: url('https://d18yz4nkgugxke.cloudfront.net/profiles/${channelId}.png')"></div>
+                </a>
+            </div>
+            <div class="video-texts">
+                <h3 class="video-title">
+                    <a href="/watch?v=${videoId}">
+                        <div>${json.recentVideoList[i].videoTitle}</div>
+                    </a>
+                </h3>
+                <a href="/channel/${channelId}">${json.recentVideoList[i].owner}</a>
+            </div>
+        </div>`
+
         videoContents.append(div)
     }
+    // for(let j = 0; j < json.)
 })

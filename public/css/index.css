@@ -1,9 +1,8 @@
 #video_container {
     position: relative;
-    display: flex;
     width: 100%;
     height: calc(100% - 140px);
-    background-color: rgb(240, 240, 240);
+    background-color: rgb(245, 245, 245);
 }
 
 #videoContents_container {
@@ -14,25 +13,60 @@
     height: max-content;
     justify-content: center;
     box-sizing: border-box;
-    background-color: rgb(240, 240, 240);
+    background-color: rgb(245, 245, 245);
 }
 
 #videoContents {
+    position: relative;
     display: flex;
     flex-wrap: wrap;
 }
 
 #videoContents>div {
+    position: relative;
     font-size: 16px;
-    width: 320px;
-    border: 1px solid black;
-    height: 220px;
-    background-color: white;
-    /* margin-right: 20px; */
-    margin: 5px;
+    width: 315px;
+    height: 245px;
+    background-color: rgb(245, 245, 245);
+    margin: 0px 8px 40px 8px;
+}
+
+.video-information {
+    display: flex;
+    width: 100%;
 }
 
 .thumbnail {
-    width: 320px;
-    height: 180px;
+    width: 100%;
+    height: calc(100% - 70px);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+.video-profile-container {
+    display: flex;
+    width: 40px;
+    height: 40px;
+    margin: 12px 12px 0 0;
+    justify-content: center;
+}
+
+.video-profile {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+.video-texts {
+    width: calc(100% - 40px);
+}
+
+.video-title {
+    font-weight: normal;
+    font-size: 16px;
+    margin: 12px 0 4px 0;
 }

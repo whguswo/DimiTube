@@ -38,27 +38,6 @@ const upload = async (videoId: string) => {
     })
 }
 
-// const remove = async (dir: string) => {
-//     const listParams = {
-//         Bucket: bucket,
-//         Prefix: dir
-//     };
-
-//     const listedObjects = await s3.listObjectsV2(listParams).promise();
-
-//     const deleteParams = {
-//         Bucket: bucket,
-//         Delete: { Objects },
-//     };
-
-//     listedObjects.Contents.forEach(({ Key }) => {
-//         deleteParams.Delete.Objects.push({ Key });
-//     });
-
-//     await s3.deleteObjects(deleteParams).promise();
-
-//     if (listedObjects.IsTruncated) await remove(dir);
-// }
 
 const remove = (dir: string) => {
     let listParams = {
@@ -79,18 +58,7 @@ const remove = (dir: string) => {
             });
         }
     })
-    // let params = {
-    //     Bucket: bucket,
-    //     Key: `${dir}/thumbnail.png`,
-    // };
-    // s3.listObjectsV2
-    // s3.deleteObject(params, (err, data) => {
-    //     if (err) {
-    //         console.log(err)
-    //     } else {
-    //         console.log(`File removed successfully`);
-    //     }
-    // });
+
 }
 
 export { upload, remove }

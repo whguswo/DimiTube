@@ -1,6 +1,6 @@
 import express, { Request, Response, NextFunction, application } from 'express';
 import * as fs from "fs";
-import { login, register, createUser, verify, getChannel, addVideoList, search, updateSetting, removeVideo, getRecentVideo, getAllVideo } from './connectDB';
+import { login, register, createUser, verify, getChannel, addVideoList, search, updateSetting, removeVideo, getRecentVideo, getAllVideo, getVideoInfo } from './connectDB';
 import cookies from 'cookie-parser';
 import { convert } from './convertFile';
 import { remove } from './s3Bucket'
@@ -19,8 +19,6 @@ app.get('/', async (req: Request, res: Response) => {
     let isVerified = await verify(req.cookies.sessionHash)
     if (req.cookies.sessionHash && isVerified) {
         res.cookie('id', isVerified.id)
-        res.cookie('openCloseBar', true)
-        //reload 할때 마다 cookie가 true로 바뀜 ↑↑
         res.sendFile('index.html', {
             root: './views'
         })
@@ -29,7 +27,7 @@ app.get('/', async (req: Request, res: Response) => {
     }
 });
 
-app.get('/recent', async (req: Request, res: Response) => {
+app.get('/getVideo', async (req: Request, res: Response) => {
     let recent = await getRecentVideo()
     let all = await getAllVideo()
     const createRandom = (arr: []) => {
@@ -133,9 +131,9 @@ app.post('/channel/:channelName', async (req: Request, res: Response) => {
     const result = await getChannel(req.params.channelName)
     if (result) {
         if (result.sessionHash === req.cookies.sessionHash) {
-            res.send(JSON.stringify({ channelName: result.channelName, videoList: result.videoList, message: result.message, isOwner: true }))
+            res.send(JSON.stringify({ channelName: result.channelName, channelId: result.channelId, videoList: result.videoList, message: result.message, isOwner: true }))
         } else {
-            res.send(JSON.stringify({ channelName: result.channelName, videoList: result.videoList, message: result.message, isOwner: false }))
+            res.send(JSON.stringify({ channelName: result.channelName, channelId: result.channelId, videoList: result.videoList, message: result.message, isOwner: false }))
         }
     }
 })
@@ -148,11 +146,12 @@ app.get('/channel/:channelName/upload', (req: Request, res: Response) => {
 
 app.post('/channel/:channelName/upload', async (req: Request, res: Response) => {
     let filename = req.query.filename.toString()
+    let description = req.query.description.toString()
     let videoId = uuidv4()
     fs.mkdirSync(`videos/${videoId}`)
     fs.writeFile(`videos/${videoId}/${videoId}.mp4`, req.body, async (err) => {
         if (err) console.log(err)
-        let result = await addVideoList(req.cookies.sessionHash, videoId, filename)
+        let result = await addVideoList(req.cookies.sessionHash, videoId, filename, description)
         if (result) {
             convert(videoId, res)
         }
@@ -165,6 +164,12 @@ app.get('/watch', (req: Request, res: Response) => {
     res.sendFile('watch.html', {
         root: './views'
     })
+})
+
+app.get('/getVideoInfo/:videoId', async (req: Request, res: Response) => {
+    let videoId = req.params.videoId
+    let result = await getVideoInfo(videoId)
+    res.send(result)
 })
 
 app.get('/search', (req: Request, res: Response) => {

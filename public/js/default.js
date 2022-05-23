@@ -70,7 +70,10 @@ window.addEventListener('load', async () => {
     } else if (getCookieValue("openCloseBar") === false) {
         menuShowFalse("openCloseBar")
     }
-    // 프로필 사진 필요함
+    let channelId = getCookieValue("ownChannelId");
+    if (channelId) {
+        user_inner.style.backgroundImage = `url('https://d18yz4nkgugxke.cloudfront.net/profiles/${channelId}.png')`
+    }
 })
 
 logoImg.addEventListener("click", () => {

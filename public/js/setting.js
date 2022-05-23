@@ -2,6 +2,7 @@ const channelName = document.querySelector("#channelName");
 const message = document.querySelector("#message");
 const videoDiv = document.querySelector("#video-div");
 const videoBtn = document.querySelector("#video-btn");
+const profilePhoto = document.querySelector("#profile_photo");
 const btn = document.querySelector("#apply");
 let checkArr = [];
 
@@ -39,6 +40,7 @@ let checkArr = [];
         div.append(checkbox)
         div.append(json.videoList[i].videoTitle)
         videoDiv.append(div)
+        profilePhoto.style.backgroundImage = `url(https://d18yz4nkgugxke.cloudfront.net/profiles/${json.channelId}.png)`;
     }
 })();
 

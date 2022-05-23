@@ -8,6 +8,7 @@ const channelTitle = document.querySelector('#channelTitle')
 const user_message = document.querySelector('#user_message')
 const videoContents = document.querySelector('#videoContents')
 const noVideoText = document.querySelector('#noVideoText')
+const videoContents_container = document.querySelector("#videoContents_container")
 
 window.addEventListener('load', async () => {
     let fst_resizingPadding_width = window.innerWidth
@@ -23,7 +24,8 @@ window.addEventListener('load', async () => {
     let data_channelName = data.channelName
     channelTitle.innerHTML = data_channelName
     user_message.innerHTML = data.message
-    channel_profile.innerHTML = data_channelName.slice(0, 1).toUpperCase()
+    // channel_profile.innerHTML = data_channelName.slice(0, 1).toUpperCase()
+    channel_profile.style.backgroundImage = `url(https://d18yz4nkgugxke.cloudfront.net/profiles/${name}.png)`;
     document.title = data_channelName
 
     const ownerCheck = (isThereVideo) => {
@@ -66,13 +68,23 @@ window.addEventListener('load', async () => {
     if (data.videoList.length === 0) {
         ownerCheck("noVideo")
     } else {
-        for (i = 0; i < data.videoList.length; i++) {
+        for (let i = 0; i < data.videoList.length; i++) {
             let div = document.createElement('div')
             let videoId = data.videoList[i].videoId
-            div.innerHTML = `<img class="thumbnail" src="https://d18yz4nkgugxke.cloudfront.net/${videoId}/thumbnail.png">${data.videoList[i].videoTitle}`
-            div.addEventListener("click", () => {
-                location.href = `/watch?v=${videoId}`
-            })
+            div.innerHTML = `
+            <a href="/watch?v=${videoId}">
+                <div class="thumbnail" style="background-image: url('https://d18yz4nkgugxke.cloudfront.net/${videoId}/thumbnail.png')"></div>
+            </a>
+            <div class="video-information">
+                <div class="video-texts">
+                    <h3 class="video-title">
+                        <a href="/watch?v=${videoId}">
+                            <div>${data.videoList[i].videoTitle}</div>
+                        </a>
+                    </h3>
+                </div>
+            </div>`
+
             videoContents.append(div)
         }
         ownerCheck("yesVideo")
@@ -107,6 +119,8 @@ const resizingPadding = (now_width) => {
     channel_header.style.paddingLeft = `calc((100% - ${resizingPadding_width}px)/2)`
     tabs_innerContainer.style.paddingLeft = `calc((100% - ${resizingPadding_width}px)/2)`
     tabs_innerContainer.style.paddingRight = `calc((100% - ${resizingPadding_width}px)/2)`
+    videoContents_container.style.paddingLeft = `calc((100% - ${resizingPadding_width}px)/2)`
+    videoContents_container.style.paddingRight = `calc((100% - ${resizingPadding_width}px)/2)`
 }
 
 // {/* <img src="https://d18yz4nkgugxke.cloudfront.net/0e124dad-3897-486c-a207-65ca04acc5a9/thumbnail.png" alt=""> */ }

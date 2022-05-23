@@ -1,0 +1,49 @@
+@font-face {
+    font-family: 'NOTOSANS';
+    src: url("../font/NotoSansKR-Regular.otf");
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+#video {
+    width: 1120px;
+    height: 630px;
+}
+
+#video-container {
+    margin-top: 20px;
+    margin-left: 100px;
+    font-family: 'NOTOSANS';
+}
+
+#videoTitle {
+    font-size: 35px;
+    margin-bottom: 15px;
+    font-family: 'NOTOSANS';
+}
+
+#description {
+    color: #3b3a3a;
+}
+
+#channelInfo {
+    width: 500px;
+    height: 70px;
+}
+
+#channelInfo>* {
+    display: inline-block;
+}
+
+#user-icon {
+    /* background-image: url("../img/user_icon.png"); */
+    background-size: cover;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
