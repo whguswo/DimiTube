@@ -5,6 +5,7 @@ const videoBtn = document.querySelector("#video-btn");
 const profilePhoto = document.querySelector("#profile_photo");
 const btn = document.querySelector("#apply");
 let checkArr = [];
+let messageMaxlength = 15;
 
 (async () => {
     let req_url = location.pathname.replace('/setting', '')
@@ -80,6 +81,12 @@ const removeVideo = async (videoArr) => {
         location.reload()
     }
 }
+
+message.addEventListener('input', () => {
+    if (message.value.length > messageMaxlength) {
+        message.value = message.value.substr(0, messageMaxlength)
+    }
+})
 
 channelName.addEventListener("keydown", (e) => {
     if (e.key === "Enter" && channelName.value != "") {

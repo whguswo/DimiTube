@@ -1,3 +1,5 @@
+import menuShow_fun from "./FORMENUBAR.js"
+
 const logoImg = document.querySelector("#logo-img");
 const menu_div = document.querySelector("#menu-img_div");
 const sidebar = document.querySelector("#side-bar");
@@ -13,6 +15,7 @@ const main = document.querySelector("#main");
 const alert1 = document.querySelector("#alert1");
 
 let menuShow = true;
+if (!menuShow_fun()) menuShow = false;
 let search_toggle = false;
 let sidebarWidth = 220;
 
@@ -49,8 +52,7 @@ const menuShowTrue = (name) => {
     main.style.width = `calc(100% - ${sidebarWidth}px)`;
     alert1.style.display = "block";
     menuShow = true;
-    document.cookie = name + "=" + true + "; path=/";
-
+    menuShow_fun("true")
 }
 
 const menuShowFalse = (name) => {
@@ -60,8 +62,7 @@ const menuShowFalse = (name) => {
     main.style.width = `calc(100% - ${sidebarWidth}px)`;
     alert1.style.display = "none";
     menuShow = false;
-    document.cookie = name + "=" + false + "; path=/";
-
+    menuShow_fun("false")
 }
 
 window.addEventListener('load', async () => {
