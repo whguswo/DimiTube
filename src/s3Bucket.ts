@@ -15,7 +15,7 @@ const s3: AWS.S3 = new AWS.S3({
 });
 
 const upload = async (videoId: string) => {
-    fs.unlinkSync(`videos/${videoId}/${videoId}.mp4`)
+
     fs.readdir(`videos/${videoId}`, (error, list) => {
         for (let i = 0; i < list.length; i++) {
 

@@ -5,6 +5,7 @@ import cookies from 'cookie-parser';
 import { convert } from './convertFile';
 import { remove } from './s3Bucket'
 import { v4 as uuidv4 } from 'uuid';
+const { Readable } = require('stream');
 
 const PORT = 3000
 const app = express();
@@ -149,14 +150,11 @@ app.post('/channel/:channelName/upload', async (req: Request, res: Response) => 
     let description = req.query.description.toString()
     let videoId = uuidv4()
     fs.mkdirSync(`videos/${videoId}`)
-    fs.writeFile(`videos/${videoId}/${videoId}.mp4`, req.body, async (err) => {
-        if (err) console.log(err)
-        let result = await addVideoList(req.cookies.sessionHash, videoId, filename, description)
-        if (result) {
-            convert(videoId, res)
-        }
-
-    })
+    let result = await addVideoList(req.cookies.sessionHash, videoId, filename, description)
+    if (result) {
+        const stream = await Readable.from(req.body);
+        convert(videoId, stream)
+    }
 
 })
 
