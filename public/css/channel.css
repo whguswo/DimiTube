@@ -42,6 +42,9 @@
     font-weight: bold;
     line-height: 78px;
     user-select: none;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 #channel_inner-header-container {
@@ -134,7 +137,6 @@
     padding: 20px 0;
     width: 100%;
     height: max-content;
-    justify-content: center;
     box-sizing: border-box;
     background-color: rgb(245, 245, 245);
 }
@@ -148,18 +150,10 @@
 #videoContents>div {
     position: relative;
     font-size: 16px;
-    width: 300px;
+    width: 285px;
     height: 230px;
     background-color: rgb(245, 245, 245);
     margin: 0px 8px 40px 8px;
-}
-
-.thumbnail {
-    width: 100%;
-    height: calc(100% - 70px);
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: center;
 }
 
 .video-profile-container {
@@ -231,7 +225,8 @@
     background-color: rgba(0, 0, 0, 0.5);
     align-items: center;
     justify-content: center;
-    z-index: 100;
+    z-index: -100;
+    animation-duration: 0.2s;
 }
 
 #upload_popup {
@@ -241,4 +236,32 @@
     margin-right: calc((100% - 600px)/2);
     background-color: white;
     border-radius: 10px;
+}
+
+.popup {
+    animation-name: popup;
+}
+
+.popdown {
+    animation-name: popdown;
+}
+
+@keyframes popup {
+    0% {
+        filter: opacity(0);
+    }
+
+    100% {
+        filter: opacity(100);
+    }
+}
+
+@keyframes popdown {
+    0% {
+        filter: opacity(100);
+    }
+
+    100% {
+        filter: opacity(0);
+    }
 }

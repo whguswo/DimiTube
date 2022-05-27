@@ -3,7 +3,7 @@ import * as fs from "fs";
 import { login, register, createUser, verify, getChannel, addVideoList, search, updateSetting, removeVideo, getRecentVideo, getAllVideo, getVideoInfo } from './connectDB';
 import cookies from 'cookie-parser';
 import { convert } from './convertFile';
-import { remove } from './s3Bucket'
+import { profileUpload, remove } from './s3Bucket'
 import { v4 as uuidv4 } from 'uuid';
 const { Readable } = require('stream');
 
@@ -121,7 +121,7 @@ app.get('/verify', (req: Request, res: Response) => {
     });
 })
 
-app.get('/channel/:channelName', (req: Request, res: Response, nex) => {
+app.get('/channel/:channelName', (req: Request, res: Response) => {
     res.sendFile('channel.html', {
         root: './views'
     })
@@ -155,7 +155,6 @@ app.post('/channel/:channelName/upload', async (req: Request, res: Response) => 
         const stream = await Readable.from(req.body);
         convert(videoId, stream)
     }
-
 })
 
 app.get('/watch', (req: Request, res: Response) => {
@@ -203,6 +202,15 @@ app.post('/channel/:channelName/removeVideo', async (req: Request, res: Response
     }
     await removeVideo(req.cookies.sessionHash, req.body.videoList)
     res.send({ state: "success", message: "영상이 삭제되었습니다." })
+})
+
+app.post('/channel/:channelName/setProfile', async (req: Request, res: Response) => {
+    const result = await getChannel(req.cookies.ownChannelId)
+    if (result) {
+        if (result.sessionHash === req.cookies.sessionHash) {
+            profileUpload(req.body, result.channelId)
+        }
+    }
 })
 
 app.get('/easteregg', (req: Request, res: Response) => {

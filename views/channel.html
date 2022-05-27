@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href="../../css/default.css">
     <link rel="stylesheet" type="text/css" href="../../css/channel.css">
     <link rel="stylesheet" type="text/css" href="../../css/htmlBar_design.css">
+    <link rel="stylesheet" type="text/css" href="../../css/thumbnail.css">
 </head>
 
 <body>
@@ -76,10 +77,17 @@
             </div>
         </div>
     </div>
-    <!-- <div id="upload_popup_container">
-        <div id="upload_popup"></div>
-    </div> -->
+    <div id="upload_popup_container">
+        <div id="upload_popup">
+            <h1>업로드 페이지 입니다.</h1>
+            동영상 제목: <input type="text" name="" id="fileName"><br>
+            동영상 설명: <textarea name="" id="description"></textarea><br>
+            <input id="fileInput" type="file" accept="video/mp4"><br>
+            <button id="uploadButton">업로드</button>
+        </div>
+    </div>
     <script src="../../js/channel.js"></script>
+    <script src="../../js/upload.js"></script>
     <script type="module" src="../../js/default.js"></script>
 </body>
 

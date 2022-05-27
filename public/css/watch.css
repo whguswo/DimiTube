@@ -5,19 +5,28 @@
     font-style: normal;
 }
 
-body {
-    margin: 0;
-    padding: 0;
+#watch-header {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+#watch-inner-header {
+    display: flex;
+    height: 100%;
+    margin-left: calc((100% - 1725px)/2);
+    margin-right: calc((100% - 1725px)/2);
 }
 
 #video {
-    width: 1120px;
-    height: 630px;
+    width: 100%;
+    height: 80%;
 }
 
 #video-container {
-    margin-top: 20px;
-    margin-left: 100px;
+    width: 72%;
+    height: calc(100% - 40px);
+    padding: 20px 20px 0 0;
     font-family: 'NOTOSANS';
 }
 
@@ -32,18 +41,16 @@ body {
 }
 
 #channelInfo {
-    width: 500px;
+    width: 100%;
     height: 70px;
-}
-
-#channelInfo>* {
-    display: inline-block;
+    display: flex;
+    align-items: center;
 }
 
 #user-icon {
-    /* background-image: url("../img/user_icon.png"); */
     background-size: cover;
     width: 50px;
     height: 50px;
     border-radius: 50%;
+    margin-right: 18px;
 }

@@ -86,7 +86,7 @@ const verify = async (sessionHash: string) => {
     const userCollection = db.collection('user')
 
     const arr = await userCollection.find({ sessionHash: sessionHash }).toArray();
-    await client.close();
+    // await client.close();
     if (arr.length == 0) {
         return false
     } else {
@@ -100,7 +100,7 @@ const getChannel = async (channel: string) => {
     const channelCollection = db.collection('channel')
 
     const arr = await channelCollection.find({ channelId: channel }).toArray();
-    await client.close();
+    // await client.close();
     if (arr.length == 0) {
         return false
     } else {

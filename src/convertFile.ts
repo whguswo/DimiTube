@@ -1,6 +1,6 @@
 import ffmpeg from 'fluent-ffmpeg';
 import ffmpegInstaller from '@ffmpeg-installer/ffmpeg'
-import { upload } from './s3Bucket'
+import { videoUpload } from './s3Bucket'
 import { Readable, Writable } from 'stream';
 
 ffmpeg.setFfmpegPath(ffmpegInstaller.path)
@@ -17,13 +17,14 @@ const convert = async (videoId: string, stream: Readable) => {
     ]).output(`videos/${videoId}/output.m3u8`).on('end', async () => {
         ffmpeg(`videos/${videoId}/output.m3u8`)
             .screenshots({
-                // count: 1,
-                timestamps: ['01:30'],
+                count: 1,
+                // timestamps: ['00:01'],
                 filename: 'thumbnail.png',
                 folder: `videos/${videoId}/`,
-                size: '640x360'
+                // size: '640x360'
             }).on('end', () => {
-                upload(videoId)
+                videoUpload(videoId)
+                console.log('end')
             })
 
     }).run();

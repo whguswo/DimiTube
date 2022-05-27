@@ -1,5 +1,6 @@
 import * as fs from "fs";
 import AWS, { AWSError } from "aws-sdk";
+import { updateCloud } from "./cloudFront";
 import * as dotenv from 'dotenv';
 dotenv.config();
 const bucket = 'dimitube-video';
@@ -14,7 +15,7 @@ const s3: AWS.S3 = new AWS.S3({
     apiVersion: '2006-03-01'
 });
 
-const upload = async (videoId: string) => {
+const videoUpload = async (videoId: string) => {
 
     fs.readdir(`videos/${videoId}`, (error, list) => {
         for (let i = 0; i < list.length; i++) {
@@ -38,6 +39,22 @@ const upload = async (videoId: string) => {
     })
 }
 
+const profileUpload = async (file: Buffer, filename: string) => {
+    // console.log(file)
+    const params = {
+        Bucket: bucket,
+        Key: `profiles/${filename}.png`,
+        Body: file
+    };
+
+    s3.upload(params, (err: AWSError, data: AWS.S3.ManagedUpload.SendData) => {
+        if (err) {
+            console.log(err);
+        } else {
+            updateCloud()
+        }
+    });
+}
 
 const remove = (dir: string) => {
     let listParams = {
@@ -61,4 +78,4 @@ const remove = (dir: string) => {
 
 }
 
-export { upload, remove }
+export { videoUpload, profileUpload, remove }

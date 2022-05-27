@@ -1,0 +1,8 @@
+.thumbnail {
+    width: 100%;
+    height: calc(100% - 70px);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    background-color: black;
+}

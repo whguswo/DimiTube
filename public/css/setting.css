@@ -2,3 +2,12 @@
     width: 80px;
     height: 80px;
 }
+
+#profile_photo:hover {
+    filter: brightness(50%);
+    /* 여기 시각적 부분 수정할것. */
+}
+
+#fileInput {
+    display: none;
+}

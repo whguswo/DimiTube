@@ -1,5 +1,3 @@
-import menuShow_fun from "./FORMENUBAR.js"
-
 const logoImg = document.querySelector("#logo-img");
 const menu_div = document.querySelector("#menu-img_div");
 const sidebar = document.querySelector("#side-bar");
@@ -14,8 +12,7 @@ const backBtn = document.querySelector("#smallScreenVer_out");
 const main = document.querySelector("#main");
 const alert1 = document.querySelector("#alert1");
 
-let menuShow = true;
-if (!menuShow_fun()) menuShow = false;
+let menuShow = false;
 let search_toggle = false;
 let sidebarWidth = 220;
 
@@ -45,35 +42,32 @@ const deleteCookie = (name) => {
     document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 }
 
-const menuShowTrue = (name) => {
-    sidebarWidth = 220;
-    sidebar.style.width = `${sidebarWidth}px`;
-    main.style.marginLeft = `${sidebarWidth}px`;
-    main.style.width = `calc(100% - ${sidebarWidth}px)`;
-    alert1.style.display = "block";
-    menuShow = true;
-    menuShow_fun("true")
-}
-
-const menuShowFalse = (name) => {
-    sidebarWidth = 50;
-    sidebar.style.width = `${sidebarWidth}px`;
-    main.style.marginLeft = `${sidebarWidth}px`;
-    main.style.width = `calc(100% - ${sidebarWidth}px)`;
-    alert1.style.display = "none";
-    menuShow = false;
-    menuShow_fun("false")
+const menuShowFun = (bool) => {
+    if (bool === true) {
+        sidebarWidth = 220;
+        sidebar.style.width = `${sidebarWidth}px`;
+        if (window.innerWidth > 1313) {
+            main.style.marginLeft = `${sidebarWidth}px`;
+            main.style.width = `calc(100% - ${sidebarWidth}px)`;
+        }
+        alert1.style.display = "block";
+        menuShow = true;
+    } else if (bool === false) {
+        sidebarWidth = 50;
+        sidebar.style.width = `${sidebarWidth}px`;
+        if (window.innerWidth > 1313) {
+            main.style.marginLeft = `${sidebarWidth}px`;
+            main.style.width = `calc(100% - ${sidebarWidth}px)`;
+        }
+        alert1.style.display = "none";
+        menuShow = false;
+    }
 }
 
 window.addEventListener('load', async () => {
-    if (getCookieValue("openCloseBar") === true) {
-        menuShowTrue("openCloseBar")
-    } else if (getCookieValue("openCloseBar") === false) {
-        menuShowFalse("openCloseBar")
-    }
     let channelId = getCookieValue("ownChannelId");
     if (channelId) {
-        user_inner.style.backgroundImage = `url('https://d18yz4nkgugxke.cloudfront.net/profiles/${channelId}.png')`
+        user_inner.style.backgroundImage = `url('https://d18yz4nkgugxke.cloudfront.net/profiles/${channelId}.png?${new Date().getTime()}')`
     }
 })
 
@@ -99,6 +93,11 @@ window.addEventListener('resize', () => {
             searchbox.style.display = "";
             top_center.style.justifyContent = "flex-end";
         }
+    }
+    if (window.innerWidth < 435) {
+        logoImg.style.width = "45px"
+    } else {
+        logoImg.style.width = "150px"
     }
 })
 
@@ -176,8 +175,8 @@ menu_div.addEventListener('click', () => {
         menu_div.classList.remove('clickEffect');
     })
     if (!menuShow) {
-        menuShowTrue("openCloseBar")
+        menuShowFun(true)
     } else {
-        menuShowFalse("openCloseBar")
+        menuShowFun(false)
     }
 })

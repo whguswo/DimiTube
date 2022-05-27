@@ -1,14 +1,17 @@
-const channel_header = document.querySelector('#channel_header')
-const tabs_innerContainer = document.querySelector('#tabs_inner-container')
-const noVideo = document.querySelector('#noVideo')
-const noVideo_container = document.querySelector('#noVideo_container')
-const video_container = document.querySelector('#video_container')
-const channel_profile = document.querySelector('#channel_profile')
-const channelTitle = document.querySelector('#channelTitle')
-const user_message = document.querySelector('#user_message')
-const videoContents = document.querySelector('#videoContents')
-const noVideoText = document.querySelector('#noVideoText')
-const videoContents_container = document.querySelector("#videoContents_container")
+const channel_header = document.getElementById('channel_header')
+const tabs_innerContainer = document.getElementById('tabs_inner-container')
+const noVideo = document.getElementById('noVideo')
+const noVideo_container = document.getElementById('noVideo_container')
+const video_container = document.getElementById('video_container')
+const channel_profile = document.getElementById('channel_profile')
+const channelTitle = document.getElementById('channelTitle')
+const user_message = document.getElementById('user_message')
+const videoContents = document.getElementById('videoContents')
+const noVideoText = document.getElementById('noVideoText')
+const videoContents_container = document.getElementById("videoContents_container")
+const upload_popup_container = document.getElementById("upload_popup_container")
+const upload_popup = document.getElementById("upload_popup")
+const channel_settingBox = document.querySelector('#channel_settingBox')
 
 window.addEventListener('load', async () => {
     let fst_resizingPadding_width = window.innerWidth
@@ -25,12 +28,12 @@ window.addEventListener('load', async () => {
     channelTitle.innerHTML = data_channelName
     user_message.innerHTML = data.message
     // channel_profile.innerHTML = data_channelName.slice(0, 1).toUpperCase()
-    channel_profile.style.backgroundImage = `url(https://d18yz4nkgugxke.cloudfront.net/profiles/${name}.png)`;
+    // channel_profile.style.backgroundImage = `url(https://d18yz4nkgugxke.cloudfront.net/profiles/${name}.png)`;
+    channel_profile.style.backgroundImage = `url('https://d18yz4nkgugxke.cloudfront.net/profiles/${name}.png?${new Date().getTime()}')`
     document.title = data_channelName
 
     const ownerCheck = (isThereVideo) => {
         if (data.isOwner) {
-            const channel_settingBox = document.querySelector('#channel_settingBox')
             let upload = document.createElement('button')
             let channelSetting = document.createElement('button')
             upload.append("동영상 업로드")
@@ -40,7 +43,8 @@ window.addEventListener('load', async () => {
             channelSetting.id = 'channel_settingBtn'
 
             upload.addEventListener("click", () => {
-                location.href += '/upload'
+                // location.href += '/upload'
+                showPopup(false)
             })
             channelSetting.addEventListener("click", () => {
                 location.href += '/setting'
@@ -104,6 +108,11 @@ window.addEventListener("resize", () => {
 
 const resizingPadding = (now_width) => {
     let resizingPadding_width = null;
+    if (window.innerWidth < 435) {
+        channel_settingBox.style.display = "none"
+    } else {
+        channel_settingBox.style.display = "flex"
+    }
 
     if (now_width > 1385) {
         resizingPadding_width = 1284;
@@ -123,4 +132,32 @@ const resizingPadding = (now_width) => {
     videoContents_container.style.paddingRight = `calc((100% - ${resizingPadding_width}px)/2)`
 }
 
-// {/* <img src="https://d18yz4nkgugxke.cloudfront.net/0e124dad-3897-486c-a207-65ca04acc5a9/thumbnail.png" alt=""> */ }
+// =================================================== upload modal page =============================================================
+let uploadPage_isMouseout = false;
+
+upload_popup.addEventListener("mouseenter", () => {
+    uploadPage_isMouseout = false;
+})
+upload_popup.addEventListener("mouseleave", () => {
+    uploadPage_isMouseout = true;
+})
+upload_popup_container.addEventListener("click", () => {
+    if (uploadPage_isMouseout) showPopup(true)
+})
+const showPopup = (val) => {
+    if (val === true) {
+        upload_popup_container.className = 'popdown'
+        upload_popup_container.addEventListener('animationend', () => {
+            upload_popup_container.classList.remove('popdown')
+            upload_popup_container.style.zIndex = "-100"
+            console.log(uploadPage_isMouseout)
+        })
+    } else {
+        upload_popup_container.style.zIndex = "100"
+        upload_popup_container.className = 'popup'
+        upload_popup_container.addEventListener('animationend', () => {
+            upload_popup_container.classList.remove('popup')
+            upload_popup_container.style.zIndex = "100"
+        })
+    }
+}

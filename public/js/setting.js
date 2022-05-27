@@ -3,6 +3,8 @@ const message = document.querySelector("#message");
 const videoDiv = document.querySelector("#video-div");
 const videoBtn = document.querySelector("#video-btn");
 const profilePhoto = document.querySelector("#profile_photo");
+const profileSubmit = document.querySelector("#profileSubmit");
+const fileInput = document.querySelector("#fileInput");
 const btn = document.querySelector("#apply");
 let checkArr = [];
 let messageMaxlength = 15;
@@ -82,6 +84,17 @@ const removeVideo = async (videoArr) => {
     }
 }
 
+const setProfile = async (file) => {
+    let req_url = location.pathname.replace('/setting', '')
+    const result = await fetch(`${req_url}/setProfile`, {
+        method: 'POST',
+        body: file,
+        headers: {
+            'Content-Type': 'application/octet-stream'
+        }
+    })
+}
+
 message.addEventListener('input', () => {
     if (message.value.length > messageMaxlength) {
         message.value = message.value.substr(0, messageMaxlength)
@@ -102,4 +115,8 @@ btn.addEventListener("click", () => {
 
 videoBtn.addEventListener("click", () => {
     removeVideo(checkArr)
+})
+
+profileSubmit.addEventListener("click", () => {
+    setProfile(fileInput.files[0])
 })
