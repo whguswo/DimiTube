@@ -6,6 +6,16 @@ body {
     padding: 0;
 }
 
+#background {
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    position: fixed;
+    background-color: rgb(245, 245, 245);
+    z-index: -500;
+}
+
 a {
     text-decoration: none;
     color: black;

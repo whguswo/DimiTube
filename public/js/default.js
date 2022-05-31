@@ -43,22 +43,26 @@ const deleteCookie = (name) => {
 }
 
 const menuShowFun = (bool) => {
+    let thisfilefullname = document.URL.substring(document.URL.lastIndexOf('/') + 1, document.URL.length);
+    let thisfilename = thisfilefullname.substring(thisfilefullname.lastIndexOf('?'), 0);
+    const check_windowWidth = () => {
+        sidebar.style.width = `${sidebarWidth}px`;
+        if(thisfilename === "watch");
+        else {
+            if (window.innerWidth > 1313) {
+                main.style.marginLeft = `${sidebarWidth}px`;
+                main.style.width = `calc(100% - ${sidebarWidth}px)`;
+            }
+        }
+    }
     if (bool === true) {
         sidebarWidth = 220;
-        sidebar.style.width = `${sidebarWidth}px`;
-        if (window.innerWidth > 1313) {
-            main.style.marginLeft = `${sidebarWidth}px`;
-            main.style.width = `calc(100% - ${sidebarWidth}px)`;
-        }
+        check_windowWidth()
         alert1.style.display = "block";
         menuShow = true;
     } else if (bool === false) {
         sidebarWidth = 50;
-        sidebar.style.width = `${sidebarWidth}px`;
-        if (window.innerWidth > 1313) {
-            main.style.marginLeft = `${sidebarWidth}px`;
-            main.style.width = `calc(100% - ${sidebarWidth}px)`;
-        }
+        check_windowWidth()
         alert1.style.display = "none";
         menuShow = false;
     }
