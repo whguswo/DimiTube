@@ -1,5 +1,6 @@
-const video_container = document.querySelector('#video_container')
-const videoContents = document.querySelector('#videoContents')
+const video_container = document.getElementById('video_container')
+const videoContents = document.getElementById('videoContents')
+const videoContents_container = document.getElementById('videoContents_container')
 
 window.addEventListener('load', async () => {
     const result = await fetch('/getVideo', {
@@ -36,4 +37,12 @@ window.addEventListener('load', async () => {
         videoContents.append(div)
     }
     // for(let j = 0; j < json.)
+})
+
+window.addEventListener("resize", () => {
+    if (window.innerWidth < 435) {
+        videoContents_container.style.padding = "0 20px"
+    } else {
+        videoContents_container.style.padding = "20px"
+    }
 })

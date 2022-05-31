@@ -43,7 +43,9 @@
             <div id="watch-header">
                 <div id="watch-inner-header">
                     <div id="video-container">
-                        <video id=video width=100% class="video-js" controls></video>
+                        <div id="video-inner-container" style="width: 100%; height: max-content;">
+                            <video id=video width=100% class="video-js" controls></video>
+                        </div>
                         <div id="videoTitle"></div>
                         <div>
                             <div id="channelInfo">
@@ -59,15 +61,6 @@
         </div>
     </div>
     <script src="https://vjs.zencdn.net/7.8.2/video.min.js"></script>
-    <!-- <script>
-        const video = document.querySelector('#video')
-        const player = videojs(video);
-        const videoId = location.search.replace('?v=', '')
-        player.src({
-            src: `https://d18yz4nkgugxke.cloudfront.net/${videoId}/output.m3u8`,
-            type: "application/x-mpegurl"
-        })
-    </script> -->
     <script src="js/watch.js"></script>
     <script type="module" src="js/default.js"></script>
 </body>

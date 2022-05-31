@@ -3,6 +3,7 @@ import crypto from "crypto";
 import * as fs from "fs";
 import * as dotenv from 'dotenv';
 import { sendEmail } from './sendEmail';
+import { profileUpload } from './s3Bucket';
 import { loginQuery, registerQuery, editQuery } from './types'
 dotenv.config();
 
@@ -72,10 +73,13 @@ const createUser = async (obj: registerQuery) => {
     const userCollection = db.collection('user')
     const channelCollection = db.collection('channel')
     const sessionHash = createHash(obj.id + obj.password)
+    const file = fs.readFileSync('public/img/default.png')
+
 
     //여기서 받는 obj에는 이미 password가 암호화 되어있음.
     await userCollection.insertOne({ id: obj.id, password: obj.password, email: obj.email, sessionHash: sessionHash, channelId: base64Encode(obj.id) });
     await channelCollection.insertOne({ sessionHash: sessionHash, channelName: obj.id, channelId: base64Encode(obj.id), videoList: [], message: "@message" });
+    await profileUpload(file, base64Encode(obj.id))
     console.log('유저 생성 완료')
     await client.close();
 }

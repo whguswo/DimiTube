@@ -47,7 +47,7 @@ const menuShowFun = (bool) => {
     let thisfilename = thisfilefullname.substring(thisfilefullname.lastIndexOf('?'), 0);
     const check_windowWidth = () => {
         sidebar.style.width = `${sidebarWidth}px`;
-        if(thisfilename === "watch");
+        if (thisfilename === "watch");
         else {
             if (window.innerWidth > 1313) {
                 main.style.marginLeft = `${sidebarWidth}px`;

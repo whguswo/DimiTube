@@ -1,4 +1,5 @@
 const video = document.getElementById("video");
+const video_innerContainer = document.getElementById("video-inner-container")
 const videoTitle = document.getElementById("videoTitle");
 const video_container = document.getElementById("video-container");
 const otherVideo_container = document.getElementById("otherVideo-container");
@@ -22,9 +23,8 @@ window.addEventListener("load", async () => {
     let json = JSON.parse(data);
     console.log(json);
     videoTitle.innerHTML = json.videoTitle;
-    userIcon.style.backgroundImage = `url('https://d18yz4nkgugxke.cloudfront.net/profiles/${
-        json.channelId
-    }.png?${new Date().getTime()}')`;
+    userIcon.style.backgroundImage = `url('https://d18yz4nkgugxke.cloudfront.net/profiles/${json.channelId
+        }.png?${new Date().getTime()}')`;
     userIcon.addEventListener("click", () => {
         location.href = `/channel/${json.channelId}`;
     });
@@ -37,6 +37,8 @@ window.addEventListener("resize", () => {
 });
 
 const resizing = () => {
+    let videoWidth = video_innerContainer.clientWidth;
+    video_innerContainer.style.height = `${videoWidth * 9 / 16}px`; // 16:9 비율 동적 변경
     if (window.innerWidth < 1820) {
         watch_innerHeader.style.marginLeft = "20px";
         watch_innerHeader.style.marginRight = "20px";
@@ -48,9 +50,13 @@ const resizing = () => {
         watch_innerHeader.style.flexDirection = "column";
         video_container.style.width = "100%"
         otherVideo_container.style.width = "100%"
+        let videoWidth = video.clientWidth;
+        video.style.height = `${videoWidth * 9 / 16}px`; // 16:9 비율 동적 변경
     } else {
         watch_innerHeader.style.flexDirection = "row";
         video_container.style.width = "72%"
         otherVideo_container.style.width = "28%"
+        let videoWidth = video.clientWidth;
+        video.style.height = `${videoWidth * 9 / 16}px`; // 16:9 비율 동적 변경
     }
 };

@@ -20,7 +20,7 @@
 
 #video {
     width: 100%;
-    height: 80%;
+    height: 100%;
 }
 
 #video-container {
@@ -62,4 +62,10 @@
     /* padding-top: 20px; */
     margin-top: 20px;
     background-color: rgb(182, 255, 255);
+}
+
+#video-inner-container {
+    position: relative;
+    width: 100%;
+    height: 56.25%;
 }
