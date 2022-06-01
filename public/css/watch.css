@@ -25,16 +25,24 @@
 
 #video-container {
     width: 72%;
-    height: 100%;
     padding: 20px 20px 0 0;
     font-family: 'NOTOSANS';
     background-color: rgb(245, 245, 245);
 }
 
 #videoTitle {
-    font-size: 35px;
-    margin-bottom: 15px;
     font-family: 'NOTOSANS';
+    font-size: 1.8rem;
+    font-weight: 400;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #0000001a;
+    padding: 20px 0 20px 0;
+}
+
+#video-information {
+    border-bottom: 1px solid #0000001a;
+    margin-bottom: 16px;
+    padding-bottom: 16px;
 }
 
 #description {
@@ -56,16 +64,73 @@
     margin-right: 18px;
 }
 
-#otherVideo-container {
-    width: 28%;
-    height: max-content;
-    /* padding-top: 20px; */
-    margin-top: 20px;
-    background-color: rgb(182, 255, 255);
-}
-
 #video-inner-container {
     position: relative;
     width: 100%;
     height: 56.25%;
+}
+
+/* ================================ othervideo =============================== */
+
+#otherVideo-container {
+    position: relative;
+    width: 28%;
+    height: max-content;
+    /* padding-top: 20px; */
+    margin-top: 12px;
+    /* background-color: rgb(182, 255, 255); */
+}
+
+#otherVideo-container>div {
+    display: flex;
+    position: relative;
+    width: 100%;
+    height: 94px;
+    margin-top: 8px;
+    /* background-color: black; */
+    /* align-items: center; */
+    cursor: pointer;
+}
+
+#otherVideo-container>div:hover {
+    background-color: #eeeeee80;
+}
+
+.other_thumbnail {
+    width: 168px;
+    height: 94px;
+    margin-right: 8px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.other_video-information {
+    display: flex;
+    flex-direction: column;
+    font-family: "Roboto","Arial",sans-serif;
+    width: calc(100% - 168px);
+}
+
+.other_videoTitle {
+    width: 100%;
+    font-size: 1rem;
+    font-weight: 500;
+    color: black;
+    margin-bottom: 8px;
+    white-space: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    display: -webkit-box;
+    -webkit-line-clamp: 2 ;
+    -webkit-box-orient: vertical;
+}
+
+.other_channel {
+    color: rgb(100, 100, 100);
+}
+
+.other_channel:hover {
+    color: rgb(40, 40, 40);
 }

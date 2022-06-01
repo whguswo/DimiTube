@@ -45,10 +45,14 @@ const deleteCookie = (name) => {
 const menuShowFun = (bool) => {
     let thisfilefullname = document.URL.substring(document.URL.lastIndexOf('/') + 1, document.URL.length);
     let thisfilename = thisfilefullname.substring(thisfilefullname.lastIndexOf('?'), 0);
-    const check_windowWidth = () => {
-        sidebar.style.width = `${sidebarWidth}px`;
-        if (thisfilename === "watch");
-        else {
+    const check_isWatchPage = e => {
+        if (thisfilename === "watch"){
+            main.style.marginLeft = '0px';
+            main.style.width = '100%'
+            if(e === false) sidebar.style.width = '0px'
+            else sidebar.style.width = `${sidebarWidth}px`;
+        } else {
+            sidebar.style.width = `${sidebarWidth}px`;
             if (window.innerWidth > 1313) {
                 main.style.marginLeft = `${sidebarWidth}px`;
                 main.style.width = `calc(100% - ${sidebarWidth}px)`;
@@ -57,12 +61,12 @@ const menuShowFun = (bool) => {
     }
     if (bool === true) {
         sidebarWidth = 220;
-        check_windowWidth()
+        check_isWatchPage(true)
         alert1.style.display = "block";
         menuShow = true;
     } else if (bool === false) {
         sidebarWidth = 50;
-        check_windowWidth()
+        check_isWatchPage(false)
         alert1.style.display = "none";
         menuShow = false;
     }
@@ -73,6 +77,7 @@ window.addEventListener('load', async () => {
     if (channelId) {
         user_inner.style.backgroundImage = `url('https://d18yz4nkgugxke.cloudfront.net/profiles/${channelId}.png?${new Date().getTime()}')`
     }
+    menuShowFun(false) // sidebar 이전상태 기억하기
 })
 
 logoImg.addEventListener("click", () => {
