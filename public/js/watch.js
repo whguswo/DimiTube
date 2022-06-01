@@ -58,6 +58,8 @@ window.addEventListener("resize", () => {
     resizing();
 });
 
+//↓↓ 무조건 모바일 화경 html만들기 ↓↓
+
 const resizing = (e) => {
     if (window.innerWidth < 1820) {
         watch_innerHeader.style.marginLeft = "20px";
@@ -75,9 +77,19 @@ const resizing = (e) => {
         video_container.style.width = "72%";
         otherVideo_container.style.width = "28%";
     }
+    if (window.innerWidth < 435) {
+        video_innerContainer.style.position = "fixed"
+        video_innerContainer.style.top = "50px"
+        video_innerContainer.style.left = "0"
+        let nowVideoHeight = video_innerContainer.clientWidth / 16 * 9
+        watch_innerHeader.style.marginTop = `${nowVideoHeight}px`
+    } else {
+        video_innerContainer.style.position = "relative"
+        video_innerContainer.style.top = "0"
+        video_innerContainer.style.left = "0"
+        watch_innerHeader.style.marginTop = "0"
+    }
     let videoContainerWidth = video_innerContainer.clientWidth;
-    if(e === true)
-        video_innerContainer.style.height = `${(videoContainerWidth * 9) / 16 + 23}px`; // 16:9 비율 동적 변경
-    else 
-        video_innerContainer.style.height = `${(videoContainerWidth * 9) / 16}px`; // 16:9 비율 동적 변경
+    if(e === true && window.innerWidth < 1920) video_innerContainer.style.height = `${(videoContainerWidth * 9) / 16 + 20}px`; // 16:9 비율 동적 변경
+    else video_innerContainer.style.height = `${(videoContainerWidth * 9) / 16}px`;
 };

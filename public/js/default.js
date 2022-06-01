@@ -72,19 +72,7 @@ const menuShowFun = (bool) => {
     }
 }
 
-window.addEventListener('load', async () => {
-    let channelId = getCookieValue("ownChannelId");
-    if (channelId) {
-        user_inner.style.backgroundImage = `url('https://d18yz4nkgugxke.cloudfront.net/profiles/${channelId}.png?${new Date().getTime()}')`
-    }
-    menuShowFun(false) // sidebar 이전상태 기억하기
-})
-
-logoImg.addEventListener("click", () => {
-    location.href = location.origin;
-})
-
-window.addEventListener('resize', () => {
+const resizing = () => {
     if (window.innerWidth > 950) {
         search_toggle = false;
         searchbox.style.display = "block";
@@ -108,6 +96,23 @@ window.addEventListener('resize', () => {
     } else {
         logoImg.style.width = "150px"
     }
+}
+
+window.addEventListener('load', async () => {
+    let channelId = getCookieValue("ownChannelId");
+    if (channelId) {
+        user_inner.style.backgroundImage = `url('https://d18yz4nkgugxke.cloudfront.net/profiles/${channelId}.png?${new Date().getTime()}')`
+    }
+    menuShowFun(false) // sidebar 이전상태 기억하기
+    resizing()
+})
+
+logoImg.addEventListener("click", () => {
+    location.href = location.origin;
+})
+
+window.addEventListener('resize', () => {
+    resizing()
 })
 
 searchbox.addEventListener("focus", () => {

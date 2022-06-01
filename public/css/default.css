@@ -22,7 +22,7 @@ a {
 }
 
 #default_container {
-    z-index: 10;
+    z-index: 500;
 }
 
 #top-container {
@@ -277,6 +277,7 @@ a {
     height: calc(100% - 50px);
     bottom: 0px;
     display: flex;
+    z-index: 1;
 }
 
 #main {
