@@ -119,4 +119,5 @@ videoBtn.addEventListener("click", () => {
 
 profileSubmit.addEventListener("click", () => {
     setProfile(fileInput.files[0])
+    location.reload()
 })

@@ -34,6 +34,7 @@
                 <div id="logout" class="topEnd_icon"></div>
             </div>
         </div>
+        <div id="mask"></div>
         <div id="side-bar">
             <!-- 너비 늘리기 -->
             <div id="alert1">베타 버전입니다.<br>PC로그인을 권장드립니다.</div>
@@ -53,7 +54,17 @@
                                 <div id="user-icon"></div>
                                 <div id="channelName"></div>
                             </div>
-                            <div id="description"></div>
+                            <div id="description-container">
+                                <div id="description"></div>
+                            </div>
+                        </div>
+                        <div id="comment-container">
+                            <div style="display: flex;">
+                                <div id="comments_userProfile" class="comment_profile"></div>
+                                <textarea id="comment" type="text" placeholder="댓글추가..."></textarea>
+                                <button id="comment_button">작성</button>
+                            </div>
+                            <div id="comments"></div>
                         </div>
                     </div>
                     <div id="otherVideo-container"></div>

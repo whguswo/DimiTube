@@ -1,6 +1,9 @@
 #profile_photo {
     width: 80px;
     height: 80px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
 }
 
 #profile_photo:hover {

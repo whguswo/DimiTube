@@ -46,10 +46,10 @@ const menuShowFun = (bool) => {
     let thisfilefullname = document.URL.substring(document.URL.lastIndexOf('/') + 1, document.URL.length);
     let thisfilename = thisfilefullname.substring(thisfilefullname.lastIndexOf('?'), 0);
     const check_isWatchPage = e => {
-        if (thisfilename === "watch"){
+        if (thisfilename === "watch") {
             main.style.marginLeft = '0px';
             main.style.width = '100%'
-            if(e === false) sidebar.style.width = '0px'
+            if (e === false) sidebar.style.width = '0px'
             else sidebar.style.width = `${sidebarWidth}px`;
         } else {
             sidebar.style.width = `${sidebarWidth}px`;

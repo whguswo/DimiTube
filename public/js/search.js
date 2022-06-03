@@ -1,6 +1,7 @@
+const channelDiv = document.getElementById("channel-div")
+const videoDiv = document.getElementById("video-div")
+
 window.addEventListener('load', async () => {
-    const channelUl = document.querySelector("#channel-ul")
-    const videoUl = document.querySelector("#video-ul")
 
     let query = location.search.replace('?query=', '')
     const search = await fetch('/search', {
@@ -17,12 +18,12 @@ window.addEventListener('load', async () => {
     let result = true;
     if (json.channels.length != 0) {
         for (let i = 0; i < json.channels.length; i++) {
-            const li = document.createElement("li")
-            li.innerHTML = json.channels[i].channelName
-            li.addEventListener("click", () => {
+            const div = document.createElement("div")
+            div.innerHTML = json.channels[i].channelName
+            div.addEventListener("click", () => {
                 location.href = `/channel/${json.channels[i].channelId}`
             })
-            channelUl.append(li)
+            channelDiv.append(div)
         }
         result = true
     } else {
@@ -30,27 +31,17 @@ window.addEventListener('load', async () => {
     }
     if (json.videos.length != 0) {
         for (let j = 0; j < json.videos.length; j++) {
-            const li = document.createElement("li")
-            li.innerHTML = json.videos[j].videoTitle
-            li.addEventListener("click", () => {
+            const div = document.createElement("div")
+            div.innerHTML = json.videos[j].videoTitle
+            div.addEventListener("click", () => {
                 location.href = `/watch?v=${json.videos[j].videoId}`
             })
-            videoUl.append(li)
+            videoDiv.append(div)
         }
         result = true
     } else if (result === false) {
-        const li = document.createElement("li")
-        li.innerHTML = "검색결과가 없습니다."
-        videoUl.append(li)
+        const div = document.createElement("div")
+        div.innerHTML = "검색결과가 없습니다."
+        videoDiv.append(div)
     }
-
-    // else {
-    //     console.log('Fail')
-    //     const channelLi = document.createElement("li")
-    //     channelLi.innerHTML = "검색결과가 없습니다."
-    //     const videoLi = document.createElement("li")
-    //     videoLi.innerHTML = "검색결과가 없습니다."
-    //     channelUl.append(channelLi)
-    //     videoUl.append(videoLi)
-    // }
 })

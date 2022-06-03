@@ -11,7 +11,8 @@ const noVideoText = document.getElementById('noVideoText')
 const videoContents_container = document.getElementById("videoContents_container")
 const upload_popup_container = document.getElementById("upload_popup_container")
 const upload_popup = document.getElementById("upload_popup")
-const channel_settingBox = document.querySelector('#channel_settingBox')
+const channel_settingBox = document.getElementById('channel_settingBox')
+const mobile_bottom_menu = document.getElementById('mobile_bottom_menu')
 
 window.addEventListener('load', async () => {
     let fst_resizingPadding_width = window.innerWidth
@@ -31,6 +32,11 @@ window.addEventListener('load', async () => {
     // channel_profile.style.backgroundImage = `url(https://d18yz4nkgugxke.cloudfront.net/profiles/${name}.png)`;
     channel_profile.style.backgroundImage = `url('https://d18yz4nkgugxke.cloudfront.net/profiles/${name}.png?${new Date().getTime()}')`
     document.title = data_channelName
+
+    let channelId_mobile = data.channelId
+    mobile_bottom_menu.addEventListener('click', () => {
+        location.href = `/channel/${channelId_mobile}/upload`
+    })
 
     const ownerCheck = (isThereVideo) => {
         if (data.isOwner) {
@@ -56,7 +62,6 @@ window.addEventListener('load', async () => {
                 video_container.style.display = "none"
                 noVideo.appendChild(upload)
             } else if (isThereVideo === "yesVideo") {
-                console.log("yesvideo")
                 channel_settingBox.appendChild(channelSetting)
                 channel_settingBox.appendChild(upload)
                 channelSetting.style.marginRight = "20px"
@@ -108,10 +113,12 @@ window.addEventListener("resize", () => {
 
 const resizingPadding = (now_width) => {
     let resizingPadding_width = null;
-    if (window.innerWidth < 435) {
+    if (now_width < 520) {
         channel_settingBox.style.display = "none"
+        mobile_bottom_menu.style.zIndex = "100"
     } else {
         channel_settingBox.style.display = "flex"
+        mobile_bottom_menu.style.zIndex = "-100"
     }
 
     if (now_width > 1385) {
@@ -150,7 +157,6 @@ const showPopup = (val) => {
         upload_popup_container.addEventListener('animationend', () => {
             upload_popup_container.classList.remove('popdown')
             upload_popup_container.style.zIndex = "-100"
-            console.log(uploadPage_isMouseout)
         })
     } else {
         upload_popup_container.style.zIndex = "100"

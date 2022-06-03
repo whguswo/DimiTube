@@ -1,6 +1,6 @@
 import express, { Request, Response, NextFunction, application } from 'express';
 import * as fs from "fs";
-import { login, register, createUser, verify, getChannel, addVideoList, search, updateSetting, removeVideo, getRecentVideo, getAllVideo, getVideoInfo } from './connectDB';
+import { login, register, createUser, verify, getChannel, addVideoList, search, updateSetting, removeVideo, getRecentVideo, getAllVideo, getVideoInfo, addViews, addComment } from './connectDB';
 import cookies from 'cookie-parser';
 import { convert } from './convertFile';
 import { profileUpload, remove } from './s3Bucket'
@@ -163,9 +163,14 @@ app.get('/watch', (req: Request, res: Response) => {
     })
 })
 
+app.post('/comment', async (req: Request, res: Response) => {
+    addComment(req.cookies.sessionHash, req.body.videoId, req.body.comment)
+})
+
 app.get('/getVideoInfo/:videoId', async (req: Request, res: Response) => {
     let videoId = req.params.videoId
     let result = await getVideoInfo(videoId)
+    let addView = await addViews(videoId)
     res.send(result)
 })
 

@@ -45,21 +45,26 @@
     padding-bottom: 16px;
 }
 
-#description {
-    color: #3b3a3a;
-}
-
 #channelInfo {
     width: 100%;
     height: 70px;
     display: flex;
+    margin-bottom: 12px;
     align-items: center;
+}
+
+#description-container {
+    margin-left: 64px;
+}
+
+#description {
+    color: #3b3a3a;
 }
 
 #user-icon {
     background-size: cover;
-    width: 50px;
-    height: 50px;
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
     margin-right: 18px;
 }
@@ -68,6 +73,24 @@
     position: relative;
     width: 100%;
     /* height: 56.25%; */
+}
+
+#comment-container {
+    width: 100%;
+    height: 500px
+}
+
+#mask {
+    position: fixed;
+    z-index: 2;
+    background-color: #000;
+    display: none;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 50%;
+    pointer-events: none;
 }
 
 /* ================================ othervideo =============================== */
@@ -108,7 +131,7 @@
 .other_video-information {
     display: flex;
     flex-direction: column;
-    font-family: "Roboto","Arial",sans-serif;
+    font-family: "Roboto", "Arial", sans-serif;
     width: calc(100% - 168px);
 }
 
@@ -123,7 +146,7 @@
     text-overflow: ellipsis;
     word-wrap: break-word;
     display: -webkit-box;
-    -webkit-line-clamp: 2 ;
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
 }
 
@@ -133,4 +156,17 @@
 
 .other_channel:hover {
     color: rgb(40, 40, 40);
+}
+
+#comment_userInf {
+    display: flex;
+}
+
+.comment_profile {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
 }

@@ -1,0 +1,12 @@
+#container {
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+}
+
+#header-container {}
+
+#video-div>div {
+    height: 300px;
+}
