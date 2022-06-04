@@ -9,7 +9,7 @@ const channelName = document.getElementById("channelName");
 const watch_innerHeader = document.getElementById("watch-inner-header");
 const player = videojs(video);
 const videoId = location.search.replace("?v=", "");
-const comment = document.getElementById("comment")
+const writeAComment = document.getElementById("writeAComment")
 const comments = document.getElementById("comments")
 const comments_userProfile = document.getElementById("comments_userProfile")
 const commentButton = document.getElementById("comment_button")
@@ -62,18 +62,31 @@ window.addEventListener("load", async () => {
 
     comments_userProfile.style.backgroundImage = `url('https://d18yz4nkgugxke.cloudfront.net/profiles/${json.channelId}.png?${new Date().getTime()}')`
 
+    writeAComment.addEventListener('keydown', () => {
+        writeAComment.style.height = '0px'
+        writeAComment.style.height = (writeAComment.scrollHeight) + 'px'
+    })
+    writeAComment.addEventListener('focusout', () => {
+        writeAComment.style.height = '0px'
+        writeAComment.style.height = (writeAComment.scrollHeight) + 'px'
+    })
+
     let jsonComment = json.comments
     for (let i = 0; i < jsonComment.length; i++) {
         let div = document.createElement('div')
         div.innerHTML = `
         <div>
             <div id="comment_userInf" style="display: flex;">
-                <a href="/channel/${jsonComment[i].channelId}">
-                    <div class="comment_profile" style="background-image: url('https://d18yz4nkgugxke.cloudfront.net/profiles/${jsonComment[i].channelId}.png?${new Date().getTime()}')"></div>
-                </a>
-                <div id="comment_channelName">${jsonComment[i].channelName}</div>
+                <div>
+                    <a href="/channel/${jsonComment[i].channelId}">
+                        <div class="comment_profile" style="background-image: url('https://d18yz4nkgugxke.cloudfront.net/profiles/${jsonComment[i].channelId}.png?${new Date().getTime()}')"></div>
+                    </a>
+                </div>
+                <div>
+                    <div id="comment_channelName">${jsonComment[i].channelName}</div>
+                    <div>${jsonComment[i].comment}</div>
+                </div>
             </div>
-            <div>${jsonComment[i].comment}</div>
         </div>`
 
         comments.append(div)
@@ -89,7 +102,7 @@ commentButton.addEventListener("click", async () => {
         method: "post",
         body: JSON.stringify({
             "videoId": videoId,
-            "comment": comment.value.replaceAll("\n", "<br>")
+            "comment": writeAComment.value.replaceAll("\n", "<br>")
         }),
         headers: {
             'Content-Type': 'application/json'

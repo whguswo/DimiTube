@@ -48,7 +48,10 @@
                         <div id="video-inner-container">
                             <video id=video width=100% class="video-js" controls></video>
                         </div>
-                        <div id="videoTitle"></div>
+                        <div id="videoTitle-container">
+                            <div id="videoTitle"></div>
+                            <div id="videoViews">조회수 4727만 회</div>
+                        </div>
                         <div id="video-information">
                             <div id="channelInfo">
                                 <div id="user-icon"></div>
@@ -58,11 +61,18 @@
                                 <div id="description"></div>
                             </div>
                         </div>
-                        <div id="comment-container">
-                            <div style="display: flex;">
-                                <div id="comments_userProfile" class="comment_profile"></div>
-                                <textarea id="comment" type="text" placeholder="댓글추가..."></textarea>
-                                <button id="comment_button">작성</button>
+                        <div id="comment-container" class="displayFlex_column">
+                            <div id="comment-inner-container">
+                                <div id="number_of_comments">댓글 1개</div>
+                                <div id="writeAComment-container">
+                                    <div id="comments_userProfile" class="comment_profile"></div>
+                                    <div id="comment_textarea" class="displayFlex_column">
+                                        <textarea id="writeAComment" type="text" placeholder="댓글추가..."></textarea>
+                                        <div>
+                                            <button id="comment_button">작성</button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div id="comments"></div>
                         </div>

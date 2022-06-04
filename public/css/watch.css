@@ -13,7 +13,7 @@
 
 #watch-inner-header {
     display: flex;
-    height: 100%;
+    height: auto;
     margin-left: calc((100% - 1725px)/2);
     margin-right: calc((100% - 1725px)/2);
 }
@@ -30,18 +30,28 @@
     background-color: rgb(245, 245, 245);
 }
 
-#videoTitle {
-    font-family: 'NOTOSANS';
-    font-size: 1.8rem;
-    font-weight: 400;
+#videoTitle-container {
     padding-bottom: 15px;
     border-bottom: 1px solid #0000001a;
-    padding: 20px 0 20px 0;
+    padding: 20px 0 8px 0;
+}
+
+#videoTitle {
+    font-family: 'NOTOSANS';
+    font-size: 1.5rem;
+    font-weight: 400;
+}
+
+#videoViews {
+    display: flex;
+    align-items: center;
+    color: gray;
+    font-size: 15px;
+    height: 40px;
 }
 
 #video-information {
     border-bottom: 1px solid #0000001a;
-    margin-bottom: 16px;
     padding-bottom: 16px;
 }
 
@@ -51,6 +61,10 @@
     display: flex;
     margin-bottom: 12px;
     align-items: center;
+}
+
+#description {
+    font-size: 15px;
 }
 
 #description-container {
@@ -69,17 +83,6 @@
     margin-right: 18px;
 }
 
-#video-inner-container {
-    position: relative;
-    width: 100%;
-    /* height: 56.25%; */
-}
-
-#comment-container {
-    width: 100%;
-    height: 500px
-}
-
 #mask {
     position: fixed;
     z-index: 2;
@@ -91,6 +94,65 @@
     height: 100%;
     opacity: 50%;
     pointer-events: none;
+}
+
+#video-inner-container {
+    position: relative;
+    width: 100%;
+    /* height: 56.25%; */
+}
+
+.displayFlex_column {
+    display: flex;
+    flex-direction: column;
+}
+
+#comment-container {
+    width: 100%;
+    height: auto;
+    padding-bottom: 20px;
+}
+
+#comment-inner-container {
+    height: auto;
+    margin-top: 24px;
+    margin-bottom: 32px;
+}
+
+#number_of_comments {
+    font-size: 17px;
+    margin-bottom: 24px;
+}
+
+#writeAComment-container {
+    display: flex;
+    width: 100%;
+}
+
+#comment_userInf {
+    display: flex;
+}
+
+.comment_profile {
+    border-radius: 50%;
+    width: 40px; 
+    height: 40px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    margin-right: 16px;
+}
+
+#comment_textarea {
+    width: calc(100% - 50px);
+}
+
+#writeAComment {
+    width: 100%;
+    height: 18px;
+    border: none;
+    resize: none;
+    overflow-y: hidden;
 }
 
 /* ================================ othervideo =============================== */
@@ -156,17 +218,4 @@
 
 .other_channel:hover {
     color: rgb(40, 40, 40);
-}
-
-#comment_userInf {
-    display: flex;
-}
-
-.comment_profile {
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: contain;
 }
