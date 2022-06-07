@@ -6,6 +6,10 @@ body {
     padding: 0;
 }
 
+input:focus, textarea:focus {
+    outline: none;
+}
+
 #background {
     width: 100vw;
     height: 100vh;

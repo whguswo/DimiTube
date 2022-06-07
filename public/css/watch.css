@@ -153,6 +153,14 @@
     border: none;
     resize: none;
     overflow-y: hidden;
+    border-bottom: 1px solid #0000001a;
+    background-color: transparent;
+    font-family: 'NOTOSANS';
+    font-size: 15px;
+}
+
+#comments>div, #tmp-comments>div {
+    margin-bottom: 24px;
 }
 
 /* ================================ othervideo =============================== */

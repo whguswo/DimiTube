@@ -11,11 +11,30 @@ const player = videojs(video);
 const videoId = location.search.replace("?v=", "");
 const writeAComment = document.getElementById("writeAComment")
 const comments = document.getElementById("comments")
+const tmp_comments = document.getElementById("tmp-comments")
 const comments_userProfile = document.getElementById("comments_userProfile")
 const commentButton = document.getElementById("comment_button")
 const menu_div = document.querySelector("#menu-img_div");
 const mask = document.querySelector("#mask")
 let menuShow = false
+
+const getCookieValue = (key) => {
+    let cookieKey = key + "=";
+    let result = "";
+    const cookieArr = document.cookie.split(";");
+
+    for (let i = 0; i < cookieArr.length; i++) {
+        if (cookieArr[i][0] === " ") {
+            cookieArr[i] = cookieArr[i].substring(1);
+        }
+
+        if (cookieArr[i].indexOf(cookieKey) === 0) {
+            result = cookieArr[i].slice(cookieKey.length, cookieArr[i].length);
+            return result;
+        }
+    }
+    return result;
+}
 
 window.addEventListener("load", async () => {
     resizing(true);
@@ -62,14 +81,16 @@ window.addEventListener("load", async () => {
 
     comments_userProfile.style.backgroundImage = `url('https://d18yz4nkgugxke.cloudfront.net/profiles/${json.channelId}.png?${new Date().getTime()}')`
 
-    writeAComment.addEventListener('keydown', () => {
+    const writeACommentAddEventListener = () => {
         writeAComment.style.height = '0px'
         writeAComment.style.height = (writeAComment.scrollHeight) + 'px'
-    })
-    writeAComment.addEventListener('focusout', () => {
-        writeAComment.style.height = '0px'
-        writeAComment.style.height = (writeAComment.scrollHeight) + 'px'
-    })
+        if(writeAComment.value.replaceAll(" ", "") === '') commentButton.disabled = true
+        else commentButton.disabled = false
+    }
+    writeAComment.addEventListener('keydown', writeACommentAddEventListener)
+    writeAComment.addEventListener('keyup', writeACommentAddEventListener)
+    writeAComment.addEventListener('focusout', writeACommentAddEventListener)
+    writeAComment.addEventListener('focus', writeACommentAddEventListener)
 
     let jsonComment = json.comments
     for (let i = 0; i < jsonComment.length; i++) {
@@ -98,19 +119,47 @@ window.addEventListener("resize", () => {
 });
 
 commentButton.addEventListener("click", async () => {
-    const result = await fetch(`/comment`, {
-        method: "post",
-        body: JSON.stringify({
-            "videoId": videoId,
-            "comment": writeAComment.value.replaceAll("\n", "<br>")
-        }),
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    })
+    let ownChannelName = getCookieValue("ownChannelId")
+    let id = getCookieValue("id")
 
-    let data = await result.text();
-    console.log(data)
+    if(ownChannelName){
+        let tmpDiv = document.createElement('div')
+        tmpDiv.innerHTML = `
+        <div>
+            <div id="comment_userInf" style="display: flex;">
+                <div>
+                    <a href="/channel/${ownChannelName}">
+                        <div class="comment_profile" style="background-image: url('https://d18yz4nkgugxke.cloudfront.net/profiles/${ownChannelName}.png?${new Date().getTime()}')"></div>
+                    </a>
+                </div>
+                <div>
+                    <div id="comment_channelName">${id}</div>
+                    <div>${writeAComment.value.replaceAll("\n", "<br>")}</div>
+                </div>
+            </div>
+        </div>`
+
+        tmp_comments.append(tmpDiv)
+
+        const writeACommentValueTrim = writeAComment.value.trim()
+        const result = await fetch(`/comment`, {
+            method: "post",
+            body: JSON.stringify({
+                "videoId": videoId,
+                "comment": writeACommentValueTrim.replace("\n", "<br>")
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            
+        writeAComment.value = ''
+
+        let data = await result.text();
+        console.log(data)
+    } else {
+        alert("WARNING!!\n잘못된 접근입니다.\n로그인이 되어있는지 확인해주십시오.");
+    }
 })
 
 menu_div.addEventListener('click', () => {

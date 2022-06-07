@@ -166,11 +166,10 @@ setting.addEventListener("click", () => {
 
 user.addEventListener("click", () => {
     let finalValue = getCookieValue("ownChannelId");
-    // console.log(finalValue);
     if (finalValue) {
         location.href = `/channel/${finalValue}`;
     } else {
-        alert("WARNING!!\n잘못된 접근입니다.");
+        alert("WARNING!!\n잘못된 접근입니다.\n로그인이 되어있는지 확인해주십시오.");
     }
 })
 
