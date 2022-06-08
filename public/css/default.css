@@ -10,6 +10,10 @@ input:focus, textarea:focus {
     outline: none;
 }
 
+.hoverCursorPointer:hover {
+    cursor: pointer;
+}
+
 #background {
     width: 100vw;
     height: 100vh;

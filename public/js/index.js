@@ -30,7 +30,8 @@ window.addEventListener('load', async () => {
                         <div>${json.recentVideoList[i].videoTitle}</div>
                     </a>
                 </h3>
-                <a href="/channel/${channelId}">${json.recentVideoList[i].owner}</a>
+                <a href="/channel/${channelId}" class="video-channel">${json.recentVideoList[i].owner}</a>
+                <div class="video-views">조회수 ${json.recentVideoList[i].views}회</div>
             </div>
         </div>`
 

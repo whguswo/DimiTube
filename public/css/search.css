@@ -1,12 +1,20 @@
 #container {
+    position: relative;
     padding: 20px;
     box-sizing: border-box;
     display: flex;
     justify-content: center;
+    background-color: rgb(245, 245, 245);
 }
 
-#header-container {}
+#header-container {
+    width: 100%;
+}
 
-#video-div>div {
-    height: 300px;
+#video-div>div, #channel-div>div {
+    height: 150px;
+    border: 1px solid black;
+    line-height: 150px;
+    text-align: center;
+    font-size: 30px;
 }

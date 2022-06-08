@@ -5,6 +5,10 @@
     font-style: normal;
 }
 
+* {
+    font-family: 'NOTOSANS';
+}
+
 #watch-header {
     position: relative;
     width: 100%;
@@ -26,7 +30,7 @@
 #video-container {
     width: 72%;
     padding: 20px 20px 0 0;
-    font-family: 'NOTOSANS';
+    /* font-family: 'NOTOSANS'; */
     background-color: rgb(245, 245, 245);
 }
 
@@ -37,7 +41,7 @@
 }
 
 #videoTitle {
-    font-family: 'NOTOSANS';
+    /* font-family: 'NOTOSANS'; */
     font-size: 1.5rem;
     font-weight: 400;
 }
@@ -149,18 +153,55 @@
 
 #writeAComment {
     width: 100%;
-    height: 18px;
+    height: 25px;
     border: none;
     resize: none;
     overflow-y: hidden;
     border-bottom: 1px solid #0000001a;
     background-color: transparent;
-    font-family: 'NOTOSANS';
+    /* font-family: 'NOTOSANS'; */
     font-size: 15px;
+    margin-bottom: 8px;
 }
 
 #comments>div, #tmp-comments>div {
     margin-bottom: 24px;
+}
+
+#comment_button-container {
+    display: none;
+    justify-content: flex-end;
+}
+
+.comment_button {
+    padding: 10px 16px;
+    width: 70px;
+    height: 40px;
+    border: none;
+    color: gray;
+    font-size: 15px;
+    margin-left: 8px;
+}
+
+#comment_button_write[disabled] {
+    background-color: rgb(240, 240, 240);
+    color: gray;
+}
+
+#comment_button_write {
+    background-color: #DF0E77;
+    color: white;
+}
+
+#comment_button_cancel:hover, #comment_button_write:hover {
+    cursor: pointer;
+}
+#comment_button_write[disabled]:hover {
+    cursor: auto;
+}
+
+#comment_button_cancel {
+    background-color: rgb(245, 245, 245);
 }
 
 /* ================================ othervideo =============================== */
@@ -193,6 +234,7 @@
     width: 168px;
     height: 94px;
     margin-right: 8px;
+    background-color: black;
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
@@ -201,16 +243,16 @@
 .other_video-information {
     display: flex;
     flex-direction: column;
-    font-family: "Roboto", "Arial", sans-serif;
+    /* font-family: "Roboto", "Arial", sans-serif; */
     width: calc(100% - 168px);
 }
 
 .other_videoTitle {
     width: 100%;
-    font-size: 1rem;
+    font-size: 15px;
     font-weight: 500;
     color: black;
-    margin-bottom: 8px;
+    margin-bottom: 4px;
     white-space: normal;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -221,9 +263,17 @@
 }
 
 .other_channel {
-    color: rgb(100, 100, 100);
+    color: rgb(120, 120, 120);
+    font-family: "Roboto","Arial",sans-serif;
+    font-size: 15px;
 }
 
 .other_channel:hover {
-    color: rgb(40, 40, 40);
+    color: rgb(70, 70, 70);
+}
+
+.other_views {
+    color: rgb(120, 120, 120);
+    font-family: "Roboto","Arial",sans-serif;
+    font-size: 13.3px;
 }

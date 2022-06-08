@@ -1,3 +1,14 @@
+@font-face {
+    font-family: 'NOTOSANS';
+    src: url("../font/NotoSansKR-Regular.otf");
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    font-family: 'NOTOSANS';
+}
+
 #video_container {
     position: relative;
     width: 100%;
@@ -59,6 +70,21 @@
 
 .video-title {
     font-weight: normal;
-    font-size: 16px;
+    font-size: 16.5px;
     margin: 12px 0 4px 0;
+}
+
+.video-views {
+    font-size: 14px;
+    color: rgb(120, 120, 120);
+}
+
+.video-channel {
+    font-size: 15px;
+    color: rgb(120, 120, 120);
+}
+
+.video-channel:hover {
+    color: rgb(70, 70, 70);
+    cursor: pointer;
 }

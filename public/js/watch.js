@@ -13,9 +13,13 @@ const writeAComment = document.getElementById("writeAComment")
 const comments = document.getElementById("comments")
 const tmp_comments = document.getElementById("tmp-comments")
 const comments_userProfile = document.getElementById("comments_userProfile")
-const commentButton = document.getElementById("comment_button")
+const comment_button_write = document.getElementById("comment_button_write")
+const comment_button_cancel = document.getElementById("comment_button_cancel")
+const comment_button_container = document.getElementById("comment_button-container")
 const menu_div = document.querySelector("#menu-img_div");
 const mask = document.querySelector("#mask")
+const number_of_comments = document.getElementById("number_of_comments")
+const videoViews = document.getElementById('videoViews')
 let menuShow = false
 
 const getCookieValue = (key) => {
@@ -49,8 +53,7 @@ window.addEventListener("load", async () => {
     let json = JSON.parse(data);
     console.log(json);
     videoTitle.innerHTML = json.videoTitle;
-    userIcon.style.backgroundImage = `url('https://d18yz4nkgugxke.cloudfront.net/profiles/${json.channelId
-        }.png?${new Date().getTime()}')`;
+    userIcon.style.backgroundImage = `url('https://d18yz4nkgugxke.cloudfront.net/profiles/${json.channelId}.png?${new Date().getTime()}')`;
     userIcon.addEventListener("click", () => {
         location.href = `/channel/${json.channelId}`;
     });
@@ -58,6 +61,8 @@ window.addEventListener("load", async () => {
     description.innerHTML = json.description;
 
     const jsonVideoList = json.videoList;
+    number_of_comments.innerHTML = `댓글 ${json.comments.length}개`
+    videoViews.innerHTML = `조회수 ${json.views}회`
     for (let i = 0; i < jsonVideoList.length; i++) {
         let other_videoId = jsonVideoList[i].videoId;
         if (json.videoTitle === jsonVideoList[i].videoTitle) continue;
@@ -70,6 +75,7 @@ window.addEventListener("load", async () => {
             <a href="/channel/${other_channelId}">
                 <div class="other_channel">${jsonVideoList[i].owner}</div>
             </a>
+            <div class="other_views">조회수 ${jsonVideoList[i].views}회</div>
         </div>`
         div.addEventListener('click', () => {
             location.href = `/watch?v=${other_videoId}`
@@ -78,19 +84,21 @@ window.addEventListener("load", async () => {
         otherVideo_container.append(div)
     }
     //comments => 댓글, views => 조회수
-
-    comments_userProfile.style.backgroundImage = `url('https://d18yz4nkgugxke.cloudfront.net/profiles/${json.channelId}.png?${new Date().getTime()}')`
+    const nowChannelId = getCookieValue('ownChannelId')
+    comments_userProfile.style.backgroundImage = `url('https://d18yz4nkgugxke.cloudfront.net/profiles/${nowChannelId}.png?${new Date().getTime()}')`
 
     const writeACommentAddEventListener = () => {
         writeAComment.style.height = '0px'
         writeAComment.style.height = (writeAComment.scrollHeight) + 'px'
-        if(writeAComment.value.replaceAll(" ", "") === '') commentButton.disabled = true
-        else commentButton.disabled = false
+        if(writeAComment.value.replaceAll(" ", "") === '') comment_button_write.disabled = true
+        else comment_button_write.disabled = false
     }
     writeAComment.addEventListener('keydown', writeACommentAddEventListener)
     writeAComment.addEventListener('keyup', writeACommentAddEventListener)
     writeAComment.addEventListener('focusout', writeACommentAddEventListener)
-    writeAComment.addEventListener('focus', writeACommentAddEventListener)
+    writeAComment.addEventListener('focus', () => {
+        comment_button_container.style.display = 'flex'
+    })
 
     let jsonComment = json.comments
     for (let i = 0; i < jsonComment.length; i++) {
@@ -118,7 +126,7 @@ window.addEventListener("resize", () => {
     resizing();
 });
 
-commentButton.addEventListener("click", async () => {
+comment_button_write.addEventListener("click", async () => {
     let ownChannelName = getCookieValue("ownChannelId")
     let id = getCookieValue("id")
 
@@ -139,7 +147,8 @@ commentButton.addEventListener("click", async () => {
             </div>
         </div>`
 
-        tmp_comments.append(tmpDiv)
+        tmp_comments.prepend(tmpDiv)
+        comment_button_container.style.display = 'none'
 
         const writeACommentValueTrim = writeAComment.value.trim()
         const result = await fetch(`/comment`, {
@@ -155,11 +164,17 @@ commentButton.addEventListener("click", async () => {
             
         writeAComment.value = ''
 
-        let data = await result.text();
+        // let data = await result.text();
         console.log(data)
     } else {
         alert("WARNING!!\n잘못된 접근입니다.\n로그인이 되어있는지 확인해주십시오.");
     }
+})
+
+comment_button_cancel.addEventListener('click', () => {
+    writeAComment.value = ''
+    comment_button_write.disabled = true
+    comment_button_container.style.display = 'none'
 })
 
 menu_div.addEventListener('click', () => {

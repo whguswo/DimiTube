@@ -20,6 +20,7 @@ window.addEventListener('load', async () => {
         for (let i = 0; i < json.channels.length; i++) {
             const div = document.createElement("div")
             div.innerHTML = json.channels[i].channelName
+            div.className = 'hoverCursorPointer'
             div.addEventListener("click", () => {
                 location.href = `/channel/${json.channels[i].channelId}`
             })
@@ -33,6 +34,7 @@ window.addEventListener('load', async () => {
         for (let j = 0; j < json.videos.length; j++) {
             const div = document.createElement("div")
             div.innerHTML = json.videos[j].videoTitle
+            div.className = 'hoverCursorPointer'
             div.addEventListener("click", () => {
                 location.href = `/watch?v=${json.videos[j].videoId}`
             })

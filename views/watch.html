@@ -50,11 +50,11 @@
                         </div>
                         <div id="videoTitle-container">
                             <div id="videoTitle"></div>
-                            <div id="videoViews">조회수 4727만 회</div>
+                            <div id="videoViews">조회수 0회</div>
                         </div>
                         <div id="video-information">
                             <div id="channelInfo">
-                                <div id="user-icon"></div>
+                                <div id="user-icon" class="hoverCursorPointer"></div>
                                 <div id="channelName"></div>
                             </div>
                             <div id="description-container">
@@ -63,13 +63,14 @@
                         </div>
                         <div id="comment-container" class="displayFlex_column">
                             <div id="comment-inner-container">
-                                <div id="number_of_comments">댓글 1개</div>
+                                <div id="number_of_comments">댓글 0개</div>
                                 <div id="writeAComment-container">
                                     <div id="comments_userProfile" class="comment_profile"></div>
                                     <div id="comment_textarea" class="displayFlex_column">
                                         <textarea id="writeAComment" type="text" placeholder="댓글추가..."></textarea>
-                                        <div>
-                                            <button id="comment_button" disabled>작성</button>
+                                        <div id="comment_button-container">
+                                            <button id="comment_button_cancel" class="comment_button">취소</button>
+                                            <button id="comment_button_write" class="comment_button" disabled>작성</button>
                                         </div>
                                     </div>
                                 </div>
