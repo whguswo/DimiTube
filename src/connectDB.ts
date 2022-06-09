@@ -101,9 +101,12 @@ const verify = async (sessionHash: string) => {
 const getChannel = async (channel: string) => {
     await client.connect();
     const db = client.db('dimitube');
+    const videoCollection = db.collection('video')
     const channelCollection = db.collection('channel')
 
+
     const arr = await channelCollection.find({ channelId: channel }).toArray();
+    // console.log(arr)
     // await client.close();
     if (arr.length == 0) {
         return false
@@ -115,72 +118,80 @@ const getChannel = async (channel: string) => {
 const addVideoList = async (sessionHash: string, videoId: string, filename: string, description: string) => {
     await client.connect();
     const db = client.db('dimitube');
+    const videoCollection = db.collection('video')
     const channelCollection = db.collection('channel')
 
     const channel = await channelCollection.findOne({ sessionHash: sessionHash });
-    const recent = await channelCollection.findOne({ type: "recentVideo" })
 
     if (!channel) {
         return false
-    } else {
-        channel.videoList.push({
-            owner: channel.channelName,
-            channelId: channel.channelId,
-            videoId: videoId,
-            videoTitle: filename,
-            description: description,
-            views: 0,
-            comments: []
-        })
-        channelCollection.updateOne({ sessionHash: channel.sessionHash }, { "$set": { "videoList": channel.videoList } })
-        if (recent.recentVideoList.length == 10) {
-            recent.recentVideoList.pop()
-        }
-        recent.recentVideoList.unshift({
-            owner: channel.channelName,
-            channelId: channel.channelId,
-            videoId: videoId,
-            videoTitle: filename,
-            views: 0
-        })
-        channelCollection.updateOne({ type: "recentVideo" }, {
-            "$set": { "recentVideoList": recent.recentVideoList }
-        })
-        channelCollection.updateOne({ type: "allVideo" }, {
-            "$push": {
-                "allVideoList": {
-                    owner: channel.channelName,
-                    channelId: channel.channelId,
-                    videoId: videoId,
-                    videoTitle: filename,
-                    views: 0
-                }
-            }
-        })
-        return true
     }
+    channel.videoList.push({
+        owner: channel.channelName,
+        channelId: channel.channelId,
+        videoId: videoId,
+        videoTitle: filename,
+    })
+    channelCollection.updateOne({ sessionHash: channel.sessionHash }, {
+        "$set": { "videoList": channel.videoList }
+    })
+    videoCollection.insertOne({
+        owner: channel.channelName,
+        channelId: channel.channelId,
+        videoId: videoId,
+        videoTitle: filename,
+        description: description,
+        views: 0,
+        comments: []
+    })
+    // videoCollection.updateOne({ sessionHash: channel.sessionHash }, { "$set": { "videoList": channel.videoList } })
+    // if (recent.recentVideoList.length == 10) {
+    //     recent.recentVideoList.pop()
+    // }
+    // recent.recentVideoList.unshift({
+    //     owner: channel.channelName,
+    //     channelId: channel.channelId,
+    //     videoId: videoId,
+    //     videoTitle: filename,
+    //     views: 0
+    // })
+    // channelCollection.updateOne({ type: "recentVideo" }, {
+    //     "$set": { "recentVideoList": recent.recentVideoList }
+    // })
+    // channelCollection.updateOne({ type: "allVideo" }, {
+    //     "$push": {
+    //         "allVideoList": {
+    //             owner: channel.channelName,
+    //             channelId: channel.channelId,
+    //             videoId: videoId,
+    //             videoTitle: filename,
+    //             views: 0
+    //         }
+    //     }
+    // })
+    return true
+
 }
 
 
 const search = async (keyword: string) => {
     await client.connect();
     const db = client.db('dimitube');
+    const videoCollection = db.collection('video')
     const channelCollection = db.collection('channel')
 
     const channelArr = await channelCollection.find({ channelName: { $regex: keyword, $options: "i" } }).toArray();
-    const videoArr = await channelCollection.find({ videoList: { "$elemMatch": { "videoTitle": { $regex: keyword, $options: "i" } } } }).toArray();
+    const videoArr = await videoCollection.find({ videoTitle: { $regex: keyword, $options: "i" } }).toArray();
     let channelResult = []
     let videoResult = []
     for (let i = 0; i < channelArr.length; i++) {
         channelResult.push({ channelName: channelArr[i].channelName, channelId: channelArr[i].channelId })
     }
     for (let j = 0; j < videoArr.length; j++) {
-        for (let k = 0; k < videoArr[j].videoList.length; k++) {
-            if (videoArr[j].videoList[k].videoTitle.indexOf(keyword) != -1) {
-                videoResult.push(videoArr[j].videoList[k])
-            }
-        }
+        videoResult.push(videoArr[j])
+        // videoArr[j]
     }
+
     if (channelArr.length == 0 && videoArr.length == 0) {
         return false
     } else {
@@ -202,117 +213,119 @@ const updateSetting = async (sessionHash: string, obj: editQuery) => {
 const removeVideo = async (sessionHash: string, videoArr: Array<string>) => {
     await client.connect();
     const db = client.db('dimitube');
+    const videoCollection = db.collection('video')
     const channelCollection = db.collection('channel')
-    channelCollection.updateOne({ sessionHash: sessionHash }, {
-        $pull: { videoList: { videoId: { $in: videoArr } } }
+
+    const owner = await channelCollection.findOne({
+        sessionHash: sessionHash
     })
-    channelCollection.updateOne({ type: "recentVideo" }, {
-        $pull: { recentVideoList: { videoId: { $in: videoArr } } }
-    })
-    channelCollection.updateOne({ type: "allVideo" }, {
-        $pull: { allVideoList: { videoId: { $in: videoArr } } }
-    })
+
+    for (let i = 0; i < videoArr.length; i++) {
+        const video = await videoCollection.findOne({
+            videoId: videoArr[i]
+        })
+
+        if (video.channelId == owner.channelId) {
+            videoCollection.deleteOne({
+                videoId: videoArr[i]
+            })
+            channelCollection.updateOne({ sessionHash: sessionHash }, {
+                $pull: { videoList: { videoId: { $in: videoArr } } }
+            })
+        }
+    }
+
+    // channelCollection.updateOne({ sessionHash: sessionHash }, {
+    //     $pull: { videoList: { videoId: { $in: videoArr } } }
+    // })
+    // channelCollection.updateOne({ type: "recentVideo" }, {
+    //     $pull: { recentVideoList: { videoId: { $in: videoArr } } }
+    // })
+    // channelCollection.updateOne({ type: "allVideo" }, {
+    //     $pull: { allVideoList: { videoId: { $in: videoArr } } }
+    // })
 }
 
 const getRecentVideo = async () => {
     await client.connect();
     const db = client.db('dimitube');
-    const channelCollection = db.collection('channel')
+    const videoCollection = db.collection('video')
 
-    const recent = await channelCollection.findOne({ type: "recentVideo" });
-
-    return recent.recentVideoList
+    const recent = await videoCollection.find().sort({ '_id': -1 }).limit(10).toArray()
+    return recent
 }
 
 const getAllVideo = async () => {
     await client.connect();
     const db = client.db('dimitube');
-    const channelCollection = db.collection('channel')
+    const videoCollection = db.collection('video')
 
-    const all = await channelCollection.findOne({ type: "allVideo" });
+    const all = await videoCollection.find({
+        videoId: { $ne: "none" }
+    }).toArray()
 
-    return all.allVideoList
+    return all
 }
 
 const getVideoInfo = async (videoId: string) => {
     await client.connect();
     const db = client.db('dimitube');
+    const videoCollection = db.collection('video')
     const channelCollection = db.collection('channel')
 
-    let videoTitle = ""
-    let description = ""
-    let views
-    let comments
-
-    const owner = await channelCollection.findOne({ videoList: { "$elemMatch": { "videoId": videoId } } })
-    for (let i = 0; i < owner.videoList.length; i++) {
-        if (owner.videoList[i].videoId == videoId) {
-            videoTitle = owner.videoList[i].videoTitle
-            description = owner.videoList[i].description
-            views = owner.videoList[i].views
-            comments = owner.videoList[i].comments
-        }
-    }
-    return { channelId: owner.channelId, channelName: owner.channelName, videoList: owner.videoList, videoTitle, description, views, comments }
+    const video = await videoCollection.findOne({ videoId: videoId })
+    const owner = await channelCollection.findOne({ videoList: { $elemMatch: { videoId: videoId } } })
+    return { channelId: owner.channelId, channelName: owner.channelName, videoList: owner.videoList, videoTitle: video.videoTitle, description: video.videoTitle, views: video.views, comments: video.comments }
 
 }
 
 const addViews = async (videoId: string) => {
     await client.connect();
     const db = client.db('dimitube');
-    const channelCollection = db.collection('channel')
+    const videoCollection = db.collection('video')
 
-    const info = await channelCollection.findOne({ videoList: { "$elemMatch": { "videoId": videoId } } })
-    for (let i = 0; i < info.videoList.length; i++) {
-        if (info.videoList[i].videoId == videoId) {
-            info.videoList[i].views += 1
-            channelCollection.updateOne({ sessionHash: info.sessionHash }, {
-                "$set": { videoList: info.videoList }
-            })
-        }
-    }
-    const allVideo = await channelCollection.findOne({ type: "allVideo" })
-    for (let i = 0; i < allVideo.allVideoList.length; i++) {
-        if (allVideo.allVideoList[i].videoId == videoId) {
-            allVideo.allVideoList[i].views += 1
-            channelCollection.updateOne({ type: "allVideo" }, {
-                "$set": { allVideoList: allVideo.allVideoList }
-            })
-        }
-    }
-    const recentVideo = await channelCollection.findOne({ type: "recentVideo" })
-    for (let i = 0; i < recentVideo.recentVideoList.length; i++) {
-        if (recentVideo.recentVideoList[i].videoId == videoId) {
-            recentVideo.recentVideoList[i].views += 1
-            channelCollection.updateOne({ type: "recentVideo" }, {
-                "$set": { recentVideoList: recentVideo.recentVideoList }
-            })
-        }
-    }
+    const video = await videoCollection.findOne({ videoId: videoId })
+
+    videoCollection.updateOne({ videoId: videoId }, {
+        $set: { views: video.views += 1 }
+    })
 }
 
+
+//댓글 수정할것.
 const addComment = async (sessionHash: string, videoId: string, comment: string) => {
     await client.connect();
     const db = client.db('dimitube');
+    const videoCollection = db.collection('video')
     const channelCollection = db.collection('channel')
 
+    const video = await videoCollection.findOne({ videoId: videoId })
     const channel = await channelCollection.findOne({ sessionHash: sessionHash })
-    const channelId = channel.channelId
-    const channelName = channel.channelName
-    const video = await channelCollection.findOne({ videoList: { "$elemMatch": { "videoId": videoId } } })
-    for (let i = 0; i < video.videoList.length; i++) {
-        if (video.videoList[i].videoId == videoId) {
-            video.videoList[i].comments.unshift({
-                channelId: channelId,
-                channelName: channelName,
-                comment: comment
-            })
-            channelCollection.updateOne({ videoList: { "$elemMatch": { "videoId": videoId } } }, {
-                "$set": { videoList: video.videoList }
-            })
-            break
-        }
-    }
+
+    video.comments.unshift({
+        channelId: channel.channelId,
+        channelName: channel.channelName,
+        comment: comment
+    })
+    videoCollection.updateOne({ videoId: videoId }, {
+        $set: { comments: video.comments }
+    })
+    // const channelId = channel.channelId
+    // const channelName = channel.channelName
+    // const video = await channelCollection.findOne({ videoList: { "$elemMatch": { "videoId": videoId } } })
+    // for (let i = 0; i < video.videoList.length; i++) {
+    //     if (video.videoList[i].videoId == videoId) {
+    //         video.videoList[i].comments.unshift({
+    //             channelId: channelId,
+    //             channelName: channelName,
+    //             comment: comment
+    //         })
+    //         channelCollection.updateOne({ videoList: { "$elemMatch": { "videoId": videoId } } }, {
+    //             "$set": { videoList: video.videoList }
+    //         })
+    //         break
+    //     }
+    // }
 }
 
 export { login, register, createUser, verify, getChannel, addVideoList, search, updateSetting, removeVideo, getRecentVideo, getAllVideo, getVideoInfo, addViews, addComment };

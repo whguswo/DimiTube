@@ -31,17 +31,9 @@ app.get('/', async (req: Request, res: Response) => {
 app.get('/getVideo', async (req: Request, res: Response) => {
     let recent = await getRecentVideo()
     let all = await getAllVideo()
-    const createRandom = (arr: []) => {
-        let result: Array<object> = []
-        for (let i = 0; i < 3; i++) {
-            let tmp = arr[Math.floor(Math.random() * (arr.length - i))]
-            result.push(tmp)
-            arr.splice(arr.indexOf(tmp), 1)
-        }
-        return result
-    }
-    let random = createRandom(all)
-    res.send({ recentVideoList: recent, allVideoList: random })
+    res.send({ recentVideoList: recent, allVideoList: all })
+    // res.send({ allVideoList: all })
+
 });
 
 app.get('/login', (req: Request, res: Response) => {

@@ -90,7 +90,7 @@ window.addEventListener("load", async () => {
     const writeACommentAddEventListener = () => {
         writeAComment.style.height = '0px'
         writeAComment.style.height = (writeAComment.scrollHeight) + 'px'
-        if(writeAComment.value.replaceAll(" ", "") === '') comment_button_write.disabled = true
+        if (writeAComment.value.replaceAll(" ", "") === '') comment_button_write.disabled = true
         else comment_button_write.disabled = false
     }
     writeAComment.addEventListener('keydown', writeACommentAddEventListener)
@@ -130,7 +130,7 @@ comment_button_write.addEventListener("click", async () => {
     let ownChannelName = getCookieValue("ownChannelId")
     let id = getCookieValue("id")
 
-    if(ownChannelName){
+    if (ownChannelName) {
         let tmpDiv = document.createElement('div')
         tmpDiv.innerHTML = `
         <div>
@@ -161,7 +161,7 @@ comment_button_write.addEventListener("click", async () => {
                 'Content-Type': 'application/json'
             }
         })
-            
+
         writeAComment.value = ''
 
         // let data = await result.text();
