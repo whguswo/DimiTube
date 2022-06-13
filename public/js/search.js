@@ -15,6 +15,7 @@ window.addEventListener('load', async () => {
     })
     let data = await search.text()
     let json = JSON.parse(data)
+    console.log(json)
     let result = true;
     if (json.channels.length != 0) {
         for (let i = 0; i < json.channels.length; i++) {
