@@ -11,23 +11,39 @@
     width: 100%;
 }
 
-#video-div>div, #channel-div>div {
+#channel-div {
+    width: 80%;
+    position: relative;
+    margin: auto;
+    box-sizing: border-box;
+}
+
+#video-div > div,
+#channel-div > div {
+    width: 100%;
     border: 1px solid black;
     line-height: 150px;
     text-align: center;
     font-size: 30px;
-}
-
-#search_channelProfile_container {
-    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #search_channelProfile {
     width: 136px;
     height: 136px;
     border-radius: 50%;
-    background-image: url('https://d18yz4nkgugxke.cloudfront.net/profiles/aGNkb3NkdGV1cg.png?${new Date().getTime()}');
+    background-image: none;
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
+}
+
+#search_channelInformation {
+    display: flex;
+}
+
+#search_channelName {
+    width: 300px;
 }

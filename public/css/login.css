@@ -1,12 +1,12 @@
 @font-face {
-    font-family: 'MYRIADPRO-REGULAR';
+    font-family: "MYRIADPRO-REGULAR";
     src: url("../font/MYRIADPRO-REGULAR.OTF");
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'MYRIADPRO-SEMIBOLD';
+    font-family: "MYRIADPRO-SEMIBOLD";
     src: url("../font/MYRIADPRO-SEMIBOLD.OTF");
     font-weight: normal;
     font-style: normal;
@@ -105,12 +105,12 @@ input:focus {
     display: flex;
     justify-content: space-between;
     color: gray;
-    font-family: 'MYRIADPRO-REGULAR';
+    font-family: "MYRIADPRO-REGULAR";
     font-size: 13px;
     align-items: center;
 }
 
-input[type=checkbox] {
+input[type="checkbox"] {
     width: 25px;
     height: 25px;
     margin: 0 10px 0 0;
@@ -129,17 +129,17 @@ input[for="rememberMe"] {
 .inputText {
     width: 100%;
     font-size: 19px;
-    font-family: 'MYRIADPRO-REGULAR';
+    font-family: "MYRIADPRO-REGULAR";
 }
 
 #submit {
     width: 100%;
     height: 50px;
-    font-family: 'MYRIADPRO-REGULAR';
+    font-family: "MYRIADPRO-REGULAR";
     font-size: 18px;
     cursor: pointer;
     color: white;
-    background-color: #DF0E77;
+    background-color: #df0e77;
     border: none;
 }
 
@@ -151,7 +151,7 @@ input[for="rememberMe"] {
     width: 100%;
     height: 50px;
     border: none;
-    font-family: 'MYRIADPRO-REGULAR';
+    font-family: "MYRIADPRO-REGULAR";
     font-size: 20px;
     border-bottom: solid 1.5px black;
     box-sizing: border-box;
@@ -190,12 +190,12 @@ input[for="rememberMe"] {
 }
 
 #c_a_t_1 {
-    font-family: 'MYRIADPRO-SEMIBOLD';
+    font-family: "MYRIADPRO-SEMIBOLD";
     font-size: 22px;
 }
 
 #c_a_t_2 {
-    font-family: 'MYRIADPRO-REGULAR';
+    font-family: "MYRIADPRO-REGULAR";
     font-size: 16px;
 }
 
@@ -203,7 +203,7 @@ input[for="rememberMe"] {
     width: 120px;
     height: 40px;
     margin: auto;
-    background-color: #DF0E77;
+    background-color: #df0e77;
 }
 
 #goToRegister_a:active {
@@ -213,7 +213,7 @@ input[for="rememberMe"] {
 #goToRegister_btn {
     width: 100%;
     height: 100%;
-    font-family: 'MYRIADPRO-REGULAR';
+    font-family: "MYRIADPRO-REGULAR";
     font-size: 15px;
     line-height: 40px;
     cursor: pointer;
