@@ -21,11 +21,8 @@ window.addEventListener("load", async () => {
             const div = document.createElement("div");
             div.innerHTML = `
 			<div id="search_channelProfile_container">
-				<a href="/channel/">
-					<div id="search_channelProfile" style="background-image: url('https://d18yz4nkgugxke.cloudfront.net/profiles/${
-                        json.channels[i].channelId
-                    }.png?${new Date().getTime()}')"></div>
-				</a>
+				<div id="search_channelProfile" style="background-image: url('https://d18yz4nkgugxke.cloudfront.net/profiles/${json.channels[i].channelId
+                }.png?${new Date().getTime()}')"></div>
 			</div>
 			<div id="search_channelInformation">
 				<div id="search_channelName">${json.channels[i].channelName}</div>
@@ -43,7 +40,10 @@ window.addEventListener("load", async () => {
     if (json.videos.length != 0) {
         for (let j = 0; j < json.videos.length; j++) {
             const div = document.createElement("div");
-            div.innerHTML = json.videos[j].videoTitle;
+            div.innerHTML = `
+            <div id="search_videoInformation">
+                <div id="search_videoTitle">${json.videos[j].videoTitle}</div>
+            </div>`;
             div.className = "hoverCursorPointer";
             div.addEventListener("click", () => {
                 location.href = `/watch?v=${json.videos[j].videoId}`;

@@ -9,17 +9,26 @@
 
 #header-container {
     width: 100%;
+    position: relative;
 }
 
+/* 
 #channel-div {
+    width: 80%;
+    position: relative;
+    margin: auto;
+    box-sizing: border-box;
+} */
+
+.search_result_block {
     width: 80%;
     position: relative;
     margin: auto;
     box-sizing: border-box;
 }
 
-#video-div > div,
-#channel-div > div {
+#video-div>div,
+#channel-div>div {
     width: 100%;
     border: 1px solid black;
     line-height: 150px;

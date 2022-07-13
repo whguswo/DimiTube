@@ -42,9 +42,13 @@ const deleteCookie = (name) => {
     document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 }
 
+const sideBarToggle = () => {
+    sidebar.classList.toggle('active')
+}
+
 const menuShowFun = (bool) => {
-    let thisfilefullname = document.URL.substring(document.URL.lastIndexOf('/') + 1, document.URL.length);
-    let thisfilename = thisfilefullname.substring(thisfilefullname.lastIndexOf('?'), 0);
+    // 페이지 구분 (수정 필요!)
+
     const check_isWatchPage = e => {
         if (thisfilename === "watch") {
             main.style.marginLeft = '0px';
@@ -58,17 +62,6 @@ const menuShowFun = (bool) => {
                 main.style.width = `calc(100% - ${sidebarWidth}px)`;
             }
         }
-    }
-    if (bool === true) {
-        sidebarWidth = 220;
-        check_isWatchPage(true)
-        alert1.style.display = "block";
-        menuShow = true;
-    } else if (bool === false) {
-        sidebarWidth = 50;
-        check_isWatchPage(false)
-        alert1.style.display = "none";
-        menuShow = false;
     }
 }
 
@@ -100,10 +93,15 @@ const resizing = () => {
 
 window.addEventListener('load', async () => {
     let channelId = getCookieValue("ownChannelId");
+    let path = location.pathname
+    if (path == '/watch') {
+        sidebar.style.width = '0px'
+        console.log(sidebar.classList.contains('active'))
+    }
     if (channelId) {
         user_inner.style.backgroundImage = `url('https://d18yz4nkgugxke.cloudfront.net/profiles/${channelId}.png?${new Date().getTime()}')`
     }
-    menuShowFun(false) // sidebar 이전상태 기억하기
+    // menuShowFun(false) // sidebar 이전상태 기억하기
     resizing()
 })
 
@@ -187,9 +185,10 @@ menu_div.addEventListener('click', () => {
     menu_div.addEventListener('animationend', () => {
         menu_div.classList.remove('clickEffect');
     })
-    if (!menuShow) {
-        menuShowFun(true)
-    } else {
-        menuShowFun(false)
-    }
+    sideBarToggle()
+    // if (!menuShow) {
+    //     menuShowFun(true)
+    // } else {
+    //     menuShowFun(false)
+    // }
 })

@@ -20,6 +20,7 @@ const menu_div = document.querySelector("#menu-img_div");
 const mask = document.querySelector("#mask")
 const number_of_comments = document.getElementById("number_of_comments")
 const videoViews = document.getElementById('videoViews')
+const sidebar = document.querySelector("#side-bar");
 let menuShow = false
 
 const getCookieValue = (key) => {
@@ -222,3 +223,12 @@ const resizing = (e) => {
     if (e === true && window.innerWidth < 1920) video_innerContainer.style.height = `${(videoContainerWidth * 9) / 16 + 20}px`; // 16:9 비율 동적 변경
     else video_innerContainer.style.height = `${(videoContainerWidth * 9) / 16}px`;
 };
+
+menu_div.addEventListener("click", () => {
+    if (!sidebar.classList.contains('active')) {
+        sidebar.style.width = '220px'
+    }
+    else {
+        sidebar.style.width = '0px'
+    }
+})
