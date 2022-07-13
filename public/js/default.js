@@ -10,11 +10,8 @@ const search_button = document.querySelector("#search-button");
 const top_center = document.querySelector("#top-center_");
 const backBtn = document.querySelector("#smallScreenVer_out");
 const main = document.querySelector("#main");
-const alert1 = document.querySelector("#alert1");
 
-let menuShow = false;
 let search_toggle = false;
-let sidebarWidth = 220;
 
 const search = (query) => {
     location.href = `/search?query=${query}`
@@ -44,25 +41,6 @@ const deleteCookie = (name) => {
 
 const sideBarToggle = () => {
     sidebar.classList.toggle('active')
-}
-
-const menuShowFun = (bool) => {
-    // 페이지 구분 (수정 필요!)
-
-    const check_isWatchPage = e => {
-        if (thisfilename === "watch") {
-            main.style.marginLeft = '0px';
-            main.style.width = '100%'
-            if (e === false) sidebar.style.width = '0px'
-            else sidebar.style.width = `${sidebarWidth}px`;
-        } else {
-            sidebar.style.width = `${sidebarWidth}px`;
-            if (window.innerWidth > 1313) {
-                main.style.marginLeft = `${sidebarWidth}px`;
-                main.style.width = `calc(100% - ${sidebarWidth}px)`;
-            }
-        }
-    }
 }
 
 const resizing = () => {
@@ -101,7 +79,6 @@ window.addEventListener('load', async () => {
     if (channelId) {
         user_inner.style.backgroundImage = `url('https://d18yz4nkgugxke.cloudfront.net/profiles/${channelId}.png?${new Date().getTime()}')`
     }
-    // menuShowFun(false) // sidebar 이전상태 기억하기
     resizing()
 })
 
@@ -176,7 +153,9 @@ logout.addEventListener("click", () => {
     if (!logout_check) {
         return false;
     }
-
+    deleteCookie("sessionHash")
+    deleteCookie("ownChannelId")
+    deleteCookie("id")
     location.href = "/login";
 })
 
@@ -186,9 +165,4 @@ menu_div.addEventListener('click', () => {
         menu_div.classList.remove('clickEffect');
     })
     sideBarToggle()
-    // if (!menuShow) {
-    //     menuShowFun(true)
-    // } else {
-    //     menuShowFun(false)
-    // }
 })
