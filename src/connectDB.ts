@@ -137,7 +137,7 @@ const getChannel = async (channel: string) => {
 	const channelCollection = db.collection("channel");
 
 	const arr = await channelCollection.find({ channelId: channel }).toArray();
-	// console.log(arr)
+	console.log(arr[0].videoList);
 	// await client.close();
 	if (arr.length == 0) {
 		return false;
@@ -167,6 +167,7 @@ const addVideoList = async (
 		channelId: channel.channelId,
 		videoId: videoId,
 		videoTitle: filename,
+		views: 0,
 	});
 	channelCollection.updateOne(
 		{ sessionHash: channel.sessionHash },
@@ -358,6 +359,7 @@ const addViews = async (videoId: string) => {
 			$set: { views: (video.views += 1) },
 		}
 	);
+	//channel add views 수정 예정
 };
 
 //댓글 수정할것.
