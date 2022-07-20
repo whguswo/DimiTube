@@ -49,7 +49,7 @@ const checkSameAccount = async (
 	const arr = await userCollection
 		.find({ $or: [{ id: obj.id }, { email: obj.email }] })
 		.toArray();
-	console.log(arr);
+	// console.log(arr);
 	if (arr.length == 0) {
 		return true;
 	} else {
@@ -137,7 +137,7 @@ const getChannel = async (channel: string) => {
 	const channelCollection = db.collection("channel");
 
 	const arr = await channelCollection.find({ channelId: channel }).toArray();
-	console.log(arr[0].videoList);
+	// console.log(arr[0].videoList);
 	// await client.close();
 	if (arr.length == 0) {
 		return false;

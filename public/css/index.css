@@ -1,90 +1,90 @@
 @font-face {
-    font-family: 'NOTOSANS';
-    src: url("../font/NotoSansKR-Regular.otf");
-    font-weight: normal;
-    font-style: normal;
+	font-family: "NOTOSANS";
+	src: url("../font/NotoSansKR-Regular.otf");
+	font-weight: normal;
+	font-style: normal;
 }
 
 * {
-    font-family: 'NOTOSANS';
+	font-family: "NOTOSANS";
 }
 
 #video_container {
-    position: relative;
-    width: 100%;
-    height: calc(100% - 140px);
-    background-color: rgb(245, 245, 245);
+	position: relative;
+	width: 100%;
+	height: calc(100% - 140px);
+	background-color: rgb(245, 245, 245);
 }
 
 #videoContents_container {
-    display: flex;
-    flex-wrap: wrap;
-    padding: 20px;
-    width: 100%;
-    height: max-content;
-    justify-content: center;
-    box-sizing: border-box;
-    background-color: rgb(245, 245, 245);
+	display: flex;
+	flex-wrap: wrap;
+	padding: 20px;
+	width: 100%;
+	height: max-content;
+	justify-content: center;
+	box-sizing: border-box;
+	background-color: rgb(245, 245, 245);
 }
 
 #videoContents {
-    position: relative;
-    display: flex;
-    flex-wrap: wrap;
+	position: relative;
+	display: flex;
+	flex-wrap: wrap;
 }
 
-#videoContents>div {
-    position: relative;
-    font-size: 16px;
-    width: 315px;
-    height: 245px;
-    background-color: rgb(245, 245, 245);
-    margin: 0px 8px 40px 8px;
+#videoContents > div {
+	position: relative;
+	font-size: 16px;
+	width: 315px;
+	height: 273px;
+	background-color: rgb(245, 245, 245);
+	margin: 0px 8px 40px 8px;
 }
 
 .video-information {
-    display: flex;
-    width: 100%;
+	display: flex;
+	width: 100%;
 }
 
 .video-profile-container {
-    display: flex;
-    width: 40px;
-    height: 40px;
-    margin: 12px 12px 0 0;
-    justify-content: center;
+	display: flex;
+	width: 40px;
+	height: 40px;
+	margin: 12px 12px 0 0;
+	justify-content: center;
 }
 
 .video-profile {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: contain;
 }
 
 .video-texts {
-    width: calc(100% - 40px);
+	width: calc(100% - 40px);
 }
 
 .video-title {
-    font-weight: normal;
-    font-size: 16.5px;
-    margin: 12px 0 4px 0;
+	font-weight: normal;
+	font-size: 16.5px;
+	margin: 12px 0 4px 0;
 }
 
 .video-views {
-    font-size: 14px;
-    color: rgb(120, 120, 120);
+	font-size: 14px;
+	color: rgb(120, 120, 120);
 }
 
 .video-channel {
-    font-size: 15px;
-    color: rgb(120, 120, 120);
+	font-size: 15px;
+	color: rgb(120, 120, 120);
 }
 
 .video-channel:hover {
-    color: rgb(70, 70, 70);
-    cursor: pointer;
+	color: rgb(70, 70, 70);
+	cursor: pointer;
 }

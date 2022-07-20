@@ -8,15 +8,15 @@ const channelTitle = document.getElementById("channelTitle");
 const user_message = document.getElementById("user_message");
 const videoContents = document.getElementById("videoContents");
 const noVideoText = document.getElementById("noVideoText");
+const upload_popup = document.getElementById("upload_popup");
+const channel_settingBox = document.getElementById("channel_settingBox");
+const mobile_bottom_menu = document.getElementById("mobile_bottom_menu");
 const videoContents_container = document.getElementById(
 	"videoContents_container"
 );
 const upload_popup_container = document.getElementById(
 	"upload_popup_container"
 );
-const upload_popup = document.getElementById("upload_popup");
-const channel_settingBox = document.getElementById("channel_settingBox");
-const mobile_bottom_menu = document.getElementById("mobile_bottom_menu");
 
 window.addEventListener("load", async () => {
 	let fst_resizingPadding_width = window.innerWidth;
@@ -145,7 +145,7 @@ const resizingPadding = (now_width) => {
 };
 
 // =================================================== upload modal page =============================================================
-let uploadPage_isMouseout = false;
+let uploadPage_isMouseout = true;
 
 upload_popup.addEventListener("mouseenter", () => {
 	uploadPage_isMouseout = false;
