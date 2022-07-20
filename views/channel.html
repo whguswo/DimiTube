@@ -1,97 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>User Channel</title>
+		<link rel="shortcut icon" href="img/favicon.ico" />
+		<link rel="stylesheet" type="text/css" href="../../css/default.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/channel.css" />
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="../../css/htmlBar_design.css"
+		/>
+		<link rel="stylesheet" type="text/css" href="../../css/thumbnail.css" />
+	</head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Channel</title>
-    <link rel="stylesheet" type="text/css" href="../../css/default.css">
-    <link rel="stylesheet" type="text/css" href="../../css/channel.css">
-    <link rel="stylesheet" type="text/css" href="../../css/htmlBar_design.css">
-    <link rel="stylesheet" type="text/css" href="../../css/thumbnail.css">
-</head>
-
-<body>
-    <div id="default_container">
-        <div id="top-container">
-            <div id="top-start">
-                <div id="menu-img_div"></div>
-                <div id="logo-img"></div>
-            </div>
-            <div id="top-center">
-                <div id="top-center_">
-                    <div id="smallScreenVer_out"></div>
-                    <input id="search" placeholder="검색" type="text"><button id="search-button"></button>
-                </div>
-            </div>
-            <div id="top-end">
-                <div id="setting" class="topEnd_icon"></div>
-                <div id="user">
-                    <div id="user-inner" class="topEnd_icon"></div>
-                </div>
-                <div id="logout" class="topEnd_icon"></div>
-            </div>
-        </div>
-        <div id="side-bar">
-            <!-- 너비 늘리기 -->
-            <div id="alert1">베타 버전입니다.<br>PC로그인을 권장드립니다.</div>
-        </div>
-    </div>
-    <div id="mainPage">
-        <!-- channel page -->
-        <div id="main">
-            <div id="channel_container">
-                <div id="channel_header">
-                    <div id="channel_user">
-                        <div id="channel_profile"></div>
-                        <div id="channel_inner-header-container">
-                            <div>
-                                <div id="channelTitle"></div>
-                                <div id="user_message"></div>
-                            </div>
-                            <div id="channel_settingBox"></div>
-                        </div>
-                    </div>
-                </div>
-                <div id="tabs_container">
-                    <div id="tabs_inner-container">
-                        <ul id="tabs">
-                            <li style="border-bottom: 2px solid black; color: black;">홈</li> <!-- 탭 선택 애니메이션 만들기 -->
-                            <li>채널</li>
-                            <li>정보</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div id="video_container">
-                <div id="videoContents_container">
-                    <div id="videoContents"></div>
-                </div>
-            </div>
-            <div id="noVideo_container">
-                <div id="noVideo">
-                    <div id="noVideoImg"></div> <!-- 저작권 표기 (율이가 보내줘야됨) -->
-                    <div id="noVideoText">아니하다 존재하다 영상이!</div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div id="mobile_bottom_menu">
-        <div id="mobile_uploadBtn"></div>
-    </div>
-    <div id="upload_popup_container">
-        <div id="upload_popup">
-            <h1>업로드 페이지 입니다.</h1>
-            동영상 제목: <input type="text" name="" id="fileName"><br>
-            동영상 설명: <textarea name="" id="description"></textarea><br>
-            <input id="fileInput" type="file" accept="video/mp4"><br>
-            <button id="uploadButton">업로드</button>
-        </div>
-    </div>
-    <script src="../../js/channel.js"></script>
-    <script src="../../js/upload.js"></script>
-    <script type="module" src="../../js/default.js"></script>
-</body>
-
+	<body>
+		<div id="default_container">
+			<div id="top-container">
+				<div id="top-start">
+					<div id="menu-img_div"></div>
+					<div id="logo-img"></div>
+				</div>
+				<div id="top-center">
+					<div id="top-center_">
+						<div id="smallScreenVer_out"></div>
+						<input id="search" placeholder="검색" type="text" /><button
+							id="search-button"
+						></button>
+					</div>
+				</div>
+				<div id="top-end">
+					<div id="setting" class="topEnd_icon"></div>
+					<div id="user">
+						<div id="user-inner" class="topEnd_icon"></div>
+					</div>
+					<div id="logout" class="topEnd_icon"></div>
+				</div>
+			</div>
+			<div id="side-bar">
+				<!-- 너비 늘리기 -->
+				<div id="alert1">베타 버전입니다.<br />PC로그인을 권장드립니다.</div>
+			</div>
+		</div>
+		<div id="mainPage">
+			<!-- channel page -->
+			<div id="main">
+				<div id="channel_container">
+					<div id="channel_header">
+						<div id="channel_user">
+							<div id="channel_profile"></div>
+							<div id="channel_inner-header-container">
+								<div>
+									<div id="channelTitle"></div>
+									<div id="user_message"></div>
+								</div>
+								<div id="channel_settingBox"></div>
+							</div>
+						</div>
+					</div>
+					<div id="tabs_container">
+						<div id="tabs_inner-container">
+							<ul id="tabs">
+								<li style="border-bottom: 2px solid black; color: black">홈</li>
+								<!-- 탭 선택 애니메이션 만들기 -->
+								<li>채널</li>
+								<li>정보</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div id="video_container">
+					<div id="videoContents_container">
+						<div id="videoContents"></div>
+					</div>
+				</div>
+				<div id="noVideo_container">
+					<div id="noVideo">
+						<div id="noVideoImg"></div>
+						<!-- 저작권 표기 (율이가 보내줘야됨) -->
+						<div id="noVideoText">아니하다 존재하다 영상이!</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="mobile_bottom_menu">
+			<div id="mobile_uploadBtn"></div>
+		</div>
+		<div id="upload_popup_container">
+			<div id="upload_popup">
+				<h1>업로드 페이지 입니다.</h1>
+				동영상 제목: <input type="text" name="" id="fileName" /><br />
+				동영상 설명: <textarea name="" id="description"></textarea><br />
+				<input id="fileInput" type="file" accept="video/mp4" /><br />
+				<button id="uploadButton">업로드</button>
+			</div>
+		</div>
+		<script src="../../js/channel.js"></script>
+		<script src="../../js/upload.js"></script>
+		<script type="module" src="../../js/default.js"></script>
+	</body>
 </html>

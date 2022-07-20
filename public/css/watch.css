@@ -1,90 +1,90 @@
 @font-face {
-    font-family: 'NOTOSANS';
-    src: url("../font/NotoSansKR-Regular.otf");
-    font-weight: normal;
-    font-style: normal;
+	font-family: "NOTOSANS";
+	src: url("../font/NotoSansKR-Regular.otf");
+	font-weight: normal;
+	font-style: normal;
 }
 
 * {
-    font-family: 'NOTOSANS';
+	font-family: "NOTOSANS";
 }
 
 #watch-header {
-    position: relative;
-    width: 100%;
-    height: 100%;
+	position: relative;
+	width: 100%;
+	height: 100%;
 }
 
 #watch-inner-header {
-    display: flex;
-    height: auto;
-    margin-left: calc((100% - 1725px)/2);
-    margin-right: calc((100% - 1725px)/2);
+	display: flex;
+	height: auto;
+	margin-left: calc((100% - 1725px) / 2);
+	margin-right: calc((100% - 1725px) / 2);
 }
 
 #video {
-    width: 100%;
-    height: 100%;
+	width: 100%;
+	height: 100%;
 }
 
 #video-container {
-    width: 72%;
-    padding: 20px 20px 0 0;
-    /* font-family: 'NOTOSANS'; */
-    background-color: rgb(245, 245, 245);
+	width: 72%;
+	padding: 20px 20px 0 0;
+	/* font-family: 'NOTOSANS'; */
+	background-color: rgb(245, 245, 245);
 }
 
 #videoTitle-container {
-    padding-bottom: 15px;
-    border-bottom: 1px solid #0000001a;
-    padding: 20px 0 8px 0;
+	padding-bottom: 15px;
+	border-bottom: 1px solid #0000001a;
+	padding: 20px 0 8px 0;
 }
 
 #videoTitle {
-    /* font-family: 'NOTOSANS'; */
-    font-size: 1.5rem;
-    font-weight: 400;
+	/* font-family: 'NOTOSANS'; */
+	font-size: 1.5rem;
+	font-weight: 400;
 }
 
 #videoViews {
-    display: flex;
-    align-items: center;
-    color: gray;
-    font-size: 15px;
-    height: 40px;
+	display: flex;
+	align-items: center;
+	color: gray;
+	font-size: 15px;
+	height: 40px;
 }
 
 #video-information {
-    border-bottom: 1px solid #0000001a;
-    padding-bottom: 16px;
+	border-bottom: 1px solid #0000001a;
+	padding-bottom: 16px;
 }
 
 #channelInfo {
-    width: 100%;
-    height: 70px;
-    display: flex;
-    margin-bottom: 12px;
-    align-items: center;
+	width: 100%;
+	height: 70px;
+	display: flex;
+	margin-bottom: 12px;
+	align-items: center;
 }
 
 #description {
-    font-size: 15px;
+	font-size: 15px;
 }
 
 #description-container {
-    margin-left: 64px;
+	margin-left: 64px;
 }
 
 #description {
-    color: #3b3a3a;
+	color: #3b3a3a;
 }
 
 #user-icon {
-    background-size: cover;
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    margin-right: 18px;
+	background-size: cover;
+	width: 48px;
+	height: 48px;
+	border-radius: 50%;
+	margin-right: 18px;
 }
 
 /* #mask {
@@ -101,182 +101,194 @@
 } */
 
 #video-inner-container {
-    position: relative;
-    width: 100%;
-    /* height: 56.25%; */
+	position: relative;
+	width: 100%;
+	/* height: 56.25%; */
 }
 
 .displayFlex_column {
-    display: flex;
-    flex-direction: column;
+	display: flex;
+	flex-direction: column;
 }
 
 #comment-container {
-    width: 100%;
-    height: auto;
-    padding-bottom: 20px;
+	width: 100%;
+	height: auto;
+	padding-bottom: 20px;
 }
 
 #comment-inner-container {
-    height: auto;
-    margin-top: 24px;
-    margin-bottom: 32px;
+	height: auto;
+	margin-top: 24px;
+	margin-bottom: 32px;
 }
 
 #number_of_comments {
-    font-size: 17px;
-    margin-bottom: 24px;
+	font-size: 17px;
+	margin-bottom: 24px;
 }
 
 #writeAComment-container {
-    display: flex;
-    width: 100%;
+	display: flex;
+	width: 100%;
 }
 
-#comment_userInf {
-    display: flex;
+.comment_userInf {
+	display: flex;
 }
 
 .comment_profile {
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: contain;
-    margin-right: 16px;
+	border-radius: 50%;
+	width: 40px;
+	height: 40px;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+	margin-right: 16px;
 }
 
 #comment_textarea {
-    width: calc(100% - 50px);
+	width: calc(100% - 56px);
 }
 
 #writeAComment {
-    width: 100%;
-    height: 25px;
-    border: none;
-    resize: none;
-    overflow-y: hidden;
-    border-bottom: 1px solid #0000001a;
-    background-color: transparent;
-    /* font-family: 'NOTOSANS'; */
-    font-size: 15px;
-    margin-bottom: 8px;
+	width: 100%;
+	height: 25px;
+	border: none;
+	resize: none;
+	overflow-y: hidden;
+	border-bottom: 1px solid #0000001a;
+	background-color: transparent;
+	/* font-family: 'NOTOSANS'; */
+	font-size: 15px;
+	margin-bottom: 8px;
 }
 
-#comments>div,
-#tmp-comments>div {
-    margin-bottom: 24px;
+#comments > div,
+#tmp-comments > div {
+	margin-bottom: 24px;
+}
+
+.comment {
+	font-size: 14px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 4; /* 라인수 */
+	-webkit-box-orient: vertical;
+	word-wrap: break-word;
+	font-family: Roboto, Arial, sans-serif;
 }
 
 #comment_button-container {
-    display: none;
-    justify-content: flex-end;
+	display: none;
+	justify-content: flex-end;
 }
 
 .comment_button {
-    padding: 10px 16px;
-    width: 70px;
-    height: 40px;
-    border: none;
-    color: gray;
-    font-size: 15px;
-    margin-left: 8px;
+	padding: 10px 16px;
+	width: 70px;
+	height: 40px;
+	border: none;
+	color: gray;
+	font-size: 15px;
+	margin-left: 8px;
 }
 
 #comment_button_write[disabled] {
-    background-color: rgb(240, 240, 240);
-    color: gray;
+	background-color: rgb(240, 240, 240);
+	color: gray;
 }
 
 #comment_button_write {
-    background-color: #DF0E77;
-    color: white;
+	border-radius: 3px;
+	background-color: #df0e77;
+	color: white;
 }
 
 #comment_button_cancel:hover,
 #comment_button_write:hover {
-    cursor: pointer;
+	cursor: pointer;
 }
 
 #comment_button_write[disabled]:hover {
-    cursor: auto;
+	cursor: auto;
 }
 
 #comment_button_cancel {
-    background-color: rgb(245, 245, 245);
+	background-color: rgb(245, 245, 245);
 }
 
 /* ================================ othervideo =============================== */
 
 #otherVideo-container {
-    position: relative;
-    width: 28%;
-    height: max-content;
-    /* padding-top: 20px; */
-    margin-top: 12px;
-    /* background-color: rgb(182, 255, 255); */
+	position: relative;
+	width: 28%;
+	height: max-content;
+	/* padding-top: 20px; */
+	margin-top: 12px;
+	/* background-color: rgb(182, 255, 255); */
 }
 
-#otherVideo-container>div {
-    display: flex;
-    position: relative;
-    width: 100%;
-    height: 94px;
-    margin-top: 8px;
-    /* background-color: black; */
-    /* align-items: center; */
-    cursor: pointer;
+#otherVideo-container > div {
+	display: flex;
+	position: relative;
+	width: 100%;
+	height: 94px;
+	margin-top: 8px;
+	/* background-color: black; */
+	/* align-items: center; */
+	cursor: pointer;
 }
 
-#otherVideo-container>div:hover {
-    background-color: #eeeeee80;
+#otherVideo-container > div:hover {
+	background-color: #eeeeee80;
 }
 
 .other_thumbnail {
-    width: 168px;
-    height: 94px;
-    margin-right: 8px;
-    background-color: black;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: contain;
+	width: 168px;
+	height: 94px;
+	margin-right: 8px;
+	background-color: black;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
 }
 
 .other_video-information {
-    display: flex;
-    flex-direction: column;
-    /* font-family: "Roboto", "Arial", sans-serif; */
-    width: calc(100% - 168px);
+	display: flex;
+	flex-direction: column;
+	/* font-family: "Roboto", "Arial", sans-serif; */
+	width: calc(100% - 168px);
 }
 
 .other_videoTitle {
-    width: 100%;
-    font-size: 15px;
-    font-weight: 500;
-    color: black;
-    margin-bottom: 4px;
-    white-space: normal;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    word-wrap: break-word;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
+	width: 100%;
+	font-size: 15px;
+	font-weight: 500;
+	color: black;
+	margin-bottom: 4px;
+	white-space: normal;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	word-wrap: break-word;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
 }
 
 .other_channel {
-    color: rgb(120, 120, 120);
-    font-family: "Roboto", "Arial", sans-serif;
-    font-size: 15px;
+	color: rgb(120, 120, 120);
+	font-family: "Roboto", "Arial", sans-serif;
+	font-size: 15px;
 }
 
 .other_channel:hover {
-    color: rgb(70, 70, 70);
+	color: rgb(70, 70, 70);
 }
 
 .other_views {
-    color: rgb(120, 120, 120);
-    font-family: "Roboto", "Arial", sans-serif;
-    font-size: 13.3px;
+	color: rgb(120, 120, 120);
+	font-family: "Roboto", "Arial", sans-serif;
+	font-size: 13.3px;
 }
