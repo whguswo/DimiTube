@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DimiTube</title>
+    <link rel="shortcut icon" href="img/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="/css/index.css" />
+    <link rel="stylesheet" type="text/css" href="/css/default.css" />
+    <link rel="stylesheet" type="text/css" href="/css/htmlBar_design.css" />
+    <link rel="stylesheet" type="text/css" href="/css/thumbnail.css" />
+</head>
+
+<body>
+    <div id="default_container">
+        <div id="top-container">
+            <div id="top-start">
+                <div id="menu-img_div"></div>
+                <div id="logo-img"></div>
+            </div>
+            <div id="top-center">
+                <div id="top-center_">
+                    <div id="smallScreenVer_out"></div>
+                    <input id="search" placeholder="검색" type="text" /><button id="search-button"></button>
+                </div>
+            </div>
+            <div id="top-end">
+                <div id="setting" class="topEnd_icon"></div>
+                <div id="user">
+                    <div id="user-inner" class="topEnd_icon"></div>
+                </div>
+                <div id="logout" class="topEnd_icon"></div>
+            </div>
+        </div>
+
+        <div id="side-bar">
+            <div class="icon-con">
+                <div id="home-icon">
+                    <a href="#">
+                        <img class="side-icon" src="/img/home_select.png" alt="" />
+                        <span class="icon-title">홈</span>
+                    </a>
+                </div>
+                <div id="explore-icon">
+                    <a href="#">
+                        <img class="side-icon" src="/img/explore.png" alt="" />
+                        <span class="icon-title">탐색</span>
+                    </a>
+                </div>
+                <div id="history-icon">
+                    <a href="#">
+                        <img class="side-icon" src="/img/history.png" alt="" />
+                        <span class="icon-title">기록</span>
+                    </a>
+                </div>
+                <div id="subscribe-icon">
+                    <a href="#">
+                        <img class="side-icon" src="/img/subscribe.png" alt="" />
+                        <span class="icon-title">구독</span>
+                    </a>
+                </div>
+                <!--                 
+                <img class="side-icon" src="img/history.png" alt="">
+                <img class="side-icon" src="img/subscribe.png" alt=""> -->
+            </div>
+            <!-- https://www.flaticon.com/packs/user-interface-video-player 아이콘 받아놓기 -->
+        </div>
+    </div>
+    <div id="mainPage">
+        <div id="main">
+            <h1>동영상 제목</h1>
+            <input id="video-title" type="text">
+            <h1>설명</h1>
+            <textarea id="video-description" cols="30" rows="10"></textarea><br>
+            <button id="submit">확인</button>
+        </div>
+    </div>
+    <script src="/js/videoSetting.js"></script>
+    <script type="module" src="/js/default.js"></script>
+</body>
+
+</html>

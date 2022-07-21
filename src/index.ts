@@ -9,6 +9,7 @@ import {
 	addVideoList,
 	search,
 	updateSetting,
+	updateVideo,
 	removeVideo,
 	getRecentVideo,
 	getAllVideo,
@@ -235,13 +236,23 @@ app.get("/channel/:channelName/setting", (req: Request, res: Response) => {
 	});
 });
 
-app.post(
-	"/channel/:channelName/setting",
-	async (req: Request, res: Response) => {
-		await updateSetting(req.cookies.sessionHash, req.body);
-		res.send({ state: "success", message: "채널 설정이 변경되었습니다." });
-	}
-);
+app.post("/channel/:channelName/setting", async (req: Request, res: Response) => {
+	await updateSetting(req.cookies.sessionHash, req.body);
+	res.send({ state: "success", message: "채널 설정이 변경되었습니다." });
+});
+
+app.get("/video/:videoId", (req: Request, res: Response) => {
+	res.sendFile("videoSetting.html", {
+		root: "./views",
+	});
+})
+
+app.post("/video/:videoId", async (req: Request, res: Response) => {
+	let videoId = req.params.videoId
+	let sessionHash = req.cookies.sessionHash
+	let user = await verify(sessionHash)
+	updateVideo(user, videoId, req.body.videoTitle, req.body.videoDesc)
+})
 
 app.post(
 	"/channel/:channelName/removeVideo",

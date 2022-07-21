@@ -85,9 +85,11 @@ window.addEventListener("load", async () => {
 			let div = document.createElement("div");
 			let videoId = data.videoList[i].videoId;
 			div.innerHTML = `
-        <a href="/watch?v=${videoId}">
-          <div class="thumbnail" style="background-image: url('https://d18yz4nkgugxke.cloudfront.net/${videoId}/thumbnail.png')"></div>
-        </a>
+			<div class="thumbnail_hyperLink">
+				<a href="/watch?v=${videoId}">
+					<div class="thumbnail" style="background-image: url('https://d18yz4nkgugxke.cloudfront.net/${videoId}/thumbnail.png')"></div>
+				</a>
+			</div>
         <div class="video-information">
           <div class="video-texts">
             <h3 class="video-title">

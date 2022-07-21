@@ -1,7 +1,7 @@
 const channelName = document.querySelector("#channelName");
 const message = document.querySelector("#message");
 const videoDiv = document.querySelector("#video-div");
-const videoBtn = document.querySelector("#video-btn");
+// const videoBtn = document.querySelector("#video-btn");
 const profilePhoto = document.querySelector("#profile_photo");
 const profileSubmit = document.querySelector("#profileSubmit");
 const fileInput = document.querySelector("#fileInput");
@@ -23,24 +23,33 @@ let messageMaxlength = 15;
 	}
 	channelName.value = json.channelName;
 	message.value = json.message;
+	// for (let i = 0; i < json.videoList.length; i++) {
+	// 	const div = document.createElement("div");
+	// 	const checkbox = document.createElement("input");
+	// 	checkbox.setAttribute("type", "checkbox");
+	// 	checkbox.setAttribute("value", json.videoList[i].videoId);
+	// 	checkbox.addEventListener("change", (e) => {
+	// 		if (e.target.checked) {
+	// 			checkArr.push(e.target.value);
+	// 		} else {
+	// 			for (let i = 0; i < checkArr.length; i++) {
+	// 				if (checkArr[i] === e.target.value) {
+	// 					checkArr.splice(i, 1);
+	// 					break;
+	// 				}
+	// 			}
+	// 		}
+	// 	});
+	// 	div.append(checkbox);
+	// 	div.append(json.videoList[i].videoTitle);
+	// 	videoDiv.append(div);
+	// 	profilePhoto.style.backgroundImage = `url(https://d18yz4nkgugxke.cloudfront.net/profiles/${json.channelId}.png)`;
+	// }
 	for (let i = 0; i < json.videoList.length; i++) {
 		const div = document.createElement("div");
-		const checkbox = document.createElement("input");
-		checkbox.setAttribute("type", "checkbox");
-		checkbox.setAttribute("value", json.videoList[i].videoId);
-		checkbox.addEventListener("change", (e) => {
-			if (e.target.checked) {
-				checkArr.push(e.target.value);
-			} else {
-				for (let i = 0; i < checkArr.length; i++) {
-					if (checkArr[i] === e.target.value) {
-						checkArr.splice(i, 1);
-						break;
-					}
-				}
-			}
-		});
-		div.append(checkbox);
+		div.addEventListener("click", () => {
+			location.href = `${location.origin}/video/${json.videoList[i].videoId}`
+		})
 		div.append(json.videoList[i].videoTitle);
 		videoDiv.append(div);
 		profilePhoto.style.backgroundImage = `url(https://d18yz4nkgugxke.cloudfront.net/profiles/${json.channelId}.png)`;
@@ -113,9 +122,9 @@ btn.addEventListener("click", () => {
 	}
 });
 
-videoBtn.addEventListener("click", () => {
-	removeVideo(checkArr);
-});
+// videoBtn.addEventListener("click", () => {
+// 	removeVideo(checkArr);
+// });
 
 profileSubmit.addEventListener("click", () => {
 	setProfile(fileInput.files[0]);

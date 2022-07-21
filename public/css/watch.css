@@ -102,8 +102,17 @@
 
 #video-inner-container {
 	position: relative;
+	overflow: hidden;
+	padding-bottom: 56.25%;
+	height: 0;
+}
+
+#video-inner-container>div {
+	position: absolute;
 	width: 100%;
-	/* height: 56.25%; */
+	height: 100%;
+	top: 0;
+	left: 0;
 }
 
 .displayFlex_column {
@@ -164,20 +173,46 @@
 	margin-bottom: 8px;
 }
 
-#comments > div,
-#tmp-comments > div {
+#comments>div,
+#tmp-comments>div {
 	margin-bottom: 24px;
 }
 
+.comment_channelName {
+	width: fit-content;
+	height: auto;
+	font-size: 15px;
+	margin: 0;
+}
+
+.comment_channelName_owner {
+	background-color: rgb(136, 136, 136);
+	color: white;
+	border-radius: 12px;
+	padding-left: 6px;
+	padding-right: 6px;
+}
+
 .comment {
-	font-size: 14px;
+	font-size: 15px;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	display: -webkit-box;
-	-webkit-line-clamp: 4; /* 라인수 */
+	-webkit-line-clamp: 4;
+	/* 라인수 */
 	-webkit-box-orient: vertical;
 	word-wrap: break-word;
-	font-family: Roboto, Arial, sans-serif;
+	/* font-family: Roboto, Arial, sans-serif; */
+}
+
+.moreComment_btn {
+	color: gray;
+	font-size: 14px;
+	user-select: none;
+}
+
+.moreComment_btn:hover {
+	text-decoration: underline;
 }
 
 #comment_button-container {
@@ -230,7 +265,7 @@
 	/* background-color: rgb(182, 255, 255); */
 }
 
-#otherVideo-container > div {
+#otherVideo-container>div {
 	display: flex;
 	position: relative;
 	width: 100%;
@@ -241,7 +276,7 @@
 	cursor: pointer;
 }
 
-#otherVideo-container > div:hover {
+#otherVideo-container>div:hover {
 	background-color: #eeeeee80;
 }
 

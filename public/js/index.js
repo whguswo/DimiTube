@@ -17,9 +17,11 @@ window.addEventListener("load", async () => {
 		let videoId = json.recentVideoList[i].videoId;
 		let channelId = json.recentVideoList[i].channelId;
 		div.innerHTML = `
-    <a href="/watch?v=${videoId}">
-      <div class="thumbnail" style="background-image: url('https://d18yz4nkgugxke.cloudfront.net/${videoId}/thumbnail.png')"></div>
-    </a>
+		<div class="thumbnail_hyperLink">
+			<a href="/watch?v=${videoId}">
+				<div class="thumbnail" style="background-image: url('https://d18yz4nkgugxke.cloudfront.net/${videoId}/thumbnail.png')"></div>
+			</a>
+		</div>
     <div class="video-information">
       <div class="video-profile-container">
         <a href="/channel/${channelId}">

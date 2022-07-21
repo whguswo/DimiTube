@@ -18,12 +18,13 @@ const comment_button_cancel = document.getElementById("comment_button_cancel");
 const comment_button_container = document.getElementById(
 	"comment_button-container"
 );
-const menu_div = document.querySelector("#menu-img_div");
-const mask = document.querySelector("#mask");
+const menu_div = document.getElementById("menu-img_div");
+const mask = document.getElementById("mask");
 const number_of_comments = document.getElementById("number_of_comments");
 const videoViews = document.getElementById("videoViews");
-const sidebar = document.querySelector("#side-bar");
+const sidebar = document.getElementById("side-bar");
 let menuShow = false;
+const main = document.getElementById("main")
 
 const getCookieValue = (key) => {
 	let cookieKey = key + "=";
@@ -56,9 +57,8 @@ window.addEventListener("load", async () => {
 	let json = JSON.parse(data);
 	console.log(json);
 	videoTitle.innerHTML = json.videoTitle;
-	userIcon.style.backgroundImage = `url('https://d18yz4nkgugxke.cloudfront.net/profiles/${
-		json.channelId
-	}.png?${new Date().getTime()}')`;
+	userIcon.style.backgroundImage = `url('https://d18yz4nkgugxke.cloudfront.net/profiles/${json.channelId
+		}.png?${new Date().getTime()}')`;
 	userIcon.addEventListener("click", () => {
 		location.href = `/channel/${json.channelId}`;
 	});
@@ -110,19 +110,21 @@ window.addEventListener("load", async () => {
 	let jsonComment = json.comments;
 	for (let i = 0; i < jsonComment.length; i++) {
 		let div = document.createElement("div");
+		let isCommentOwner = "";
+		if (jsonComment[i].channelName === json.channelName) isCommentOwner = "comment_channelName_owner";
 		div.innerHTML = `
     <div>
       <div class="comment_userInf">
         <div>
           <a href="/channel/${jsonComment[i].channelId}">
-            <div class="comment_profile" style="background-image: url('https://d18yz4nkgugxke.cloudfront.net/profiles/${
-							jsonComment[i].channelId
-						}.png?${new Date().getTime()}')"></div>
+            <div class="comment_profile" style="background-image: url('https://d18yz4nkgugxke.cloudfront.net/profiles/${jsonComment[i].channelId
+			}.png?${new Date().getTime()}')"></div>
           </a>
         </div>
         <div>
-          <div class="comment_channelName">${jsonComment[i].channelName}</div>
+          <div class="comment_channelName ${isCommentOwner}">${jsonComment[i].channelName}</div>
           <div class="comment">${jsonComment[i].comment}</div>
+					<div class="moreComment_btn">자세히 보기</div>
         </div>
       </div>
     </div>`;
@@ -152,8 +154,9 @@ comment_button_write.addEventListener("click", async () => {
         <div>
           <div class="comment_channelName">${id}</div>
             <div class="comment">${writeAComment.value
-							.replaceAll("\n", "<br>")
-							.replaceAll(" ", "&nbsp;")}</div>
+				.replaceAll("\n", "<br>")
+				.replaceAll(" ", "&nbsp;")}
+					</div>
         </div>
       </div>
     </div>`;
@@ -217,10 +220,12 @@ const resizing = (e) => {
 	}
 	if (window.innerWidth < 1017) {
 		watch_innerHeader.style.flexDirection = "column";
+		main.style.marginLeft = "25px"
 		video_container.style.width = "100%";
 		otherVideo_container.style.width = "100%";
 	} else {
 		watch_innerHeader.style.flexDirection = "row";
+		main.style.marginLeft = "50px"
 		video_container.style.width = "72%";
 		otherVideo_container.style.width = "28%";
 	}
@@ -230,20 +235,13 @@ const resizing = (e) => {
 		video_innerContainer.style.left = "0";
 		let nowVideoHeight = (video_innerContainer.clientWidth / 16) * 9;
 		watch_innerHeader.style.marginTop = `${nowVideoHeight}px`;
+
 	} else {
 		video_innerContainer.style.position = "relative";
 		video_innerContainer.style.top = "0";
 		video_innerContainer.style.left = "0";
 		watch_innerHeader.style.marginTop = "0";
 	}
-	let videoContainerWidth = video_innerContainer.clientWidth;
-	if (e === true && window.innerWidth < 1920)
-		video_innerContainer.style.height = `${
-			(videoContainerWidth * 9) / 16 + 20
-		}px`;
-	// 16:9 비율 동적 변경
-	else
-		video_innerContainer.style.height = `${(videoContainerWidth * 9) / 16}px`;
 };
 
 menu_div.addEventListener("click", () => {

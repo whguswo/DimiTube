@@ -4,7 +4,7 @@ import * as fs from "fs";
 import * as dotenv from "dotenv";
 import { sendEmail } from "./sendEmail";
 import { profileUpload } from "./s3Bucket";
-import { loginQuery, registerQuery, editQuery } from "./types";
+import { loginQuery, registerQuery, editQuery, userObj } from "./types";
 dotenv.config();
 
 const createHash = (plain: string) => {
@@ -121,13 +121,9 @@ const verify = async (sessionHash: string) => {
 	const db = client.db("dimitube");
 	const userCollection = db.collection("user");
 
-	const arr = await userCollection.find({ sessionHash: sessionHash }).toArray();
-	// await client.close();
-	if (arr.length == 0) {
-		return false;
-	} else {
-		return arr[0];
-	}
+	const info = await userCollection.findOne({ sessionHash: sessionHash })
+	const result: userObj = { id: info.id, password: info.password, email: info.email, sessionHash: info.sessionHash, channelId: info.channelId }
+	return result
 };
 
 const getChannel = async (channel: string) => {
@@ -258,6 +254,22 @@ const updateSetting = async (sessionHash: string, obj: editQuery) => {
 	return true;
 };
 
+const updateVideo = async (user: userObj, videoId: string, videoTitle: string, videoDesc: string) => {
+	await client.connect();
+	const db = client.db("dimitube");
+	const videoCollection = db.collection("video");
+
+	const video = await videoCollection.findOne({ videoId: videoId })
+	if (video.channelId == user.channelId) {
+		videoCollection.updateOne(
+			{ videoId: videoId },
+			{
+				$set: { videoTitle: videoTitle, description: videoDesc }
+			}
+		);
+	}
+}
+
 const removeVideo = async (sessionHash: string, videoArr: Array<string>) => {
 	await client.connect();
 	const db = client.db("dimitube");
@@ -340,7 +352,7 @@ const getVideoInfo = async (videoId: string) => {
 		channelName: owner.channelName,
 		videoList: owner.videoList,
 		videoTitle: video.videoTitle,
-		description: video.videoTitle,
+		description: video.description,
 		views: video.views,
 		comments: video.comments,
 	};
@@ -350,19 +362,33 @@ const addViews = async (videoId: string) => {
 	await client.connect();
 	const db = client.db("dimitube");
 	const videoCollection = db.collection("video");
+	const channelCollection = db.collection("channel");
 
 	const video = await videoCollection.findOne({ videoId: videoId });
+	const owner = await channelCollection.findOne({
+		videoList: { $elemMatch: { videoId: videoId } },
+	});
 
+	for (let i = 0; i < owner.videoList.length; i++) {
+		if (owner.videoList[i].videoId == videoId) {
+			owner.videoList[i].views += 1
+		}
+	}
 	videoCollection.updateOne(
 		{ videoId: videoId },
 		{
 			$set: { views: (video.views += 1) },
 		}
 	);
-	//channel add views 수정 예정
+	channelCollection.updateOne(
+		{ sessionHash: owner.sessionHash },
+		{
+			$set: { videoList: owner.videoList }
+		}
+	)
 };
 
-//댓글 수정할것.
+// 대댓글 구현 예정
 const addComment = async (
 	sessionHash: string,
 	videoId: string,
@@ -414,6 +440,7 @@ export {
 	addVideoList,
 	search,
 	updateSetting,
+	updateVideo,
 	removeVideo,
 	getRecentVideo,
 	getAllVideo,

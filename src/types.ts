@@ -15,4 +15,12 @@ interface editQuery {
     message: string,
 }
 
-export { loginQuery, registerQuery, editQuery }
+interface userObj {
+    id: string,
+    password: string,
+    email: string,
+    sessionHash: string,
+    channelId: string,
+}
+
+export { loginQuery, registerQuery, editQuery, userObj }

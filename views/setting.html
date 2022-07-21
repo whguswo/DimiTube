@@ -1,46 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>DimiTube</title>
-		<link rel="shortcut icon" href="img/favicon.ico" />
-		<link rel="stylesheet" type="text/css" href="../../css/default.css" />
-		<link
-			rel="stylesheet"
-			type="text/css"
-			href="../../css/htmlBar_design.css"
-		/>
-		<link rel="stylesheet" type="text/css" href="../../css/setting.css" />
-	</head>
 
-	<body>
-		<div id="default_container">
-			<div id="top-container">
-				<div id="top-start">
-					<div id="menu-img_div"></div>
-					<div id="logo-img"></div>
-				</div>
-				<div id="top-center">
-					<div id="top-center_">
-						<div id="smallScreenVer_out"></div>
-						<input id="search" placeholder="검색" type="text" /><button
-							id="search-button"
-						></button>
-					</div>
-				</div>
-				<div id="top-end">
-					<div id="setting" class="topEnd_icon"></div>
-					<div id="user">
-						<div id="user-inner" class="topEnd_icon"></div>
-					</div>
-					<div id="logout" class="topEnd_icon"></div>
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>DimiTube</title>
+	<link rel="shortcut icon" href="img/favicon.ico" />
+	<link rel="stylesheet" type="text/css" href="../../css/default.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/htmlBar_design.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/setting.css" />
+</head>
+
+<body>
+	<div id="default_container">
+		<div id="top-container">
+			<div id="top-start">
+				<div id="menu-img_div"></div>
+				<div id="logo-img"></div>
+			</div>
+			<div id="top-center">
+				<div id="top-center_">
+					<div id="smallScreenVer_out"></div>
+					<input id="search" placeholder="검색" type="text" /><button id="search-button"></button>
 				</div>
 			</div>
-			<div id="side-bar">
-				<!-- 너비 늘리기 -->
-				<div id="alert1">베타 버전입니다.<br />PC로그인을 권장드립니다.</div>
+			<div id="top-end">
+				<div id="setting" class="topEnd_icon"></div>
+				<div id="user">
+					<div id="user-inner" class="topEnd_icon"></div>
+				</div>
+				<div id="logout" class="topEnd_icon"></div>
+			</div>
+		</div>
+		<div id="side-bar">
+			<div class="icon-con">
+				<div id="home-icon">
+					<a href="#">
+						<img class="side-icon" src="/img/home_select.png" alt="" />
+						<span class="icon-title">홈</span>
+					</a>
+				</div>
+				<div id="explore-icon">
+					<a href="#">
+						<img class="side-icon" src="/img/explore.png" alt="" />
+						<span class="icon-title">탐색</span>
+					</a>
+				</div>
+				<div id="history-icon">
+					<a href="#">
+						<img class="side-icon" src="/img/history.png" alt="" />
+						<span class="icon-title">기록</span>
+					</a>
+				</div>
+				<div id="subscribe-icon">
+					<a href="#">
+						<img class="side-icon" src="/img/subscribe.png" alt="" />
+						<span class="icon-title">구독</span>
+					</a>
+				</div>
+				<!--                 
+			                <img class="side-icon" src="img/history.png" alt="">
+			                <img class="side-icon" src="img/subscribe.png" alt=""> -->
 			</div>
 		</div>
 		<div id="mainPage">
@@ -51,7 +72,7 @@
 				<button id="apply">저장</button>
 				<h2>영상 수정</h2>
 				<div id="video-div"></div>
-				<button id="video-btn">삭제</button><br />
+				<!-- <button id="video-btn">삭제</button><br /> -->
 				<label for="fileInput">
 					<div id="profile_photo"></div>
 				</label>
@@ -61,5 +82,6 @@
 		</div>
 		<script src="../../js/setting.js"></script>
 		<script type="module" src="../../js/default.js"></script>
-	</body>
+</body>
+
 </html>
