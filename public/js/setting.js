@@ -48,12 +48,12 @@ let messageMaxlength = 15;
 	for (let i = 0; i < json.videoList.length; i++) {
 		const div = document.createElement("div");
 		div.addEventListener("click", () => {
-			location.href = `${location.origin}/video/${json.videoList[i].videoId}`
-		})
+			location.href = `${location.origin}/video/${json.videoList[i].videoId}`;
+		});
 		div.append(json.videoList[i].videoTitle);
 		videoDiv.append(div);
-		profilePhoto.style.backgroundImage = `url(https://d18yz4nkgugxke.cloudfront.net/profiles/${json.channelId}.png)`;
 	}
+	profilePhoto.style.backgroundImage = `url(https://d18yz4nkgugxke.cloudfront.net/profiles/${json.channelId}.png)`;
 })();
 
 const updateSetting = async (channelName, message) => {

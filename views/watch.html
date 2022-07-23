@@ -1,99 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>DimiTube</title>
+		<link rel="shortcut icon" href="img/favicon.ico" />
+		<link rel="stylesheet" type="text/css" href="css/default.css" />
+		<link rel="stylesheet" type="text/css" href="css/watch.css" />
+		<link rel="stylesheet" type="text/css" href="css/htmlBar_design.css" />
+		<link href="https://vjs.zencdn.net/7.10.2/video-js.css" rel="stylesheet" />
+	</head>
 
-<head>
-	<meta charset="UTF-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>DimiTube</title>
-	<link rel="shortcut icon" href="img/favicon.ico" />
-	<link rel="stylesheet" type="text/css" href="css/default.css" />
-	<link rel="stylesheet" type="text/css" href="css/watch.css" />
-	<link rel="stylesheet" type="text/css" href="css/htmlBar_design.css" />
-	<link href="https://vjs.zencdn.net/7.10.2/video-js.css" rel="stylesheet" />
-</head>
-
-<body>
-	<div id="default_container">
-		<div id="background"></div>
-		<div id="top-container">
-			<div id="top-start">
-				<div id="menu-img_div"></div>
-				<div id="logo-img"></div>
-			</div>
-			<div id="top-center">
-				<div id="top-center_">
-					<div id="smallScreenVer_out"></div>
-					<input id="search" placeholder="검색" type="text" /><button id="search-button"></button>
+	<body>
+		<div id="default_container">
+			<div id="background"></div>
+			<div id="top-container">
+				<div id="top-start">
+					<div id="menu-img_div"></div>
+					<div id="logo-img"></div>
+				</div>
+				<div id="top-center">
+					<div id="top-center_">
+						<div id="smallScreenVer_out"></div>
+						<input id="search" placeholder="검색" type="text" /><button
+							id="search-button"
+						></button>
+					</div>
+				</div>
+				<div id="top-end">
+					<div id="setting" class="topEnd_icon"></div>
+					<div id="user">
+						<div id="user-inner" class="topEnd_icon"></div>
+					</div>
+					<div id="logout" class="topEnd_icon"></div>
 				</div>
 			</div>
-			<div id="top-end">
-				<div id="setting" class="topEnd_icon"></div>
-				<div id="user">
-					<div id="user-inner" class="topEnd_icon"></div>
-				</div>
-				<div id="logout" class="topEnd_icon"></div>
+			<!-- <div id="mask"></div> -->
+			<div id="side-bar">
+				<!-- 너비 늘리기 -->
+				<div id="alert1">베타 버전입니다.<br />PC로그인을 권장드립니다.</div>
 			</div>
 		</div>
-		<!-- <div id="mask"></div> -->
-		<div id="side-bar">
-			<!-- 너비 늘리기 -->
-			<div id="alert1">베타 버전입니다.<br />PC로그인을 권장드립니다.</div>
-		</div>
-	</div>
-	<div id="mainPage">
-		<div id="main">
-			<div id="watch-header">
-				<div id="watch-inner-header">
-					<div id="video-container">
-						<div id="video-inner-container">
-							<div>
-								<video id="video" width="100%" class="video-js" controls></video>
+		<div id="mainPage">
+			<div id="main">
+				<div id="watch-header">
+					<div id="watch-inner-header">
+						<div id="video-container">
+							<div id="video-inner-container">
+								<div>
+									<video
+										id="video"
+										width="100%"
+										class="video-js"
+										controls
+									></video>
+								</div>
 							</div>
-						</div>
-						<div id="videoTitle-container">
-							<div id="videoTitle"></div>
-							<div id="videoViews">조회수 0회</div>
-						</div>
-						<div id="video-information">
-							<div id="channelInfo">
-								<div id="user-icon" class="hoverCursorPointer"></div>
-								<div id="channelName"></div>
+							<div id="videoTitle-container">
+								<div id="videoTitle"></div>
+								<div id="videoViews">조회수 0회</div>
 							</div>
-							<div id="description-container">
-								<div id="description"></div>
+							<div id="video-information">
+								<div id="channelInfo">
+									<div id="user-icon" class="hoverCursorPointer"></div>
+									<div id="channelName"></div>
+								</div>
+								<div id="description-container">
+									<div id="description" style="-webkit-line-clamp: 3"></div>
+									<span id="moreDescription_btn">더보기</span>
+								</div>
 							</div>
-						</div>
-						<div id="comment-container" class="displayFlex_column">
-							<div id="comment-inner-container">
-								<div id="number_of_comments">댓글 0개</div>
-								<div id="writeAComment-container">
-									<div id="comments_userProfile" class="comment_profile"></div>
-									<div id="comment_textarea" class="displayFlex_column">
-										<textarea id="writeAComment" type="text" placeholder="댓글추가..."></textarea>
-										<div id="comment_button-container">
-											<button id="comment_button_cancel" class="comment_button">
-												취소
-											</button>
-											<button id="comment_button_write" class="comment_button" disabled>
-												작성
-											</button>
+							<div id="comment-container" class="displayFlex_column">
+								<div id="comment-inner-container">
+									<div id="number_of_comments">댓글 0개</div>
+									<div id="writeAComment-container">
+										<div
+											id="comments_userProfile"
+											class="comment_profile"
+										></div>
+										<div id="comment_textarea" class="displayFlex_column">
+											<textarea
+												id="writeAComment"
+												type="text"
+												placeholder="댓글추가..."
+											></textarea>
+											<div id="comment_button-container">
+												<button
+													id="comment_button_cancel"
+													class="comment_button"
+												>
+													취소
+												</button>
+												<button
+													id="comment_button_write"
+													class="comment_button"
+													disabled
+												>
+													작성
+												</button>
+											</div>
 										</div>
 									</div>
 								</div>
+								<div id="tmp-comments"></div>
+								<div id="comments"></div>
 							</div>
-							<div id="tmp-comments"></div>
-							<div id="comments"></div>
 						</div>
+						<div id="otherVideo-container"></div>
 					</div>
-					<div id="otherVideo-container"></div>
 				</div>
 			</div>
 		</div>
-	</div>
-	<script src="https://vjs.zencdn.net/7.8.2/video.min.js"></script>
-	<script src="js/watch.js"></script>
-	<script type="module" src="js/default.js"></script>
-</body>
-
+		<script src="https://vjs.zencdn.net/7.8.2/video.min.js"></script>
+		<script src="js/watch.js"></script>
+		<script type="module" src="js/default.js"></script>
+	</body>
 </html>

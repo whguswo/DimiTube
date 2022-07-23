@@ -24,7 +24,7 @@ const number_of_comments = document.getElementById("number_of_comments");
 const videoViews = document.getElementById("videoViews");
 const sidebar = document.getElementById("side-bar");
 let menuShow = false;
-const main = document.getElementById("main")
+const main = document.getElementById("main");
 
 const getCookieValue = (key) => {
 	let cookieKey = key + "=";
@@ -57,8 +57,9 @@ window.addEventListener("load", async () => {
 	let json = JSON.parse(data);
 	console.log(json);
 	videoTitle.innerHTML = json.videoTitle;
-	userIcon.style.backgroundImage = `url('https://d18yz4nkgugxke.cloudfront.net/profiles/${json.channelId
-		}.png?${new Date().getTime()}')`;
+	userIcon.style.backgroundImage = `url('https://d18yz4nkgugxke.cloudfront.net/profiles/${
+		json.channelId
+	}.png?${new Date().getTime()}')`;
 	userIcon.addEventListener("click", () => {
 		location.href = `/channel/${json.channelId}`;
 	});
@@ -74,14 +75,14 @@ window.addEventListener("load", async () => {
 		let other_channelId = jsonVideoList[i].channelId;
 		let div = document.createElement("div");
 		div.innerHTML = `
-        <div class="other_thumbnail" style="background-image: url('https://d18yz4nkgugxke.cloudfront.net/${other_videoId}/thumbnail.png')"></div>
-        <div class="other_video-information">
-            <div class="other_videoTitle">${jsonVideoList[i].videoTitle}</div>
-            <a href="/channel/${other_channelId}">
-                <div class="other_channel">${jsonVideoList[i].owner}</div>
-            </a>
-            <div class="other_views">조회수 ${jsonVideoList[i].views}회</div>
-        </div>`;
+    <div class="other_thumbnail" style="background-image: url('https://d18yz4nkgugxke.cloudfront.net/${other_videoId}/thumbnail.png')"></div>
+    <div class="other_video-information">
+        <div class="other_videoTitle">${jsonVideoList[i].videoTitle}</div>
+        <a href="/channel/${other_channelId}">
+            <div class="other_channel">${jsonVideoList[i].owner}</div>
+        </a>
+        <div class="other_views">조회수 ${jsonVideoList[i].views}회</div>
+    </div>`;
 		div.addEventListener("click", () => {
 			location.href = `/watch?v=${other_videoId}`;
 		});
@@ -111,26 +112,65 @@ window.addEventListener("load", async () => {
 	for (let i = 0; i < jsonComment.length; i++) {
 		let div = document.createElement("div");
 		let isCommentOwner = "";
-		if (jsonComment[i].channelName === json.channelName) isCommentOwner = "comment_channelName_owner";
+		if (jsonComment[i].channelName === json.channelName)
+			isCommentOwner = "comment_channelName_owner";
 		div.innerHTML = `
     <div>
       <div class="comment_userInf">
         <div>
           <a href="/channel/${jsonComment[i].channelId}">
-            <div class="comment_profile" style="background-image: url('https://d18yz4nkgugxke.cloudfront.net/profiles/${jsonComment[i].channelId
-			}.png?${new Date().getTime()}')"></div>
+            <div class="comment_profile" style="background-image: url('https://d18yz4nkgugxke.cloudfront.net/profiles/${
+							jsonComment[i].channelId
+						}.png?${new Date().getTime()}')"></div>
           </a>
         </div>
         <div>
-          <div class="comment_channelName ${isCommentOwner}">${jsonComment[i].channelName}</div>
-          <div class="comment">${jsonComment[i].comment}</div>
-					<div class="moreComment_btn">자세히 보기</div>
+          <span class="comment_channelName ${isCommentOwner}">${
+			jsonComment[i].channelName
+		}</span>
+          <div class="comment" style="-webkit-line-clamp: 4;">${
+						jsonComment[i].comment
+					}</div>
+					<span class="moreComment_btn" onclick="moreBtn_isClicked(this, this.previousSibling)">자세히 보기</span>
         </div>
       </div>
     </div>`;
 
+		console.log();
+
 		comments.append(div);
 	}
+	// const comment = document.getElementsByClassName("comment");
+	// const moreComment_btn = document.getElementsByClassName("moreComment_btn");
+	// console.log(comment.length);
+	// for (let i = 0; i < comment.length; i++) {
+	// 	console.log(comment[i].innerHTML);
+	// }
+	// 자세히 보기 btn 생성 유무 검사
+	// 일단은 댓글 취약점 문제 해결 후 만들예정
+	const description_countEnter = description.innerHTML
+		.match(/<br>/g)
+		.filter((item) => item !== "").length;
+	if (description_countEnter > 3) {
+		console.log("over");
+	}
+});
+
+const moreBtn_isClicked = (val, comment) => {
+	val.innerHTML === "자세히 보기"
+		? ((val.innerHTML = "간략히"),
+		  (comment.previousSibling.style.webkitLineClamp = ""))
+		: ((val.innerHTML = "자세히 보기"),
+		  (comment.previousSibling.style.webkitLineClamp = "4"));
+};
+
+const moreDescription_btn = document.getElementById("moreDescription_btn");
+moreDescription_btn.addEventListener("click", () => {
+	moreDescription_btn.innerHTML === "더보기"
+		? ((moreDescription_btn.innerHTML = "간략히"),
+		  (description.style.webkitLineClamp = ""))
+		: ((moreDescription_btn.innerHTML = "더보기"),
+		  (description.style.webkitLineClamp = "3"));
 });
 
 window.addEventListener("resize", () => {
@@ -154,8 +194,8 @@ comment_button_write.addEventListener("click", async () => {
         <div>
           <div class="comment_channelName">${id}</div>
             <div class="comment">${writeAComment.value
-				.replaceAll("\n", "<br>")
-				.replaceAll(" ", "&nbsp;")}
+							.replaceAll("\n", "<br>")
+							.replaceAll(" ", "&nbsp;")}
 					</div>
         </div>
       </div>
@@ -220,27 +260,30 @@ const resizing = (e) => {
 	}
 	if (window.innerWidth < 1017) {
 		watch_innerHeader.style.flexDirection = "column";
-		main.style.marginLeft = "25px"
+		main.style.margin = "auto";
 		video_container.style.width = "100%";
 		otherVideo_container.style.width = "100%";
 	} else {
 		watch_innerHeader.style.flexDirection = "row";
-		main.style.marginLeft = "50px"
+		main.style.marginLeft = "50px";
 		video_container.style.width = "72%";
 		otherVideo_container.style.width = "28%";
 	}
 	if (window.innerWidth < 435) {
+		main.style.marginLeft = "0px";
+		main.style.width = "100%";
 		video_innerContainer.style.position = "fixed";
 		video_innerContainer.style.top = "50px";
-		video_innerContainer.style.left = "0";
-		let nowVideoHeight = (video_innerContainer.clientWidth / 16) * 9;
-		watch_innerHeader.style.marginTop = `${nowVideoHeight}px`;
-
+		watch_innerHeader.style.marginTop = `${
+			(video_innerContainer.clientWidth * 50) / 100
+		}px`;
+		video_innerContainer.style.width = "100%";
 	} else {
+		main.style.width = "calc(100% - 25px)";
 		video_innerContainer.style.position = "relative";
 		video_innerContainer.style.top = "0";
-		video_innerContainer.style.left = "0";
 		watch_innerHeader.style.marginTop = "0";
+		video_innerContainer.style.width = "none";
 	}
 };
 

@@ -12,7 +12,6 @@
 #watch-header {
 	position: relative;
 	width: 100%;
-	height: 100%;
 }
 
 #watch-inner-header {
@@ -69,6 +68,18 @@
 
 #description {
 	font-size: 15px;
+	overflow: hidden;
+	text-overflow: clip;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	word-wrap: break-word;
+}
+
+#moreDescription_btn {
+	color: gray;
+	font-size: 13px;
+	cursor: pointer;
+	user-select: none;
 }
 
 #description-container {
@@ -105,9 +116,12 @@
 	overflow: hidden;
 	padding-bottom: 56.25%;
 	height: 0;
+	z-index: 100;
+	left: 0;
+	top: 0;
 }
 
-#video-inner-container>div {
+#video-inner-container > div {
 	position: absolute;
 	width: 100%;
 	height: 100%;
@@ -173,14 +187,12 @@
 	margin-bottom: 8px;
 }
 
-#comments>div,
-#tmp-comments>div {
+#comments > div,
+#tmp-comments > div {
 	margin-bottom: 24px;
 }
 
 .comment_channelName {
-	width: fit-content;
-	height: auto;
 	font-size: 15px;
 	margin: 0;
 }
@@ -198,7 +210,6 @@
 	overflow: hidden;
 	text-overflow: ellipsis;
 	display: -webkit-box;
-	-webkit-line-clamp: 4;
 	/* 라인수 */
 	-webkit-box-orient: vertical;
 	word-wrap: break-word;
@@ -209,6 +220,7 @@
 	color: gray;
 	font-size: 14px;
 	user-select: none;
+	cursor: pointer;
 }
 
 .moreComment_btn:hover {
@@ -262,10 +274,11 @@
 	height: max-content;
 	/* padding-top: 20px; */
 	margin-top: 12px;
+	margin-bottom: 50px;
 	/* background-color: rgb(182, 255, 255); */
 }
 
-#otherVideo-container>div {
+#otherVideo-container > div {
 	display: flex;
 	position: relative;
 	width: 100%;
@@ -276,7 +289,7 @@
 	cursor: pointer;
 }
 
-#otherVideo-container>div:hover {
+#otherVideo-container > div:hover {
 	background-color: #eeeeee80;
 }
 
