@@ -44,6 +44,8 @@ const getCookieValue = (key) => {
 	return result;
 };
 
+let comment_numberOfLines = "";
+
 window.addEventListener("load", async () => {
 	resizing(true);
 	player.src({
@@ -136,7 +138,7 @@ window.addEventListener("load", async () => {
       </div>
     </div>`;
 
-		console.log();
+		// console.log();
 
 		comments.append(div);
 	}
@@ -144,16 +146,19 @@ window.addEventListener("load", async () => {
 	// const moreComment_btn = document.getElementsByClassName("moreComment_btn");
 	// console.log(comment.length);
 	// for (let i = 0; i < comment.length; i++) {
+	//   for (let j = 0; j < comment_numberOfLines; j++){
+
+	//   }
 	// 	console.log(comment[i].innerHTML);
 	// }
 	// 자세히 보기 btn 생성 유무 검사
 	// 일단은 댓글 취약점 문제 해결 후 만들예정
-	const description_countEnter = description.innerHTML
-		.match(/<br>/g)
-		.filter((item) => item !== "").length;
-	if (description_countEnter > 3) {
-		console.log("over");
-	}
+	// const description_countEnter = description.innerHTML
+	// 	.match(/<br>/g)
+	// 	.filter((item) => item !== "").length;
+	// if (description_countEnter > 3) {
+	// 	console.log("over");
+	// }
 });
 
 const moreBtn_isClicked = (val, comment) => {
@@ -205,7 +210,10 @@ comment_button_write.addEventListener("click", async () => {
 		comment_button_container.style.display = "none";
 		comment_button_write.disabled = true;
 
-		const writeACommentValueTrim = writeAComment.value.trim();
+		const writeACommentValueTrim = writeAComment.value.trim().toString();
+		const asdf = writeACommentValueTrim.split("\n");
+		// console.log(asdf, asdf.length);
+		// comment_numberOfLines = asdf.length;
 		writeAComment.value = "";
 		writeAComment.style.height = "0px";
 		writeAComment.style.height = writeAComment.scrollHeight + "px";
